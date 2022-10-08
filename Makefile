@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/08 11:00:26 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/08 11:41:22 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:= \033[1;38;5;135m
 endif
 
-.PHONY: all make_libraries fclean clean re
+.PHONY: all make_libraries fclean clean re norm
 
 all: $(NAME)
 
@@ -47,7 +47,7 @@ $(NAME)::
 
 make_libraries:
 	@make -sC libft
-	@make -C src/minilibx*
+	@make -sC src/minilibx*
 
 clean:
 	@$(RM) $(BUILD_DIR)
@@ -60,5 +60,7 @@ fclean: clean
 re: fclean
 	$(MAKE)
 
-run:
+run: $(NAME)
 	@echo "Initializing $(PURPLE)so_long...$(NOCOLOR)"
+
+# @norminette -R CheckForbiddenSourceHeader
