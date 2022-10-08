@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/08 10:09:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/08 10:58:23 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/08 11:45:21 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ all: $(NAME)
 
 $(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ)
 	@swiftc $(OPTI) $(INC) -o $(NAME) -emit-library $(OBJ) $(C_OBJ) -lz
-	@echo "$(GREEN)Linked $(NOCOLOR)minilibx_mms_20210621"
+	@echo "$(GREEN)Linked $(NOCOLOR)$(NAME) \033[3mv20210621 for macOS"
 
 clean:
 	@rm -rf $(NAME) $(OBJ) $(MODULE_OBJ) $(C_OBJ) *.swiftdoc *~
