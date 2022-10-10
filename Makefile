@@ -59,16 +59,16 @@ $(NAME)::
 	@echo "$(GREEN)Done!$(NOCOLOR)"
 
 make_libraries:
-	@make -sC libft
-	@make -sC src/minilibx*
+	@make -sC $(SRC_DIR)/libft
+	@make -sC $(SRC_DIR)/minilibx*
 
 clean:
 	@$(RM) $(BUILD_DIR)
 
 fclean: clean
 	@$(RM) $(NAME)
-	@make fclean -sC libft
-	@make clean -sC src/minilibx*
+	@make fclean -sC $(SRC_DIR)/libft
+	@make clean -sC $(SRC_DIR)/minilibx*
 
 re: fclean
 	$(MAKE)
