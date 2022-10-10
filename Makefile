@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/08 11:41:22 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/10 18:30:22 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,10 @@ RM			:= rm -rf
 SRC_DIR		:= src
 BUILD_DIR	:= build
 
-SRC_FILES	:= src/ft_so_long.c
+SRC_FILES	:= src/ft_so_long.c \
+			   src/ft_launch.c \
+			   src/ft_isextension.c \
+			   src/ft_check_map.c 
 
 # Color codes
 
@@ -35,11 +38,21 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:= \033[1;38;5;135m
 endif
 
-.PHONY: all make_libraries fclean clean re norm
+# .o to .c rule
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	$(call msg,Compiled,$(notdir $<))
+
+OBJS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
+DEPS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
+
+.PHONY: all make_libraries fclean clean re run norm
 
 all: $(NAME)
 
-$(NAME):: make_libraries
+$(NAME):: make_libraries $(OBJS)
 	@$(CC) $(FLAGS) $(_FRAMEWORK) $(SRC_FILES) libft/libft.a -o $(NAME)
 
 $(NAME)::
@@ -62,5 +75,4 @@ re: fclean
 
 run: $(NAME)
 	@echo "Initializing $(PURPLE)so_long...$(NOCOLOR)"
-
-# @norminette -R CheckForbiddenSourceHeader
+	@./$(NAME)
