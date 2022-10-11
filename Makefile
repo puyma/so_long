@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/11 15:52:50 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/11 16:02:53 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ _FRAMEWORK	:= -framework OpenGL -framework AppKit
 RM			:= rm -rf
 SRC_DIR		:= src
 BUILD_DIR	:= build
+BIN_DIR		:= bin
 
 SRC_FILES	:= src/ft_so_long.c \
 			   src/ft_launch.c \
@@ -53,7 +54,8 @@ DEPS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILE
 all: $(NAME)
 
 $(NAME):: make_libraries $(OBJS)
-	@$(CC) $(FLAGS) $(_FRAMEWORK) $(SRC_FILES) src/libft/libft.a -o $(NAME)
+	@mkdir -p $(BIN_DIR)
+	@$(CC) $(FLAGS) $(_FRAMEWORK) $(SRC_FILES) src/libft/libft.a -o $(BIN_DIR)/$(NAME)
 
 $(NAME)::
 ifeq (,$(findstring s,$(MAKEFLAGS)))
@@ -77,4 +79,4 @@ re: fclean
 
 run: $(NAME)
 	@echo "Initializing $(PURPLE)so_long...$(NOCOLOR)"
-	@./$(NAME)
+	@./$(BIN_DIR)/$(NAME)
