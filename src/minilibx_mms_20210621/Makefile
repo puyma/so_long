@@ -6,13 +6,14 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/08 10:09:52 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/08 11:45:21 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/11 15:53:52 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # MODIFIED Makefile by $(AUTHOR)
 
 NAME	:= libmlx.dylib
+VERSION	:= v20210621
 
 MODULE_SRC= mlx_image.swift mlx_window.swift mlx_init.swift
 MODULE_OBJ=$(MODULE_SRC:.swift=.swiftmodule)
@@ -56,7 +57,7 @@ all: $(NAME)
 
 $(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ)
 	@swiftc $(OPTI) $(INC) -o $(NAME) -emit-library $(OBJ) $(C_OBJ) -lz
-	@echo "$(GREEN)Linked $(NOCOLOR)$(NAME) \033[3mv20210621 for macOS"
+	@echo "$(GREEN)Linked $(NOCOLOR)$(NAME) \033[3m$(VERSION) for macOS"
 
 clean:
 	@rm -rf $(NAME) $(OBJ) $(MODULE_OBJ) $(C_OBJ) *.swiftdoc *~
