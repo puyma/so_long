@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/10 18:30:22 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/11 15:35:13 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ DEPS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILE
 all: $(NAME)
 
 $(NAME):: make_libraries $(OBJS)
-	@$(CC) $(FLAGS) $(_FRAMEWORK) $(SRC_FILES) libft/libft.a -o $(NAME)
+	@$(CC) $(FLAGS) $(_FRAMEWORK) $(SRC_FILES) src/libft/libft.a -o $(NAME)
 
 $(NAME)::
 	@echo "$(GREEN)Done!$(NOCOLOR)"
