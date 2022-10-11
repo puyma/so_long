@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/11 16:02:53 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/11 16:06:12 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ clean:
 	@$(RM) $(BUILD_DIR)
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) $(BIN_DIR) $(NAME)
 	@make fclean -sC $(SRC_DIR)/libft
 	@make clean -sC $(SRC_DIR)/minilibx*
 
