@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/10 18:55:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:30:21 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h> /* perror */
 # include <string.h> /* strerror */
 
-# include "../libft/src/libft.h"
+# include "../src/libft/src/libft.h"
 
 int	ft_isextension(const char *str, const char *extension);
 int	ft_launch(const char *input);
