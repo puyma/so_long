@@ -6,11 +6,10 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:36:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/10 18:56:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:33:36 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/src/libft.h"
 #include "ft_so_long.h"
 
 int	main(int argc, char **argv)
