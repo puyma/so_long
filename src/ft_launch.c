@@ -6,15 +6,15 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/12 21:34:16 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/12 23:32:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/wait.h>
 #include "ft_so_long.h"
 
-#define WIDTH 420
-#define HEIGHT 420
+#define WIDTH 640
+#define HEIGHT 640
 
 typedef struct	s_data
 {
