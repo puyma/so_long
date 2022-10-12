@@ -6,14 +6,15 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/11 18:04:58 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/12 21:34:16 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include "ft_so_long.h"
 
-#define WIDTH 1080
-#define HEIGHT 720
+#define WIDTH 420
+#define HEIGHT 420
 
 typedef struct	s_data
 {
@@ -28,6 +29,7 @@ typedef struct	s_game
 {
 	void	*mlx;
 	void	*mlx_window;
+	void	*img;
 }			t_game;
 
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -39,11 +41,13 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	ft_close(t_game	*game)
+int	ft_close(int keycode, t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->mlx_window);
+	(void) game;
+	ft_putnbr(keycode);
+	if (keycode == 53)
+		mlx_destroy_window(game->mlx, game->mlx_window);
 	exit (0);
-	return (0);
 }
 
 int	ft_launch_game(void)
@@ -69,9 +73,21 @@ int	ft_launch_game(void)
 		}
 		x++;
 	}
-
 	mlx_put_image_to_window(game.mlx, game.mlx_window, img.img, 0, 0);
-	mlx_hook(game.mlx_window, 2, 0, ft_close, &game);
+	x = WIDTH / 4;
+	y = HEIGHT / 4;
+	while (x < WIDTH)
+	{
+		y = HEIGHT / 4;
+		while (y < HEIGHT)
+		{
+			ft_mlx_pixel_put(&img, x, y, 0x000000CC);
+			y++;
+		}
+		x++;
+	}
+	mlx_put_image_to_window(game.mlx, game.mlx_window, img.img, 0, 0);
+	mlx_key_hook(game.mlx_window, &ft_close, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }
