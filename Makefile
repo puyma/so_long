@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/11 17:21:02 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/12 19:56:36 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ AUTHOR		?= mpuig-ma
 
 CC			:= gcc
 CFLAGS		:= -Wall -Werror -Wextra #-MMD
-_FRAMEWORK	:= -L./src/libft -L./src/minilibx_mms_20210621 -lft -lmlx -framework OpenGL -framework AppKit
+_FRAMEWORK	:= -L./src/libft -L./src/minilibx_mms_20210621 -lft -lmlx -lm -framework OpenGL -framework AppKit
 RM			:= rm -rf
 SRC_DIR		:= src
 BUILD_DIR	:= build
