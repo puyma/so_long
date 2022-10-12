@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/11 16:47:55 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/12 23:30:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <string.h> /* strerror */
 
 # include "../src/libft/src/libft.h"
-# include "../src/minilibx_mms_20210621/mlx.h"
+# include "../src/minilibx-macos/mlx.h"
 
 int	ft_isextension(const char *str, const char *extension);
 int	ft_launch(const char *input);
