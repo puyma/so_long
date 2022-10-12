@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/12 23:24:25 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/12 23:34:11 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ make_libraries:
 	@cp $(SRC_DIR)/minilibx-macos/libmlx.dylib libmlx.dylib
 
 clean:
-	@$(RM) $(BUILD_DIR)
+	@$(RM) $(BUILD_DIR) libmlx.dylib
 
 fclean: clean
 	@$(RM) $(BIN_DIR) $(NAME)
