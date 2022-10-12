@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/12 19:56:36 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/12 23:24:25 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ AUTHOR		?= mpuig-ma
 
 CC			:= gcc
 CFLAGS		:= -Wall -Werror -Wextra #-MMD
-_FRAMEWORK	:= -L./src/libft -L./src/minilibx_mms_20210621 -lft -lmlx -lm -framework OpenGL -framework AppKit
+_FRAMEWORK	:= -L./src/libft -L./src/minilibx-macos -lft -lmlx -lm -framework OpenGL -framework AppKit
 RM			:= rm -rf
 SRC_DIR		:= src
 BUILD_DIR	:= build
@@ -64,8 +64,8 @@ endif
 
 make_libraries:
 	@make -sC $(SRC_DIR)/libft
-	@make -sC $(SRC_DIR)/minilibx*
-	@cp $(SRC_DIR)/minilibx*/libmlx.dylib libmlx.dylib
+	@make -sC $(SRC_DIR)/minilibx-macos
+	@cp $(SRC_DIR)/minilibx-macos/libmlx.dylib libmlx.dylib
 
 clean:
 	@$(RM) $(BUILD_DIR)
@@ -73,7 +73,7 @@ clean:
 fclean: clean
 	@$(RM) $(BIN_DIR) $(NAME)
 	@make fclean -sC $(SRC_DIR)/libft
-	@make clean -sC $(SRC_DIR)/minilibx*
+	@make clean -sC $(SRC_DIR)/minilibx-macos
 
 re: fclean
 	$(MAKE)
