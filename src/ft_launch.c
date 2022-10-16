@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/12 23:32:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/16 19:03:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,28 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	ft_close(int keycode, t_game *game)
+int	ft_destroy(t_game *game)
+{
+	mlx_destroy_window(game->mlx, game->mlx_window);
+	exit(0);
+	return (0);
+}
+int	ft_keycode(int keycode, t_game *game)
 {
 	(void) game;
+	write(1, "Pressed key: ", 13);
 	ft_putnbr(keycode);
-	if (keycode == 53)
-		mlx_destroy_window(game->mlx, game->mlx_window);
-	exit (0);
+	write(1, "\n", 1);
+	if (keycode == KEY_ESC)
+		mlx_clear_window(game->mlx, game->mlx_window);
+	return (0);
+}
+
+int	ft_nothing(t_game *game)
+{
+	(void) game;
+	//write(1, "Nothing is happening...\n", 24);
+	return (0);
 }
 
 int	ft_launch_game(void)
@@ -87,7 +102,9 @@ int	ft_launch_game(void)
 		x++;
 	}
 	mlx_put_image_to_window(game.mlx, game.mlx_window, img.img, 0, 0);
-	mlx_key_hook(game.mlx_window, &ft_close, &game);
+	//mlx_loop_hook(game.mlx, &ft_nothing, &game);
+	mlx_key_hook(game.mlx_window, &ft_keycode, &game);
+	mlx_hook(game.mlx_window, 17, 0, &ft_destroy, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }
@@ -102,7 +119,7 @@ int	ft_launch(const char *input)
 		strerror(2);
 		return (2);
 	}
-	ft_check_map(fd);
+	//ft_check_map(fd);
 	ft_launch_game();
 	write(1, "We are all in this together!\n", 30);
 	return (0);
