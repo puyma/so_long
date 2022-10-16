@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:27:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/12 21:34:20 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/16 19:38:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,32 @@
 ** way, and return "Error\n" followed by an explicit error message of your choice. 
 */
 
-int	ft_check_map(int fd)
+int	ft_check_map(const char *input)
 {
 	char	*line;
+	int		input_len;
 
+	input_len = ft_strlen(input);
+	if (input_len > 42)
+	{
+		ft_putendl_fd(strerror(63), 1);
+		return (63);
+	}
+	if (*input == '\0')
+	{
+		// empty input??
+		return (0);
+	}
+	if (ft_strncmp((input + input_len - 4), ".ber", 4) != 0) // faltara comprovar si que l'arxiu no sigui 'res'.ber
+	{
+		ft_printf("%s\n", strerror(79));
+		return (0);
+	}
+	ft_putstr("Begin map check: ");
+	ft_putendl_fd((char *) input, 1);
+
+	(void) line;
+	/*
 	line = get_next_line(fd);
 	int i = 0;
 	while (line[i] != '\0')
@@ -61,14 +83,8 @@ int	ft_check_map(int fd)
 		i++;
 	}
 	write(1, "\n", 1);
-	write(1, "Map> OK\n", 8);
-	/*
-	int i = 1;
-	while (i <= 106)
-	{
-		printf("%d: %s\n", i , strerror(i));
-		i++;
-	}
 	*/
+
+	write(1, "Map> OK\n", 8);
 	return (0);
 }
