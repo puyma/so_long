@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/12 23:30:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/16 19:03:43 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <stdio.h> /* perror */
 # include <string.h> /* strerror */
 
+# include "ft_keycodes.h"
 # include "../src/libft/src/libft.h"
 # include "../src/minilibx-macos/mlx.h"
 
-int	ft_isextension(const char *str, const char *extension);
 int	ft_launch(const char *input);
-int	ft_check_map(int fd);
+int	ft_check_map(const char *input);
 
 #endif /* ft_so_long.h */
