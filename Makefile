@@ -23,7 +23,6 @@ BIN_DIR		:= bin
 
 SRC_FILES	:= src/ft_so_long.c \
 			   src/ft_launch.c \
-			   src/ft_isextension.c \
 			   src/ft_check_map.c 
 
 # Color codes
