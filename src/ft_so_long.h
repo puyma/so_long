@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/16 19:03:43 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:48:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,34 @@
 # include "../src/libft/src/libft.h"
 # include "../src/minilibx-macos/mlx.h"
 
-int	ft_launch(const char *input);
-int	ft_check_map(const char *input);
+# define DEF_WIDTH	640
+# define DEF_HEIGHT	640
+
+typedef struct	s_data
+{
+	void	*img;
+	char	*address;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_data;
+
+typedef struct	s_game
+{
+	void	*mlx;
+	void	*mlx_window;
+	void	*img;
+}			t_game;
+
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+int		ft_launch(const char *input);
+int		ft_launch_graphics(void);
+int		ft_check_map(const char *input);
+
+int		ft_destroy(t_game *game);
+int		ft_keycode(int keycode, t_game *game);
+int		ft_nothing(t_game *game);
+int		ft_mousecode(int button, int x, int y, t_game *game);
 
 #endif /* ft_so_long.h */
