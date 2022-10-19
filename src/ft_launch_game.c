@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/19 19:35:15 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/19 20:27:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	ft_keycode(int keycode, t_game *game)
 	return (0);
 }
 
-int	ft_nothing(t_game *game)
+int	ft_nothing(int x, int y, t_game *game)
 {
 	(void) game;
-	//write(1, "Nothing is happening...\n", 24);
+	ft_printf("mousemove> : %d, Y: %d\n", x, y);
 	return (0);
 }
 
@@ -65,5 +65,6 @@ int	ft_launch(const char *input)
 	//ft_check_map(fd);
 	ft_launch_graphics();
 	write(1, "We are all in this together!\n", 30);
+	//int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 	return (0);
 }

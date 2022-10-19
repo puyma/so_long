@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/19 19:48:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/19 20:43:00 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int		ft_check_map(const char *input);
 
 int		ft_destroy(t_game *game);
 int		ft_keycode(int keycode, t_game *game);
-int		ft_nothing(t_game *game);
+int		ft_nothing(int x, int y, t_game *game);
 int		ft_mousecode(int button, int x, int y, t_game *game);
+
+int		ft_draw_rectangle(int x, int y, int width, int height, t_data *img);
 
 #endif /* ft_so_long.h */

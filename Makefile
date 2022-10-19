@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/19 19:33:46 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/19 20:43:25 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ BIN_DIR		:= bin
 SRC_FILES	:= src/ft_so_long.c \
 			   src/ft_launch_game.c \
 			   src/ft_launch_graphics.c \
+			   src/ft_draw_rectangle.c \
 			   src/ft_load_game.c \
 			   src/ft_check_map.c 
 
