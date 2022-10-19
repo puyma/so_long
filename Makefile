@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/10/12 23:34:11 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/10/19 19:33:46 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ BUILD_DIR	:= build
 BIN_DIR		:= bin
 
 SRC_FILES	:= src/ft_so_long.c \
-			   src/ft_launch.c \
+			   src/ft_launch_game.c \
+			   src/ft_launch_graphics.c \
+			   src/ft_load_game.c \
 			   src/ft_check_map.c 
 
 # Color codes
