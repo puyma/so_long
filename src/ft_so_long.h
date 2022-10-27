@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/19 20:43:00 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/27 18:47:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct	s_game
 {
 	void	*mlx;
 	void	*mlx_window;
+	int		mlx_window_width;
+	int		mlx_window_height;
 	void	*img;
 }			t_game;
 
