@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:27:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/16 19:38:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:46:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@
 int	ft_check_map(const char *input)
 {
 	char	*line;
-	int		input_len;
+	int		path_length;
 
-	input_len = ft_strlen(input);
-	if (input_len > 42)
+	path_length = ft_strlen(input);
+	if (path_length > 42)
 	{
 		ft_putendl_fd(strerror(63), 1);
 		return (63);
@@ -64,7 +64,7 @@ int	ft_check_map(const char *input)
 		// empty input??
 		return (0);
 	}
-	if (ft_strncmp((input + input_len - 4), ".ber", 4) != 0) // faltara comprovar si que l'arxiu no sigui 'res'.ber
+	if (ft_strncmp((input + path_length - 4), ".ber", 4) != 0) // faltara comprovar si que l'arxiu no sigui 'res'.ber
 	{
 		ft_printf("%s\n", strerror(79));
 		return (0);
@@ -86,5 +86,11 @@ int	ft_check_map(const char *input)
 	*/
 
 	write(1, "Map> OK\n", 8);
+	return (0);
+}
+
+int	main(void)
+{
+	ft_check_map("../maps/defaultgfjakljfsaklffjds;afjdks;;ajfdls;k;ajfdkls;;aaf.ber");
 	return (0);
 }
