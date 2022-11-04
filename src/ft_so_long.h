@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/04 18:38:38 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/11/04 22:45:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,22 @@
 
 typedef struct	s_data
 {
-	void	*img;
-	char	*address;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}			t_data;
+	void		*img;
+	char		*address;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_data;
 
 typedef struct	s_game
 {
-	void	*mlx;
-	void	*mlx_window;
-	int		mlx_window_width;
-	int		mlx_window_height;
-	void	*img;
-}			t_game;
+	void		*mlx;
+	void		*mlx_window;
+	int			mlx_window_width;
+	int			mlx_window_height;
+	void		*img;
+	t_list		**buttons;
+}				t_game;
 
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 

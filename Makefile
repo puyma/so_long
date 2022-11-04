@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/11/04 18:02:55 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/11/04 20:28:28 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ BUILD_DIR	:= build
 BIN_DIR		:= bin
 
 SRC_FILES	:= src/ft_check_map.c \
+			   src/ft_button.c \
 			   src/ft_draw_rectangle.c \
 			   src/ft_events.c \
 			   src/ft_launch.c \
