@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_so_long.c                                       :+:      :+:    :+:   */
+/*   ft_launch.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/23 15:36:50 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/04 18:23:45 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2022/11/04 18:20:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_so_long.h"
 
-int	main(int argc, char **argv)
+int	ft_launch(const char *input)
 {
-	const char	*input;
-	const char	*default_map = "maps/default.ber";
+	int	fd;
 
-	if (argc == 1)
-		ft_launch(default_map);
-	else if (argc == 2)
+	fd = open(input, O_RDONLY);
+	if (fd == -1)
 	{
-		input = argv[1];
-		ft_launch(input);
+		strerror(2);
+		return (2);
 	}
+	//ft_check_map(fd);
+	ft_launch_graphics();
+	write(1, "We are all in this together!\n", 30);
+	//int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 	return (0);
 }

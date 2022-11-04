@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/27 18:47:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:38:38 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h> /* perror */
 # include <string.h> /* strerror */
 
+# include "ft_button.h"
 # include "ft_keycodes.h"
 # include "../src/libft/src/libft.h"
 # include "../src/minilibx-macos/mlx.h"
@@ -56,5 +57,7 @@ int		ft_nothing(int x, int y, t_game *game);
 int		ft_mousecode(int button, int x, int y, t_game *game);
 
 int		ft_draw_rectangle(int x, int y, int width, int height, t_data *img);
+
+int		ft_test(void);
 
 #endif /* ft_so_long.h */

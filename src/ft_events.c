@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/27 20:01:23 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:38:37 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,13 @@ int	ft_mousecode(int button, int x, int y, t_game *game)
 	(void) game;
 	return (0);
 }
+
+int	ft_test(void)
+{
+	write(1, "This actually worked\n", 21);
+	return (0);
+}
+
+/*
+ * function pointer :)
+*/

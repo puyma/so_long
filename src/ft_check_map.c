@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:27:35 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/28 20:46:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/10/31 13:03:33 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ int	ft_check_map(const char *input)
 	return (0);
 }
 
+/*
 int	main(void)
 {
 	ft_check_map("../maps/defaultgfjakljfsaklffjds;afjdks;;ajfdls;k;ajfdkls;;aaf.ber");
 	return (0);
 }
+*/

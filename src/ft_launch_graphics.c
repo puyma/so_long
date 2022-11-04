@@ -6,26 +6,11 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/10/28 20:40:37 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:38:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_so_long.h"
-
-typedef struct s_button	{
-	int		width;
-	int		height;
-	int		x;
-	int		y;
-	void	*click_event;
-	void	*hover_event;
-}		t_button;
-
-int	ft_test(void)
-{
-	write(1, "This actually worked\n", 21);
-	return (0);
-}
 
 t_button	*ft_new_button(int w, int h, int x, int y)
 {
@@ -58,12 +43,15 @@ int	ft_launch_graphics(void)
 {
 	t_game	game;
 	t_data	img;
+	t_list	buttons;
 
 	game.mlx = mlx_init();
 	game.mlx_window = mlx_new_window(game.mlx, DEF_WIDTH, DEF_HEIGHT, "TDB");
 
 	img.img = mlx_new_image(game.mlx, DEF_WIDTH, DEF_HEIGHT);
 	img.address = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+
+	ft_lstnew();
 
 	// start button
 	t_button *start_button;
