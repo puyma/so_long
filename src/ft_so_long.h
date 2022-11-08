@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/04 22:45:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:03:01 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # include "../src/libft/src/libft.h"
 # include "../src/minilibx-macos/mlx.h"
 
-# define DEF_WIDTH	640
-# define DEF_HEIGHT	640
+# define PIX_SIZE	32
+# define DEF_WIDTH	PIX_SIZE * 10
+# define DEF_HEIGHT	PIX_SIZE * 10
 
 typedef struct	s_data
 {
@@ -40,9 +41,10 @@ typedef struct	s_game
 {
 	void		*mlx;
 	void		*mlx_window;
+	void		*img;
 	int			mlx_window_width;
 	int			mlx_window_height;
-	void		*img;
+	int			size;
 	t_list		**buttons;
 }				t_game;
 
@@ -59,6 +61,10 @@ int		ft_mousecode(int button, int x, int y, t_game *game);
 
 int		ft_draw_rectangle(int x, int y, int width, int height, t_data *img);
 
+int		ft_do_motion_events(int x, int y, t_game *game);
+
 int		ft_test(void);
+
+int		ft_set_events(t_game *game);
 
 #endif /* ft_so_long.h */

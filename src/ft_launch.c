@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/04 18:20:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:27:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_launch(const char *input)
 	}
 	//ft_check_map(fd);
 	ft_launch_graphics();
-	write(1, "We are all in this together!\n", 30);
 	//int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/11/08 16:31:11 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/11/08 16:52:37 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ AUTHOR		?= mpuig-ma
 
 CC			:= gcc
 CFLAGS		:= -g -Wall -Werror -Wextra #-MMD
-LFLAGS		:= -L./src/libft -lft -L./src/minilibx-macos -lmlx -lm 
+LFLAGS		:= -L. -lmlx -L./src/libft -lft -lm 
 FRAMEWORK	:= -framework OpenGL -framework AppKit
 RM			:= rm -rf
 SRC_DIR		:= src
@@ -58,11 +58,11 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 OBJS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEPS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
 
-.PHONY: all make_libraries fclean clean re run norm
+.PHONY: all make_libraries cp_dylib fclean clean re run norm
 
 all: $(NAME)
 
-$(NAME):: make_libraries $(OBJS)
+$(NAME):: make_libraries $(OBJS) 
 	@mkdir -p $(BIN_DIR)
 	@$(CC) $(FLAGS) $(SRC_FILES) $(LFLAGS) $(FRAMEWORK) -o $(BIN_DIR)/$(NAME)
 
@@ -74,7 +74,8 @@ endif
 make_libraries:
 	@make -sC $(SRC_DIR)/libft
 	@make -sC $(SRC_DIR)/minilibx-macos
-	@cp $(SRC_DIR)/minilibx-macos/$(LIBMLX) $(BIN_DIR)/
+	@mkdir -p $(BIN_DIR)
+	@cp -f $(SRC_DIR)/minilibx-macos/$(LIBMLX) ./
 
 clean:
 	@$(RM) $(BUILD_DIR) $(LIBMLX)
