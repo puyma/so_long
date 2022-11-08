@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/11/04 20:28:28 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2022/11/08 16:31:11 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,16 @@ NAME		:= so_long
 AUTHOR		?= mpuig-ma
 
 CC			:= gcc
-CFLAGS		:= -Wall -Werror -Wextra #-MMD
-_FRAMEWORK	:= -L./src/libft -L./src/minilibx-macos -lft -lmlx -lm -framework OpenGL -framework AppKit
+CFLAGS		:= -g -Wall -Werror -Wextra #-MMD
+LFLAGS		:= -L./src/libft -lft -L./src/minilibx-macos -lmlx -lm 
+FRAMEWORK	:= -framework OpenGL -framework AppKit
 RM			:= rm -rf
 SRC_DIR		:= src
 BUILD_DIR	:= build
 BIN_DIR		:= bin
+
+LIBFT		:= libft.a
+LIBMLX		:= libmlx.dylib
 
 SRC_FILES	:= src/ft_check_map.c \
 			   src/ft_button.c \
@@ -60,7 +64,7 @@ all: $(NAME)
 
 $(NAME):: make_libraries $(OBJS)
 	@mkdir -p $(BIN_DIR)
-	@$(CC) $(FLAGS) $(SRC_FILES) $(_FRAMEWORK) -o $(BIN_DIR)/$(NAME)
+	@$(CC) $(FLAGS) $(SRC_FILES) $(LFLAGS) $(FRAMEWORK) -o $(BIN_DIR)/$(NAME)
 
 $(NAME)::
 ifeq (,$(findstring s,$(MAKEFLAGS)))
@@ -70,10 +74,10 @@ endif
 make_libraries:
 	@make -sC $(SRC_DIR)/libft
 	@make -sC $(SRC_DIR)/minilibx-macos
-	@cp $(SRC_DIR)/minilibx-macos/libmlx.dylib libmlx.dylib
+	@cp $(SRC_DIR)/minilibx-macos/$(LIBMLX) $(BIN_DIR)/
 
 clean:
-	@$(RM) $(BUILD_DIR) libmlx.dylib
+	@$(RM) $(BUILD_DIR) $(LIBMLX)
 
 fclean: clean
 	@$(RM) $(BIN_DIR) $(NAME)
