@@ -54,7 +54,7 @@ int	ft_check_map(const char *input)
 	int		path_length;
 
 	path_length = ft_strlen(input);
-	if (path_length > 42)
+	if (path_length > FILENAME_LEN)
 	{
 		ft_putendl_fd(strerror(63), 1);
 		return (63);
@@ -88,11 +88,3 @@ int	ft_check_map(const char *input)
 	write(1, "Map> OK\n", 8);
 	return (0);
 }
-
-/*
-int	main(void)
-{
-	ft_check_map("../maps/defaultgfjakljfsaklffjds;afjdks;;ajfdls;k;ajfdkls;;aaf.ber");
-	return (0);
-}
-*/

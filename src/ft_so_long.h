@@ -24,9 +24,16 @@
 # include "libft/src/libft.h"
 # include "minilibx/mlx.h"
 
-# define PIX_SIZE	50
-# define DEF_WIDTH	PIX_SIZE * 10
-# define DEF_HEIGHT	PIX_SIZE * 10
+# define PIX_SIZE		50 // 42 ???? yess
+# define DEF_WIDTH		PIX_SIZE * 10
+# define DEF_HEIGHT		PIX_SIZE * 10
+
+# define FILENAME_LEN	42
+
+# define EMPTY_SPACE	0
+# define WALL			1
+# define MAP_EXIT		E
+# define COLLECTIBLE	C
 
 typedef struct	s_imgdata
 {

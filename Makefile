@@ -16,7 +16,7 @@ AUTHOR		?= mpuig-ma
 CC			:= gcc
 CFLAGS		:= -g -Wall -Werror -Wextra #-MMD
 LFLAGS		:= -L. -lmlx -L./src/libft -lft -lm 
-FRAMEWORK	:= -framework OpenGL -framework AppKit
+# FRAMEWORK	:= -framework OpenGL -framework AppKit
 RM			:= rm -rf
 SRC_DIR		:= src
 BUILD_DIR	:= build
@@ -55,14 +55,14 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	$(call msg,Compiled,$(notdir $<))
 
-OBJS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
-DEPS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
+# OBJS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
+# DEPS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
 
-.PHONY: all make_libraries cp_dylib fclean clean re run norm
+.PHONY: all make_libraries fclean clean re run
 
 all: $(NAME)
 
-$(NAME):: make_libraries $(OBJS) 
+$(NAME):: make_libraries $(SRC_FILES)
 	@mkdir -p $(BIN_DIR)
 	@$(CC) $(FLAGS) $(SRC_FILES) $(LFLAGS) $(FRAMEWORK) -o $(BIN_DIR)/$(NAME)
 

@@ -14,8 +14,8 @@
 
 int	main(int argc, char **argv)
 {
-	const char	*input;
 	const char	*default_map = "maps/default.ber";
+	char		*input;
 
 	if (argc == 1)
 		ft_launch(default_map);
@@ -24,5 +24,9 @@ int	main(int argc, char **argv)
 		input = argv[1];
 		ft_launch(input);
 	}
+	else if (argc == 3 && ft_strncmp(argv[2], "-v", 2) == 0)
+		ft_putendl_fd("verbose> on", 1);
 	return (0);
 }
+
+// --verbose || --silent mode needs redo!
