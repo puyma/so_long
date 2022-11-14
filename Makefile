@@ -73,9 +73,9 @@ endif
 
 make_libraries:
 	@make -sC $(SRC_DIR)/libft
-	@make -sC $(SRC_DIR)/minilibx-macos
+	@make -sC $(SRC_DIR)/minilibx
 	@mkdir -p $(BIN_DIR)
-	@cp -f $(SRC_DIR)/minilibx-macos/$(LIBMLX) ./
+	@cp -f $(SRC_DIR)/minilibx/$(LIBMLX) ./
 
 clean:
 	@$(RM) $(BUILD_DIR) $(LIBMLX)
@@ -83,7 +83,7 @@ clean:
 fclean: clean
 	@$(RM) $(BIN_DIR) $(NAME)
 	@make fclean -sC $(SRC_DIR)/libft
-	@make clean -sC $(SRC_DIR)/minilibx-macos
+	@make clean -sC $(SRC_DIR)/minilibx
 
 re: fclean
 	$(MAKE)
