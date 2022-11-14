@@ -22,7 +22,7 @@ int	ft_launch(const char *input)
 		strerror(2);
 		return (2);
 	}
-	//ft_check_map(fd);
+	//ft_check_map(input);
 	ft_launch_graphics();
 	//int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 	return (0);

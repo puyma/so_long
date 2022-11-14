@@ -21,21 +21,23 @@
 
 # include "ft_button.h"
 # include "ft_keycodes.h"
-# include "../src/libft/src/libft.h"
-# include "../src/minilibx-macos/mlx.h"
+# include "libft/src/libft.h"
+# include "minilibx/mlx.h"
 
-# define PIX_SIZE	32
+# define PIX_SIZE	50
 # define DEF_WIDTH	PIX_SIZE * 10
 # define DEF_HEIGHT	PIX_SIZE * 10
 
-typedef struct	s_data
+typedef struct	s_imgdata
 {
 	void		*img;
 	char		*address;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-}				t_data;
+	int			width;
+	int			height;
+}				t_imgdata;
 
 typedef struct	s_game
 {
@@ -48,7 +50,7 @@ typedef struct	s_game
 	t_list		**buttons;
 }				t_game;
 
-void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color);
 
 int		ft_launch(const char *input);
 int		ft_launch_graphics(void);
@@ -59,7 +61,7 @@ int		ft_keycode(int keycode, t_game *game);
 int		ft_nothing(int x, int y, t_game *game);
 int		ft_mousecode(int button, int x, int y, t_game *game);
 
-int		ft_draw_rectangle(int x, int y, int width, int height, t_data *img);
+int		ft_draw_rectangle(int x, int y, int width, int height, t_imgdata *img);
 
 int		ft_do_motion_events(int x, int y, t_game *game);
 

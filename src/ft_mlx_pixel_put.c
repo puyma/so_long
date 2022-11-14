@@ -12,7 +12,7 @@
 
 #include "ft_so_long.h"
 
-void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color)
 {
 	char	*dst;
 

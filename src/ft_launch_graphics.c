@@ -12,7 +12,7 @@
 
 #include "ft_so_long.h"
 
-int	ft_load_button(t_button *b, t_data *img)
+int	ft_load_button(t_button *b, t_imgdata *img)
 {
 	ft_draw_rectangle(b->width, b->height, b->x, b->y, img);
 	return (0);
@@ -29,8 +29,8 @@ int	ft_attach_event_to_button(t_button *b, int (*func)(void), t_game *game)
 
 int	ft_launch_graphics(void)
 {
-	t_game	game;
-	t_data	img;
+	t_game		game;
+	t_imgdata	img;
 
 	game.size = PIX_SIZE;
 
@@ -61,19 +61,20 @@ int	ft_launch_graphics(void)
 	ft_load_button(start_button, &img);
 	ft_load_button(secondary_button, &img);
 	*/
-
-	int	height = 0;
-	int width = 0;
-
-	img.img = mlx_xpm_file_to_image(game.mlx, "../src/suelo.xpm", &width, &height);
+	
+	img.img = (void *) malloc(sizeof(void *) * 2);
+	img.img = mlx_xpm_file_to_image(game.mlx, "./src/assets/suelo.xpm", &img.width, &img.height);
 	if (img.img == NULL)
-		write(1, "Fuck, is null\n", 14);
+	{
+		ft_putstr("Error: ");
+		ft_putendl_fd("Could not load image", 1);
+		return (79);
+	}
 	else
 	{
-		img.address = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+		//img.address = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 		mlx_put_image_to_window(game.mlx, game.mlx_window, img.img, 0, 0);
 	}
-
 	ft_set_events(&game);
 	mlx_loop(game.mlx);
 	return (0);
