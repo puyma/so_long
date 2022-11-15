@@ -25,6 +25,7 @@ int	ft_check_map(const char *input, t_map *map)
 	ft_check_filename(input);
 	fd = ft_check_fd(input);
 	ft_check_content(fd, map);
+	ft_check_path(map);
 	write(1, "Map> OK\n", 8);
 	return (42);
 }
@@ -60,10 +61,26 @@ static int	ft_check_fd(const char *input)
 
 static int	ft_check_content(int fd, t_map *map)
 {
+	int	i;
+
+	char *line;
+	
+	i = 16;
+	while (i)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		if (*line != '#' && *line != ' ' && *line != '\n')
+		{
+			ft_putstr_fd("map> ", 1);
+			ft_putstr_fd(line, 1);
+		}
+		free(line);
+	}
 	//check for exit, collectible and starting position
 	//check rectangular
 	//check walls
+	ft_log("content OK");
 	return (0);
 }
-
-static int	ft_load_file_content();

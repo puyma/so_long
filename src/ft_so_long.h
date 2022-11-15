@@ -36,7 +36,11 @@
 # define FLOOR			"./src/assets/suelo.xpm"
 
 typedef struct s_map {
-	
+	t_list		**content;
+	char		c_empty_space;
+	char		c_wall;
+	char		c_map_exit;
+	char		c_collectible;
 }				t_map;
 
 typedef struct s_imgdata {
@@ -66,6 +70,7 @@ void	ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color);
 int		ft_launch(const char *input);
 int		ft_launch_graphics(void);
 int		ft_check_map(const char *input, t_map *map);
+int		ft_check_path(t_map *map);
 
 int		ft_destroy(t_game *game);
 int		ft_keycode(int keycode, t_game *game);

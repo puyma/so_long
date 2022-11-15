@@ -25,8 +25,9 @@ BIN_DIR		:= bin
 LIBFT		:= libft.a
 LIBMLX		:= libmlx.dylib
 
-SRC_FILES	:= src/ft_check_map.c \
-			   src/ft_button.c \
+SRC_FILES	:= src/ft_button.c \
+			   src/ft_check_map.c \
+			   src/ft_check_path.c \
 			   src/ft_draw_rectangle.c \
 			   src/ft_events.c \
 			   src/ft_exit_error.c \
