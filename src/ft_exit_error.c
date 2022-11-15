@@ -22,3 +22,14 @@ void	ft_exit_error(int error_num)
 	ft_putchar_fd('\n', 1);
 	exit(error_num);
 }
+
+void	ft_exit_error_str(char *error_str, int error_num)
+{
+	ft_putstr_fd("Error: ", 1);
+	ft_putstr_fd(error_str, 1);
+	ft_putstr_fd(" [", 1);
+	ft_putnbr_fd(error_num, 1);
+	ft_putstr_fd("]", 1);
+	ft_putchar_fd('\n', 1);
+	exit(error_num);
+}
