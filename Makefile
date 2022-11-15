@@ -29,9 +29,11 @@ SRC_FILES	:= src/ft_check_map.c \
 			   src/ft_button.c \
 			   src/ft_draw_rectangle.c \
 			   src/ft_events.c \
+			   src/ft_exit_error.c \
 			   src/ft_launch.c \
 			   src/ft_launch_graphics.c \
 			   src/ft_load_game.c \
+			   src/ft_log.c \
 			   src/ft_mlx_pixel_put.c \
 			   src/ft_so_long.c
 
