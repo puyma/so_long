@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_button	{
+#ifndef FT_BUTTON_H
+# define FT_BUTTON_H
+
+typedef struct s_button {
 	int		width;
 	int		height;
 	int		x;
@@ -20,3 +23,5 @@ typedef struct s_button	{
 }		t_button;
 
 t_button	*ft_new_button(int w, int h, int x, int y);
+
+#endif /* ft_button.h */
