@@ -17,7 +17,7 @@
 #ifndef FT_KEYCODES_H
 # define FT_KEYCODES_H
 
-#if defined(__APPLE__) && defined(__MACH__)
+//#if defined(__APPLE__) && defined(__MACH__)
 
 # define KEY_ESC	53
 
@@ -31,6 +31,6 @@
 # define KEY_RIGHT	124
 # define KEY_UP		126
 
-#endif
+//#endif
 
 #endif
