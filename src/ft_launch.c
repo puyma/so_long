@@ -14,16 +14,7 @@
 
 int	ft_launch(const char *input)
 {
-	int	fd;
-
-	fd = open(input, O_RDONLY);
-	if (fd == -1)
-	{
-		strerror(2);
-		return (2);
-	}
-	ft_check_map(input);
-	//ft_launch_graphics();
-	//int mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
+	if (ft_check_map(input) == 0)
+		ft_launch_graphics();
 	return (0);
 }
