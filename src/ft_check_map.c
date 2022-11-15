@@ -14,8 +14,9 @@
 
 static int	ft_check_filename(const char *input);
 static int	ft_check_fd(const char *input);
+static int	ft_check_content(int fd, t_map *map);
 
-int	ft_check_map(const char *input)
+int	ft_check_map(const char *input, t_map *map)
 {
 	int		fd;
 
@@ -23,6 +24,7 @@ int	ft_check_map(const char *input)
 	ft_log((char *)input);
 	ft_check_filename(input);
 	fd = ft_check_fd(input);
+	ft_check_content(fd, map);
 	write(1, "Map> OK\n", 8);
 	return (42);
 }
@@ -39,6 +41,7 @@ static int	ft_check_filename(const char *input)
 	ft_log("length OK");
 	if (ft_strncmp((input + path_length - 4), ".ber", 4) != 0)
 		ft_exit_error(79);
+	ft_log("extension OK");
 	return (path_length);
 }
 
@@ -48,6 +51,19 @@ static int	ft_check_fd(const char *input)
 
 	fd = open(input, O_RDONLY);
 	if (fd == -1)
-		ft_exit_error(2);
+		ft_exit_error(9);
+	if (read(fd, NULL, 0) != 0)
+		ft_exit_error_str("Couldn\'t read from file descriptor", 0);
+	ft_log("file descriptor OK");
 	return (fd);
 }
+
+static int	ft_check_content(int fd, t_map *map)
+{
+	//check for exit, collectible and starting position
+	//check rectangular
+	//check walls
+	return (0);
+}
+
+static int	ft_load_file_content();

@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_launch.c                                        :+:      :+:    :+:   */
+/*   ft_check_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/07 12:27:34 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2022/11/15 15:43:52 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2022/11/15 15:43:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_so_long.h"
 
-int	ft_launch(const char *input)
+int	ft_check_path(int **map)
 {
-	t_map	map;
-	
-	if (ft_check_map(input, &map) == 0)
-		ft_launch_graphics();
+	(void) map;
 	return (0);
 }
