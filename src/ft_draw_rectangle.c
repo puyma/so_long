@@ -19,11 +19,12 @@
 ** There is this function in the mlx library: mlx_get_screen_size()
 */
 
+/*
 int	ft_draw_rectangle(int x, int y, int width, int height, t_imgdata *img)
 {
 	const int	x_max = x + width;
 	const int	y_max = y + height;
-	int	yy;
+	int			yy;
 
 	while (x <= x_max)
 	{
@@ -37,3 +38,4 @@ int	ft_draw_rectangle(int x, int y, int width, int height, t_imgdata *img)
 	}
 	return (0);
 }
+*/
