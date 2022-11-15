@@ -24,10 +24,8 @@
 # include "libft/src/libft.h"
 # include "minilibx/mlx.h"
 
-# define PIX_SIZE		50 // 42 ???? yess
-# define DEF_WIDTH		PIX_SIZE * 10
-# define DEF_HEIGHT		PIX_SIZE * 10
-
+# define LOG_LEVEL		1
+# define PIX_SIZE		42
 # define FILENAME_LEN	42
 
 # define EMPTY_SPACE	0
@@ -35,8 +33,9 @@
 # define MAP_EXIT		E
 # define COLLECTIBLE	C
 
-typedef struct	s_imgdata
-{
+# define FLOOR			"./src/assets/suelo.xpm"
+
+typedef struct s_imgdata {
 	void		*img;
 	char		*address;
 	int			bits_per_pixel;
@@ -46,11 +45,12 @@ typedef struct	s_imgdata
 	int			height;
 }				t_imgdata;
 
-typedef struct	s_game
-{
+typedef struct s_game {
 	void		*mlx;
 	void		*mlx_window;
 	void		*img;
+	int			height;
+	int			width;
 	int			mlx_window_width;
 	int			mlx_window_height;
 	int			size;
@@ -68,12 +68,11 @@ int		ft_keycode(int keycode, t_game *game);
 int		ft_nothing(int x, int y, t_game *game);
 int		ft_mousecode(int button, int x, int y, t_game *game);
 
-int		ft_draw_rectangle(int x, int y, int width, int height, t_imgdata *img);
-
 int		ft_do_motion_events(int x, int y, t_game *game);
-
 int		ft_test(void);
-
 int		ft_set_events(t_game *game);
+
+void	ft_log(char *error_msg, ...);
+void	ft_exit_error(int error_num);
 
 #endif /* ft_so_long.h */
