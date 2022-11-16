@@ -36,7 +36,7 @@
 # define FLOOR			"./src/assets/suelo.xpm"
 
 typedef struct s_map {
-	t_list		**content;
+	t_list		**map_list; //content
 	char		c_empty_space;
 	char		c_wall;
 	char		c_map_exit;

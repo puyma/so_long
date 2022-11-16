@@ -15,6 +15,7 @@
 static int	ft_check_filename(const char *input);
 static int	ft_check_fd(const char *input);
 static int	ft_check_content(int fd, t_map *map);
+static int	ft_iscomment(char *line);
 
 int	ft_check_map(const char *input, t_map *map)
 {
@@ -61,26 +62,33 @@ static int	ft_check_fd(const char *input)
 
 static int	ft_check_content(int fd, t_map *map)
 {
-	int	i;
-
-	char *line;
+	char 	*line;
+	t_list	**lines;
 	
-	i = 16;
-	while (i)
+	line = get_next_line(fd);
+	*lines = ft_lstnew(line);
+	while (line != NULL)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		if (*line != '#' && *line != ' ' && *line != '\n')
-		{
-			ft_putstr_fd("map> ", 1);
-			ft_putstr_fd(line, 1);
-		}
+		if (ft_iscomment(line) == 0)
+			ft_lstadd_back(lines, ft_lstnew(line));
+		else
 		free(line);
 	}
-	//check for exit, collectible and starting position
-	//check rectangular
-	//check walls
-	ft_log("content OK");
+	while (*lines != NULL)
+	{
+		ft_putendl_fd(*(*(lines->content)), 1);
+		lines++;
+	}
+	//ft_log("content OK");
+	return (0);
+}
+
+static int	ft_iscomment(char *line)
+{
+	if (*line == '#' || *line == ' ')
+		return (1);
 	return (0);
 }

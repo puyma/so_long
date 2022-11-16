@@ -15,6 +15,6 @@
 int	ft_check_path(t_map *map)
 {
 	(void) map;
-	ft_log("path OK");
+	//ft_log("path OK");
 	return (0);
 }
