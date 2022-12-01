@@ -28,6 +28,12 @@ int	ft_attach_event_to_button(t_button *b, int (*func)(void), t_game *game)
 }
 */
 
+int	ft_img_to_xpm(void *img)
+{
+	(void) img;
+	return (0);
+}
+
 int	ft_launch_graphics(void)
 {
 	t_game		game;
@@ -39,6 +45,7 @@ int	ft_launch_graphics(void)
 	game.mlx = mlx_init();
 	game.mlx_window = mlx_new_window(game.mlx, game.width, game.height, "TDB");
 	img.img = mlx_xpm_file_to_image(game.mlx, FLOOR, &img.width, &img.height);
+	img.address = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	if (img.img == NULL)
 	{
 		ft_putstr("Error: ");
@@ -46,12 +53,11 @@ int	ft_launch_graphics(void)
 		return (79);
 	}
 	else
+	{
 		mlx_put_image_to_window(game.mlx, game.mlx_window, img.img, 0, 0);
+		ft_img_to_xpm(img.img);
+	}
 	ft_set_events(&game);
 	mlx_loop(game.mlx);
 	return (0);
 }
-
-//img.img = mlx_new_image(game.mlx, DEF_WIDTH, DEF_HEIGHT);
-//img.address = mlx_get_data_addr(img.img, &img.bits_per_pixel, 
-//&img.line_length, &img.endian);

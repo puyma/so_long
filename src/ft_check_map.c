@@ -28,6 +28,7 @@ int	ft_check_map(const char *input, t_map *map)
 	ft_check_content(fd, map);
 	ft_check_path(map);
 	write(1, "Map> OK\n", 8);
+	return (0);
 	return (42);
 }
 
@@ -63,8 +64,9 @@ static int	ft_check_fd(const char *input)
 static int	ft_check_content(int fd, t_map *map)
 {
 	char 	*line;
-	t_list	**lines;
+	t_list	**lines = NULL;
 	
+	(void) map;
 	line = get_next_line(fd);
 	*lines = ft_lstnew(line);
 	while (line != NULL)
@@ -77,11 +79,13 @@ static int	ft_check_content(int fd, t_map *map)
 		else
 		free(line);
 	}
+	/*
 	while (*lines != NULL)
 	{
 		ft_putendl_fd(*(*(lines->content)), 1);
 		lines++;
 	}
+	*/
 	//ft_log("content OK");
 	return (0);
 }

@@ -10,87 +10,78 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= so_long
-AUTHOR		?= mpuig-ma
+NAME		:=	so_long
+AUTHOR		?=	mpuig-ma
 
-CC			:= gcc
-CFLAGS		:= -g -Wall -Werror -Wextra #-MMD
-LFLAGS		:= -L. -lmlx -L./src/libft -lft -lm 
-# FRAMEWORK	:= -framework OpenGL -framework AppKit
-RM			:= rm -rf
-SRC_DIR		:= src
-BUILD_DIR	:= build
-BIN_DIR		:= bin
+LIBFT		:=	libft.a
+LIBMLX		:=	libmlx.dylib
 
-LIBFT		:= libft.a
-LIBMLX		:= libmlx.dylib
+BIN_DIR		:=	bin
+BUILD_DIR	:=	build
+SRC_DIR		:=	src
+LIBFT_DIR	:=	$(SRC_DIR)/libft
+LIBMLX_DIR	:=	$(SRC_DIR)/libmlx
 
-SRC_FILES	:= src/ft_button.c \
-			   src/ft_check_map.c \
-			   src/ft_check_path.c \
-			   src/ft_draw_rectangle.c \
-			   src/ft_events.c \
-			   src/ft_exit_error.c \
-			   src/ft_launch.c \
-			   src/ft_launch_graphics.c \
-			   src/ft_load_game.c \
-			   src/ft_log.c \
-			   src/ft_mlx_pixel_put.c \
-			   src/ft_so_long.c
+CC			:=	gcc
+CFLAGS		:=	-g -Wall -Werror -Wextra -MMD
+LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm
+RM			:=	rm -rf
 
-# Color codes
+SRC_FILES	:=	src/ft_button.c src/ft_check_map.c \
+				src/ft_check_path.c src/ft_draw_rectangle.c \
+				src/ft_events.c src/ft_exit_error.c \
+				src/ft_launch.c src/ft_launch_graphics.c \
+				src/ft_load_game.c src/ft_log.c \
+				src/ft_mlx_pixel_put.c src/ft_so_long.c
 
-NOCOLOR		:= \033[0m
-GREEN		:= \033[0;32m
-PURPLE		:= \033[1;35m
-TERM_COLORS	:= $(shell tput colors)
+NOCOLOR		:=	\033[0m
+GREEN		:=	\033[0;32m
+PURPLE		:=	\033[1;35m
+TERM_COLORS	:=	$(shell tput colors)
 
 # Color codes (improved) for 256 terminals
 
 ifeq ($(TERM_COLORS), 256)
-	PURPLE	:= \033[1;38;5;135m
+	PURPLE	:=	\033[1;38;5;135m
 endif
 
 # .o to .c rule
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 	$(call msg,Compiled,$(notdir $<))
 
-# OBJS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
-# DEPS	= $(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
+OBJS	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
+DEPS	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
 
-.PHONY: all make_libraries fclean clean re run
+.PHONY: all make_libraries fclean clean re
 
 all: $(NAME)
 
-$(NAME):: make_libraries $(SRC_FILES)
+$(NAME): $(LIBFT) $(LIBMLX) $(SRC_FILES)
 	@mkdir -p $(BIN_DIR)
-	@$(CC) $(FLAGS) $(SRC_FILES) $(LFLAGS) $(FRAMEWORK) -o $(BIN_DIR)/$(NAME)
+	@$(CC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(BIN_DIR)/$(NAME)
 
-$(NAME)::
-ifeq (,$(findstring s,$(MAKEFLAGS)))
-	@echo "$(GREEN)Done!$(NOCOLOR)"
-endif
-
-make_libraries:
-	@make -sC $(SRC_DIR)/libft
-	@make -sC $(SRC_DIR)/minilibx
-	@mkdir -p $(BIN_DIR)
-	@cp -f $(SRC_DIR)/minilibx/$(LIBMLX) ./
+$(LIBFT):
+	make -C $(SRC_DIR)/libft
+	cp -f $(SRC_DIR)/libft/$(LIBFT) ./
+	
+$(LIBMLX):
+	make -C $(SRC_DIR)/libmlx
+	mkdir -p $(BIN_DIR)
+	cp -f $(SRC_DIR)/libmlx/$(LIBMLX) ./
 
 clean:
-	@$(RM) $(BUILD_DIR) $(LIBMLX)
+	$(RM) $(BUILD_DIR)
+	$(RM) $(LIBFT)
+	$(RM) $(LIBMLX)
 
 fclean: clean
-	@$(RM) $(BIN_DIR) $(NAME)
-	@make fclean -sC $(SRC_DIR)/libft
-	@make clean -sC $(SRC_DIR)/minilibx
+	$(RM) $(NAME)
+	$(RM) $(BIN_DIR)
+	@make fclean -C $(SRC_DIR)/libft
+	@make clean -C $(SRC_DIR)/libmlx
 
 re: fclean
 	$(MAKE)
-
-run: $(NAME)
-	@echo "Initializing $(PURPLE)so_long...$(NOCOLOR)"
-	@./$(BIN_DIR)/$(NAME)

@@ -1,6 +1,6 @@
 [submodule "src/libft"]
 	path = src/libft
 	url = git@github.com:puyma/libft.git
-[submodule "src/minilibx"]
-	path = src/minilibx
+[submodule "src/libmlx"]
+	path = src/libmlx
 	url = git@github.com:puyma/minilibx-macos.git
