@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2022/11/15 16:56:14 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/01/16 16:02:02 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ CFLAGS		:=	-Wall -Werror -Wextra -MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm
 RM			:=	rm -rf
 
-NOCOLOR		:=	\033[0m
-GREEN		:=	\033[0;32m
+NOSTYLE		:=	\033[0m
+STYLE		:=	\033[0;32m
 PURPLE		:=	\033[1;35m
 TERM_COLORS	:=	$(shell tput colors)
 
@@ -35,11 +35,11 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/ft_button.c src/ft_check_map.c \
-				src/ft_check_path.c src/ft_draw_rectangle.c \
+SRC_FILES	:=	src/ft_button.c src/ft_map.c \
+				src/ft_draw_rectangle.c \
 				src/ft_events.c src/ft_exit_error.c \
 				src/ft_launch.c src/ft_launch_graphics.c \
-				src/ft_load_game.c src/ft_log.c \
+				src/ft_load_game.c \
 				src/ft_mlx_pixel_put.c src/main.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
@@ -47,8 +47,9 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 
 .PHONY: clean fclean re all
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES)
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) #$(DEP_FILES)
 	@$(CC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
+	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
 	
 $(LIBFT) $(LIBMLX):
 	make -C $(SRC_DIR)/$(basename $@)
