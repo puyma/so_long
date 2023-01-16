@@ -6,17 +6,18 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/15 16:56:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:53:54 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_so_long.h"
 
-int	ft_launch(const char *input)
+int	ft_launch(const char *input_file)
 {
 	t_map	map;
-	
-	if (ft_check_map(input, &map) == 0)
+
+	map.filename = (char *) input_file;	
+	if (ft_map_isvalid(&map))
 		ft_launch_graphics();
 	return (0);
 }

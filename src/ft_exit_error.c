@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:15:09 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/15 16:56:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:12:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_exit_error(int error_num)
 	exit(error_num);
 }
 
-void	ft_exit_error_str(char *error_str, int error_num)
+void	ft_exit_str(char *error_str, int error_num)
 {
 	ft_putstr_fd("Error: ", 1);
 	ft_putstr_fd(error_str, 1);
