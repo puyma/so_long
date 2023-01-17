@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/01/17 13:28:28 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/01/17 19:31:03 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,10 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/ft_button.c src/ft_map.c \
+SRC_FILES	:=	src/ft_button.c \
+				src/ft_map.c \
+				src/ft_map_content.c \
+				src/ft_utils.c \
 				src/ft_draw_rectangle.c \
 				src/ft_events.c src/ft_exit_error.c \
 				src/ft_launch.c src/ft_launch_graphics.c \
