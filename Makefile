@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/01/16 16:02:02 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/01/17 13:28:28 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ NAME		:=	so_long
 CC			:=	gcc
 CFLAGS		:=	-Wall -Werror -Wextra -MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm
+INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
 
 NOSTYLE		:=	\033[0m
@@ -48,7 +49,7 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 .PHONY: clean fclean re all
 
 $(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) #$(DEP_FILES)
-	@$(CC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
+	@$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
 	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
 	
 $(LIBFT) $(LIBMLX):
@@ -57,12 +58,12 @@ $(LIBFT) $(LIBMLX):
 	
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c 
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(INC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(BUILD_DIR)/ $(LIBFT) $(LIBMLX)
-	@make fclean -sC $(SRC_DIR)/libft
-	@make clean -sC $(SRC_DIR)/libmlx
+	make fclean -C $(SRC_DIR)/libft
+	make clean -C $(SRC_DIR)/libmlx
 
 fclean: clean
 	$(RM) $(NAME)
