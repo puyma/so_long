@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/16 16:26:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:29:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 # include "ft_button.h"
 # include "ft_keycodes.h"
-# include "libft/src/libft.h"
-# include "libmlx/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 
 # define LOG_LEVEL		1
 # define PIX_SIZE		42
@@ -36,13 +36,13 @@
 # define FLOOR			"./src/assets/green.xpm"
 
 typedef struct s_map {
+	char		*filename;
+	int			fd;
 	t_list		**content;
 	char		c_empty_space;
 	char		c_wall;
 	char		c_map_exit;
 	char		c_collectible;
-	char		*filename;
-	int			fd;
 	int			exit_err;
 }				t_map;
 
