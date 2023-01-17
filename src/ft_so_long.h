@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/17 13:29:58 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:30:51 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 typedef struct s_map {
 	char		*filename;
 	int			fd;
-	t_list		**content;
+	t_list		*lst;
+	unsigned	lstsize;
 	char		c_empty_space;
 	char		c_wall;
 	char		c_map_exit;
@@ -73,6 +74,7 @@ void	ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color);
 int		ft_launch(const char *input_file);
 int		ft_launch_graphics(void);
 int		ft_map_isvalid(t_map *map);
+int		ft_content_isvalid(t_map *map);
 
 int		ft_destroy(t_game *game);
 int		ft_keycode(int keycode, t_game *game);
@@ -85,5 +87,7 @@ int		ft_set_events(t_game *game);
 
 void	ft_exit_error(int error_num);
 void	ft_exit_str(char *error_str, int error_num);
+
+void	ft_delete_nl(void *);
 
 #endif /* ft_so_long.h */
