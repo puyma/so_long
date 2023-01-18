@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/17 19:30:51 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:20:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 # define PIX_SIZE		42
 # define FILENAME_LEN	42
 
-# define EMPTY_SPACE	0
-# define WALL			1
-# define MAP_EXIT		E
-# define COLLECTIBLE	C
+# define EMPTY_SPACE	'0'
+# define WALL			'1'
+# define MAP_EXIT		'E'
+# define COLLECTIBLE	'C'
 
 # define FLOOR			"./src/assets/green.xpm"
 
@@ -45,6 +45,7 @@ typedef struct s_map {
 	char		c_map_exit;
 	char		c_collectible;
 	int			exit_err;
+	char		*exit_str;
 }				t_map;
 
 typedef struct s_imgdata {
