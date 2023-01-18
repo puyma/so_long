@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/01/17 19:31:03 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/01/18 15:46:28 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,14 +37,17 @@ ifeq ($(TERM_COLORS), 256)
 endif
 
 SRC_FILES	:=	src/ft_button.c \
+				src/ft_draw_rectangle.c \
+				src/ft_events.c \
+				src/ft_exit_error.c \
+				src/ft_launch.c \
+				src/ft_launch_graphics.c \
+				src/ft_load_game.c \
 				src/ft_map.c \
 				src/ft_map_content.c \
+				src/ft_mlx_pixel_put.c \
 				src/ft_utils.c \
-				src/ft_draw_rectangle.c \
-				src/ft_events.c src/ft_exit_error.c \
-				src/ft_launch.c src/ft_launch_graphics.c \
-				src/ft_load_game.c \
-				src/ft_mlx_pixel_put.c src/main.c
+				src/main.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
