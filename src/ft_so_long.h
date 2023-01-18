@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/18 17:20:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:35:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,28 @@
 # define WALL			'1'
 # define MAP_EXIT		'E'
 # define COLLECTIBLE	'C'
+# define PLAYER			'P'
 
 # define FLOOR			"./src/assets/green.xpm"
+
+# define ERR_00 "Something went wrong..."
+# define ERR_01 "Filename is not valid"
+# define ERR_02 ""
+# define ERR_03 ""
+# define ERR_04 ""
+# define ERR_05 ""
+# define ERR_06 ""
+# define ERR_07 ""
+# define ERR_08 ""
+# define ERR_09 ""
+# define ERR_0A ""
+# define ERR_0B ""
+# define ERR_0C ""
+# define ERR_0D ""
+# define ERR_0E ""
+# define ERR_0F ""
+# define ERR_RECT "Map is not rectangular"
+# define ERR_CHAR "Found some shit inside your fmap"
 
 typedef struct s_map {
 	char		*filename;
@@ -75,7 +95,6 @@ void	ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color);
 int		ft_launch(const char *input_file);
 int		ft_launch_graphics(void);
 int		ft_map_isvalid(t_map *map);
-int		ft_content_isvalid(t_map *map);
 
 int		ft_destroy(t_game *game);
 int		ft_keycode(int keycode, t_game *game);
@@ -90,5 +109,8 @@ void	ft_exit_error(int error_num);
 void	ft_exit_str(char *error_str, int error_num);
 
 void	ft_delete_nl(void *);
+int		ft_check_characters(t_map *map);
+int		ft_check_surroundings(t_map *map);
+int		ft_path_isvalid(t_map *map);
 
 #endif /* ft_so_long.h */

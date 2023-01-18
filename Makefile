@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/01/18 15:46:28 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/01/18 18:20:37 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC_FILES	:=	src/ft_button.c \
 				src/ft_load_game.c \
 				src/ft_map.c \
 				src/ft_map_content.c \
+				src/ft_map_path.c \
 				src/ft_mlx_pixel_put.c \
 				src/ft_utils.c \
 				src/main.c
