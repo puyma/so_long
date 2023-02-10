@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/18 18:37:04 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:05:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ int	ft_map_isvalid(t_map *map)
 	ft_load_map(map);
 	if (!ft_check_length(map) || !ft_isrectangle(map))
 		return (1);
-	if (!ft_check_characters(map) || !ft_check_surroundings(map))
+	//if (!ft_check_characters(map) || !ft_check_surroundings(map))
+	if (!ft_check_characters(map))
 		return (1);
-	if (ft_path_isvalid(map))
+	/*
+	if (!ft_path_isvalid(map))
 		return (1);
 	else
 		ft_exit_str(map->exit_str, 5);
+	*/
 	return (0);
 }
 
@@ -92,6 +95,7 @@ static int	ft_check_length(t_map *map)
 		len = ft_strlen(t->content);
 		t = t->next;
 	}
+	map->lnlen = len;
 	return (1);
 }
 

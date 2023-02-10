@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/18 18:35:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:55:14 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define COLLECTIBLE	'C'
 # define PLAYER			'P'
 
+# define ALLOWED_CHARS	"01ECP"
+
 # define FLOOR			"./src/assets/green.xpm"
 
 # define ERR_00 "Something went wrong..."
@@ -60,6 +62,7 @@ typedef struct s_map {
 	int			fd;
 	t_list		*lst;
 	unsigned	lstsize;
+	size_t		lnlen;
 	char		c_empty_space;
 	char		c_wall;
 	char		c_map_exit;

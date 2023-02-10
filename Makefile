@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/01/18 18:20:37 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/10 12:42:30 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ LIBMLX		:=	libmlx.dylib
 NAME		:=	so_long
 
 CC			:=	gcc
-CFLAGS		:=	-Wall -Werror -Wextra -MMD
+CFLAGS		:=	-Wall -Werror -Wextra
+CCFLAGS		:=	-MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
@@ -56,7 +57,7 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 .PHONY: clean fclean re all
 
 $(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) #$(DEP_FILES)
-	@$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
+	$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
 	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
 	
 $(LIBFT) $(LIBMLX):
@@ -65,7 +66,7 @@ $(LIBFT) $(LIBMLX):
 	
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c 
 	@mkdir -p $(@D)
-	$(CC) $(INC) $(CFLAGS) -c $< -o $@
+	$(CC) $(INC) $(CFLAGS) $(CCFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(BUILD_DIR)/ $(LIBFT) $(LIBMLX)
