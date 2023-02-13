@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/10 12:42:30 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/13 18:57:43 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ SRC_FILES	:=	src/ft_button.c \
 				src/ft_exit_error.c \
 				src/ft_launch.c \
 				src/ft_launch_graphics.c \
-				src/ft_load_game.c \
 				src/ft_map.c \
 				src/ft_map_content.c \
 				src/ft_map_path.c \
