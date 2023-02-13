@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/13 18:21:54 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:00:11 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_launch(const char *input_file)
 	map.filename = (char *) input_file;
 	if (ft_map_isvalid(&map))
 	{
-		write(1, "OK\n", 3);
+		write(1, "> OK\n", 5);
 		ft_launch_graphics(&map);
 	}
 	else
