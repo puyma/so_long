@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/10 14:05:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:02:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,13 @@ int	ft_map_isvalid(t_map *map)
 	if (read(map->fd, NULL, 0) != 0)
 		ft_exit_str("Couldn\'t read from file descriptor", 0);
 	ft_load_map(map);
-	if (!ft_check_length(map) || !ft_isrectangle(map))
-		return (1);
-	//if (!ft_check_characters(map) || !ft_check_surroundings(map))
-	if (!ft_check_characters(map))
-		return (1);
-	/*
-	if (!ft_path_isvalid(map))
-		return (1);
-	else
-		ft_exit_str(map->exit_str, 5);
-	*/
-	return (0);
+	if (ft_check_length(map) == 0 || ft_isrectangle(map) == 0)
+		return (0);
+	if (ft_check_characters(map) == 0 || ft_check_surroundings(map) == 0)
+		return (0);
+	if (ft_path_isvalid(map) == 0)
+		return (0);
+	return (map->lnlen);
 }
 
 static int	ft_load_map(t_map *map)
@@ -75,7 +70,7 @@ static int	ft_filename_isvalid(t_map *map)
 		return (0);
 	if (ft_strncmp((map->filename + path_length - 4), ".ber", 4) != 0)
 		return (0);
-	return (1);
+	return (path_length);
 }
 
 static int	ft_check_length(t_map *map)
@@ -96,7 +91,7 @@ static int	ft_check_length(t_map *map)
 		t = t->next;
 	}
 	map->lnlen = len;
-	return (1);
+	return ((int) len);
 }
 
 static int	ft_isrectangle(t_map *map)
@@ -109,5 +104,5 @@ static int	ft_isrectangle(t_map *map)
 		map->exit_str = ERR_RECT;
 		return (0);
 	}
-	return (1);
+	return ((int) len);
 }
