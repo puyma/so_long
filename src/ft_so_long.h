@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/10 13:55:14 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:58:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define COLLECTIBLE	'C'
 # define PLAYER			'P'
 
-# define ALLOWED_CHARS	"01ECP"
+# define ALLOWED_CHARS	"01CEP"
 
 # define FLOOR			"./src/assets/green.xpm"
 
