@@ -6,58 +6,27 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/13 13:04:07 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:47:28 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_so_long.h"
 
-/*
-int	ft_load_button(t_button *b, t_imgdata *img)
-{
-	ft_draw_rectangle(b->width, b->height, b->x, b->y, img);
-	return (0);
-}
-*/
-/*
-int	ft_attach_event_to_button(t_button *b, int (*func)(void), t_game *game)
-{
-	(void) b;
-	mlx_mouse_hook(game->mlx_window, *func, &game);
-	return (0);
-}
-*/
-
-int	ft_img_to_xpm(void *img)
-{
-	(void) img;
-	return (0);
-}
-
-int	ft_launch_graphics(void)
+int	ft_launch_graphics(t_map *map)
 {
 	t_game		game;
 	t_imgdata	img;
 
 	game.size = PIX_SIZE;
-	game.height = PIX_SIZE * 10;
-	game.width = PIX_SIZE * 10;
+	game.width = map->lnlen * game.size;
+	game.height = map->lstsize * game.size;
 	game.mlx = mlx_init();
-	game.mlx_window = mlx_new_window(game.mlx, game.width, game.height, "TDB");
+	game.mlx_window = mlx_new_window(game.mlx, game.width, game.height, "so_longgy");
 	img.img = mlx_xpm_file_to_image(game.mlx, FLOOR, &img.width, &img.height);
-	img.address = mlx_get_data_addr(img.img, \
-			&img.bits_per_pixel, &img.line_length, &img.endian);
 	if (img.img == NULL)
-	{
-		ft_putstr("Error: ");
-		ft_putendl_fd("Could not load image", 1);
-		return (79);
-	}
-	else
-	{
-		mlx_put_image_to_window(game.mlx, game.mlx_window, img.img, 0, 0);
-		ft_img_to_xpm(img.img);
-	}
+		ft_exit_str("Could not load image", 79);
+	img.address = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	mlx_put_image_to_window(game.mlx, game.mlx_window, img.img, 10, 10);
 	ft_set_events(&game);
 	mlx_loop(game.mlx);
 	return (0);
