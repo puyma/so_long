@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:21:42 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/13 18:19:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:59:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 
 int	ft_path_isvalid(t_map *map)
 {
-	ft_printf("> checking path...\n");
-	(void) map;
 	map->exit_str = "Path is invalid";
 	return (1);
 	return (0);
