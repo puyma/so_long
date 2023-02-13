@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/15 16:57:02 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:04:07 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	ft_launch_graphics(void)
 	game.mlx = mlx_init();
 	game.mlx_window = mlx_new_window(game.mlx, game.width, game.height, "TDB");
 	img.img = mlx_xpm_file_to_image(game.mlx, FLOOR, &img.width, &img.height);
-	img.address = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	img.address = mlx_get_data_addr(img.img, \
+			&img.bits_per_pixel, &img.line_length, &img.endian);
 	if (img.img == NULL)
 	{
 		ft_putstr("Error: ");
