@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/17 18:43:18 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:07:47 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_destroy(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->mlx_window);
-	write(1, "Exiting...\n", 11);
+	write(1, "> Exiting...\n", 13);
 	exit(0);
 	return (0);
 }
@@ -23,8 +23,17 @@ int	ft_destroy(t_game *game)
 int	ft_keycode(int keycode, t_game *game)
 {
 	(void) game;
-	write(1, "> k", 3);
-	ft_putnbr(keycode);
+	write(1, "> key: ", 7);
+	if (keycode == KEY_UP)
+		ft_putstr("↑");
+	else if (keycode == KEY_DOWN)
+		ft_putstr("↓");
+	else if (keycode == KEY_LEFT)
+		ft_putstr("←");
+	else if (keycode == KEY_RIGHT)
+		ft_putstr("→");
+	else
+		ft_putnbr(keycode);
 	write(1, "\n", 1);
 	if (keycode == KEY_ESC)
 	{
