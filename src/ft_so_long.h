@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/13 10:58:49 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:20:36 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_game {
 void	ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color);
 
 int		ft_launch(const char *input_file);
-int		ft_launch_graphics(void);
+int		ft_launch_graphics(t_map *map);
 int		ft_map_isvalid(t_map *map);
 
 int		ft_destroy(t_game *game);
