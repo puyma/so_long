@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/14 16:53:17 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/14 17:12:22 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ ifeq ($(TERM_COLORS), 256)
 endif
 
 SRC_FILES	:=	src/events.c \
-				src/exit_error.c \
 				src/launch.c \
 				src/launch_graphics.c \
 				src/map.c \
@@ -52,7 +51,7 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 
 .PHONY: clean fclean re all
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/ft_so_long.h
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES)
 	$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
 	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
 	

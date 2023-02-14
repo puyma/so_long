@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 16:56:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:22:44 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,16 @@ int	ft_launch_graphics(t_map *map)
 {
 	t_game		game;
 
-	game.size = 33; //PIX_SIZE;
+	game.size = PIX_SIZE;
 	game.width = map->lnlen * game.size;
 	game.height = map->lstsize * game.size;
 	game.map = map;
 	game.mlx = mlx_init();
 	game.mlx_window = ft_new_window(&game, "so_long");
 	if (ft_memload_images(&game) != 0)
-	{
-		//ft_test_win(&game);
 		ft_load_images(&game);
-	}
 	ft_set_events(&game);
 	mlx_loop(game.mlx);
-	return (0);
-}
-
-int	ft_test_win(t_game *game)
-{
-	ft_load_img(game, game->floor, 0 * game->size, 0 * game->size);
-	ft_load_img(game, game->player, 1 * game->size, 0 * game->size);
-	ft_load_img(game, game->wall, 0 * game->size, 1 * game->size);
-	ft_load_img(game, game->wall, 1 * game->size, 1 * game->size);
-	ft_load_img(game, game->exit, 0 * game->size, 2 * game->size);
-	ft_load_img(game, game->exit, 1 * game->size, 2 * game->size);
 	return (0);
 }
 
