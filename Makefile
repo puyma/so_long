@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/13 18:57:43 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/14 16:53:17 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,17 +37,14 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/ft_button.c \
-				src/ft_draw_rectangle.c \
-				src/ft_events.c \
-				src/ft_exit_error.c \
-				src/ft_launch.c \
-				src/ft_launch_graphics.c \
-				src/ft_map.c \
-				src/ft_map_content.c \
-				src/ft_map_path.c \
-				src/ft_mlx_pixel_put.c \
-				src/ft_utils.c \
+SRC_FILES	:=	src/events.c \
+				src/exit_error.c \
+				src/launch.c \
+				src/launch_graphics.c \
+				src/map.c \
+				src/map_content.c \
+				src/map_path.c \
+				src/utils.c \
 				src/main.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
@@ -55,7 +52,7 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 
 .PHONY: clean fclean re all
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) #$(DEP_FILES)
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/ft_so_long.h
 	$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
 	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
 	
