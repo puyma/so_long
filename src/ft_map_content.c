@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:22:14 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/13 15:09:29 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:02:02 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_check_characters(t_map *map)
 		temp = t->content;
 		while (i-- > 0)
 		{
-			if (ft_strchr(ALLOWED_CHARS, *temp) == 0)
+			if (ft_strchr(C_ALLOWED, *temp) == 0)
 			{
 				map->exit_str = "Invalid character found in map.";
 				return (0);
