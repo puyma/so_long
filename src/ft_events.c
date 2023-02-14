@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/13 19:07:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:56:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_destroy(t_game *game)
 
 int	ft_keycode(int keycode, t_game *game)
 {
-	(void) game;
 	write(1, "> key: ", 7);
 	if (keycode == KEY_UP)
 		ft_putstr("↑");
