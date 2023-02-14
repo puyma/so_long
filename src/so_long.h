@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_so_long.h                                       :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 13:49:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:03:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 # include <stdio.h> /* perror */
 # include <string.h> /* strerror */
 
-# include "ft_button.h"
-# include "ft_keycodes.h"
+//# include "ft_button.h"
+//# include "keycodes.h"
+
 # include "libft.h"
 # include "mlx.h"
 
 # define LOG_LEVEL		1
-# define PIX_SIZE		26
+# define PIX_SIZE		42
 # define FILENAME_LEN	42
 
 # define C_EMPTY_SPACE	'0'
@@ -60,6 +61,18 @@
 # define ERR_0F			""
 # define ERR_RECT		"Map is not rectangular"
 # define ERR_CHAR		"Found some shit inside your fmap"
+
+# define KEY_ESC	53
+
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_W		13
+
+# define KEY_LEFT	123
+# define KEY_DOWN	125
+# define KEY_RIGHT	124
+# define KEY_UP		126
 
 typedef struct s_imgdata
 {

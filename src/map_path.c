@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_path.c                                      :+:      :+:    :+:   */
+/*   map_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:21:42 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 14:07:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:55:59 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_so_long.h"
+#include "so_long.h"
 
 /*
  * enum 
@@ -33,7 +33,7 @@ static t_map_item	**ft_map2array(t_map *map)
 	t = map->lst;
 	i = 0;
 	line = 0;
-	arr = (t_map_item **) ft_calloc(sizeof(t_map_item *), (map->lstsize + 1));
+	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
 	if (arr == NULL)
 		return (NULL);
 	while (i < map->lstsize)

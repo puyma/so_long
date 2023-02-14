@@ -1,16 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw_rectangle.c                                :+:      :+:    :+:   */
+/*   button.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 20:28:56 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2022/11/15 16:56:51 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2022/11/04 20:26:09 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/02/14 17:02:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_so_long.h"
+#include "so_long.h"
+
+typedef struct s_button {
+	int		width;
+	int		height;
+	int		x;
+	int		y;
+	void	*click_event;
+	void	*hover_event;
+}		t_button;
+
+t_button	*ft_new_button(int w, int h, int x, int y);
+
+t_button	*ft_new_button(int w, int h, int x, int y)
+{
+	t_button	*button;
+
+	button = (t_button *) malloc(sizeof(t_button));
+	if (button == NULL)
+		return (NULL);
+	button->width = w;
+	button->height = h;
+	button->x = x;
+	button->y = y;
+	return (button);
+}
+
+void	ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color)
+{
+	char	*dst;
+	int		offset;
+
+	offset = (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->address + offset;
+	*(unsigned int *)dst = color;
+}
 
 /*
 ** Windows size needs to be checked before printing in order to not print where 

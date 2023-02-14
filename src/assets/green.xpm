@@ -1,5 +1,5 @@
 /* XPM */
-static char *green_sheet[] = {
+static char *green[] = {
 /* columns rows colors chars-per-pixel */
 "26 26 1 1 ",
 "  c #409038",

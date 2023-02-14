@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_error.c                                    :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 13:15:09 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/01/16 16:12:50 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/01/17 19:28:52 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/02/14 16:59:04 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_so_long.h"
+
+void	ft_delete_nl(void *ptr)
+{
+	char	*str;
+
+	str = (char *) ptr;
+	while (*str != '\0')
+	{
+		if (*str == '\n')
+			*str = '\0';
+		str++;
+	}
+}
 
 void	ft_exit_error(int error_num)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_map_content.c                                   :+:      :+:    :+:   */
+/*   map_content.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:22:14 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 13:02:02 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:55:51 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_so_long.h"
+#include "so_long.h"
 
 int	ft_check_characters(t_map *map);
 int	ft_check_surroundings(t_map *map);
