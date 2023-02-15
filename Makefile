@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/14 17:12:22 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/15 13:31:59 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ LIBFT_DIR	:=	$(SRC_DIR)/libft
 LIBMLX_DIR	:=	$(SRC_DIR)/libmlx
 
 LIBFT		:=	libft.a
-LIBMLX		:=	libmlx.dylib
+LIBMLX		:=	libmlx.a
 NAME		:=	so_long
 
 CC			:=	gcc
 CFLAGS		:=	-Wall -Werror -Wextra
 CCFLAGS		:=	-MMD
-LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm
+LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm -framework OpenGL -framework Appkit
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
 
@@ -44,14 +44,14 @@ SRC_FILES	:=	src/events.c \
 				src/map_content.c \
 				src/map_path.c \
 				src/utils.c \
-				src/main.c
+				src/main.c src/button.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
 
 .PHONY: clean fclean re all
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES)
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
 	$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
 	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
 	
