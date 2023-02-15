@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 17:28:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:13:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "mlx.h"
 
 # define LOG_LEVEL		1
-# define PIX_SIZE		33
+# define PIX_SIZE		26
 # define FILENAME_LEN	42
 
 # define C_EMPTY_SPACE	'0'

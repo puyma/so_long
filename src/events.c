@@ -6,11 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 17:00:27 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/15 10:52:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	ft_load_img(t_game *game, t_imgdata *img, int x, int y);
 
 int	ft_destroy(t_game *game)
 {
@@ -28,9 +30,16 @@ int	ft_keycode(int keycode, t_game *game)
 	else if (keycode == KEY_DOWN)
 		ft_putstr("↓");
 	else if (keycode == KEY_LEFT)
+	{
 		ft_putstr("←");
-	else if (keycode == KEY_RIGHT)
+		ft_load_img(game, game->player, 4 * PIX_SIZE, 12 * PIX_SIZE);
+		ft_load_img(game, game->player, 2 * PIX_SIZE, 11 * PIX_SIZE);
+	}
+	else if (keycode ==KEY_RIGHT)
+	{
 		ft_putstr("→");
+		ft_load_img(game, game->player, 0, 0);
+	}
 	else
 		ft_putnbr(keycode);
 	write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 17:22:44 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:09:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	ft_load_images(t_game *game)
 		y = 0;
 		while (arr[x][y].c != '\0')
 		{
-			img_x = x * game->size;
-			img_y = y * game->size;
+			img_x = (x * game->size);
+			img_y = (y * game->size);
 			if (arr[x][y].c == '1')
 				ft_load_img(game, game->wall, img_x, img_y);
 			else if (arr[x][y].c == '0')
@@ -61,7 +61,9 @@ int	ft_load_images(t_game *game)
 			else if (arr[x][y].c == 'C')
 				ft_load_img(game, game->collectible, img_x, img_y);
 			else if (arr[x][y].c == 'E')
+			{
 				ft_load_img(game, game->exit, img_x, img_y);
+			}
 			else if (arr[x][y].c == 'P')
 				ft_load_img(game, game->player, img_x, img_y);
 			y++;
@@ -73,6 +75,7 @@ int	ft_load_images(t_game *game)
 
 int	ft_load_img(t_game *game, t_imgdata *img, int x, int y)
 {
+	ft_printf("img at: %d, %d\n", y, x);
 	mlx_put_image_to_window(game->mlx, game->mlx_window, img->img, y, x);
 	return (0);
 }
@@ -82,7 +85,7 @@ void	*ft_new_window(t_game *game, char *title)
 	void	*window;
 
 	window = NULL;
-	window = mlx_new_window(game->mlx, game->width + 1, game->height + 1, title);
+	window = mlx_new_window(game->mlx, game->width, game->height, title);
 	return (window);
 }
 
@@ -100,7 +103,7 @@ t_imgdata	*ft_memload_img(t_game *game, char *filename)
 {
 	t_imgdata	*img;
 
-	img = (t_imgdata *) ft_calloc(sizeof(t_imgdata), 1);
+	img = (t_imgdata *) ft_calloc(sizeof(t_imgdata), 1 + 1);
 	img->img = mlx_xpm_file_to_image(game->mlx, filename, \
 			&img->width, &img->height);
 	if (img->img == NULL)
