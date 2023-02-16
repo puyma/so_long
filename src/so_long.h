@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/16 13:33:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:47:06 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define WALL			"./src/assets/wall.png"
 # define COLLECTIBLE	"./src/assets/collectible.png"
 # define EXIT			"./src/assets/exit.png"
-# define PLAYER			"./src/assets/player_l.png"
+# define PLAYER			"./src/assets/player.xpm"
 
 # define MAP_EXT		".ber"
 
