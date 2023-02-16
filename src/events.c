@@ -6,13 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/15 10:52:35 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:37:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_load_img(t_game *game, t_imgdata *img, int x, int y);
+int	ft_put_img(t_game *game, t_imgdata *img, int x, int y);
 
 int	ft_destroy(t_game *game)
 {
@@ -26,23 +26,25 @@ int	ft_keycode(int keycode, t_game *game)
 {
 	write(1, "> key: ", 7);
 	if (keycode == KEY_UP)
-		ft_putstr("↑");
+		ft_putstr("↑\n");
 	else if (keycode == KEY_DOWN)
-		ft_putstr("↓");
+		ft_putstr("↓\n");
 	else if (keycode == KEY_LEFT)
 	{
-		ft_putstr("←");
-		ft_load_img(game, game->player, 4 * PIX_SIZE, 12 * PIX_SIZE);
-		ft_load_img(game, game->player, 2 * PIX_SIZE, 11 * PIX_SIZE);
+		ft_putstr("←\n");
+		ft_put_img(game, game->player, 4 * PIX_SIZE, 12 * PIX_SIZE);
+		ft_put_img(game, game->player, 2 * PIX_SIZE, 11 * PIX_SIZE);
 	}
 	else if (keycode ==KEY_RIGHT)
 	{
-		ft_putstr("→");
-		ft_load_img(game, game->player, 0, 0);
+		ft_putstr("→\n");
+		ft_put_img(game, game->player, 0, 0);
 	}
 	else
+	{
 		ft_putnbr(keycode);
-	write(1, "\n", 1);
+		write(1, "\n", 1);
+	}
 	if (keycode == KEY_ESC)
 	{
 		mlx_clear_window(game->mlx, game->mlx_window);
