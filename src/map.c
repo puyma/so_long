@@ -6,13 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 16:56:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:19:32 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	ft_filename_isvalid(t_map *map);
+int			ft_filext_isvalid(char *filename, char *ext);
 static int	ft_load_map(t_map *map);
 static int	ft_check_length(t_map *map);
 static int	ft_isrectangle(t_map *map);
@@ -20,7 +20,7 @@ static int	ft_isrectangle(t_map *map);
 int	ft_map_isvalid(t_map *map)
 {
 	ft_printf("> %s\n", map->filename);
-	if (!ft_filename_isvalid(map))
+	if (ft_filext_isvalid(map->filename, MAP_EXT) == 0)
 		ft_exit_str(ERR_01, 3);
 	map->fd = open(map->filename, O_RDONLY);
 	if (map->fd == -1)
@@ -61,16 +61,18 @@ static int	ft_load_map(t_map *map)
 	return (0);
 }
 
-static int	ft_filename_isvalid(t_map *map)
+int	ft_filext_isvalid(char *filename, char *ext)
 {
-	int	path_length;
+	size_t	path_length;
+	size_t	ext_len;
 
-	path_length = ft_strlen(map->filename);
+	path_length = ft_strlen(filename);
+	ext_len = ft_strlen(ext);
 	if (path_length == 0 || path_length > FILENAME_LEN)
 		return (0);
-	if (ft_strncmp((map->filename + path_length - 4), ".ber", 4) != 0)
+	if (ft_strncmp((filename + path_length - ext_len), ext, ext_len) != 0)
 		return (0);
-	return (path_length);
+	return ((int) path_length);
 }
 
 static int	ft_check_length(t_map *map)

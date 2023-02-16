@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/15 11:13:17 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:32:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "mlx.h"
 
 # define LOG_LEVEL		1
-# define PIX_SIZE		26
+# define PIX_SIZE		64
 # define FILENAME_LEN	42
 
 # define C_EMPTY_SPACE	'0'
@@ -37,11 +37,13 @@
 
 # define C_ALLOWED		"01CEP"
 
-# define FLOOR			"./src/assets/floor.xpm"
-# define WALL			"./src/assets/wall.xpm"
-# define COLLECTIBLE	"./src/assets/collectible.xpm"
-# define EXIT			"./src/assets/exit.xpm"
-# define PLAYER			"./src/assets/player.xpm"
+# define FLOOR			"./src/assets/floor.png"
+# define WALL			"./src/assets/wall.png"
+# define COLLECTIBLE	"./src/assets/collectible.png"
+# define EXIT			"./src/assets/exit.png"
+# define PLAYER			"./src/assets/player.png"
+
+# define MAP_EXT		".ber"
 
 # define ERR_00			"Something went wrong..."
 # define ERR_01			"Filename is not valid"
