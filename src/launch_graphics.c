@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/16 12:21:07 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:33:16 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void		*ft_new_window(t_game *game, char *title);
 int			ft_test_win(t_game *game);
 
 int			ft_filext_isvalid(char *filename, char *ext);
+
+int			mlx_put_string();
 
 int	ft_launch_graphics(t_map *map)
 {
@@ -57,15 +59,27 @@ int	ft_put_images(t_game *game)
 			img_x = (x * game->size);
 			img_y = (y * game->size);
 			if (arr[x][y].c == '1')
+			{
+				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->wall, img_x, img_y);
+			}
 			else if (arr[x][y].c == '0')
 				ft_put_img(game, game->floor, img_x, img_y);
 			else if (arr[x][y].c == 'C')
+			{
+				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->collectible, img_x, img_y);
+			}
 			else if (arr[x][y].c == 'E')
+			{
+				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->exit, img_x, img_y);
+			}
 			else if (arr[x][y].c == 'P')
+			{
+				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->player, img_x, img_y);
+			}
 			y++;
 		}
 		x++;
