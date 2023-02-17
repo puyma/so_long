@@ -15,19 +15,3 @@
 ** 79: Inappropriate file type or format
 ** 105: Previous owner died
 */
-
-/*
-** Policy:
-** 
-** MUST contain at least 1 exit, 1 collectible and 1 starting position.
-** MUST be rectangular
-** MUST be close/surrounded by walls ; return error (79)
-** MUST have a valid path in the map! ft_check_map_path()
-** 
-** You must be able to parse any kind of map, as long as it respects the above rules. 
-** 
-** If the map contains duplicate characters (exit/start), you should display an error message (79)
-**
-** If any misconfiguration of any kind is encountered in the file, the program must exit in a clean 
-** way, and return "Error\n" followed by an explicit error message of your choice. 
-*/
