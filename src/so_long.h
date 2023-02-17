@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 12:41:37 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:50:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define KEY_UP			126
 
 # define KEY_ESC		53
-# define KEY_PAUSE		14
+# define KEY_PAUSE		35
 
 typedef struct s_imgdata
 {
