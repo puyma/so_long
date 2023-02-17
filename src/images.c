@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 16:52:35 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:23:35 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	ft_put_images(t_game *game)
 			img_x = (x * game->size);
 			img_y = (y * game->size);
 			if (arr[x][y].c == '1')
-				ft_put_img(game, game->wall, img_x, img_y);
+				ft_put_img(game, game->i_wall, img_x, img_y);
 			else if (arr[x][y].c == '0')
-				ft_put_img(game, game->floor, img_x, img_y);
+				ft_put_img(game, game->i_floor, img_x, img_y);
 			else if (arr[x][y].c == 'C')
-				ft_put_img(game, game->collectible, img_x, img_y);
+				ft_put_img(game, game->i_collectible, img_x, img_y);
 			else if (arr[x][y].c == 'E')
-				ft_put_img(game, game->exit, img_x, img_y);
+				ft_put_img(game, game->i_exit, img_x, img_y);
 			else if (arr[x][y].c == 'P')
-				ft_put_img(game, game->player, img_x, img_y);
+				ft_put_img(game, game->i_player, img_x, img_y);
 			y++;
 		}
 		x++;
@@ -55,11 +55,13 @@ int	ft_put_img(t_game *game, t_imgdata *img, int x, int y)
 
 int	ft_memload_images(t_game *game)
 {
-	game->floor = ft_memload_img(game, FLOOR);
-	game->wall = ft_memload_img(game, WALL);
-	game->collectible = ft_memload_img(game, COLLECTIBLE);
-	game->exit = ft_memload_img(game, EXIT);
-	game->player = ft_memload_img(game, PLAYER);
+	game->i_floor = ft_memload_img(game, FLOOR);
+	game->i_wall = ft_memload_img(game, WALL);
+	game->i_collectible = ft_memload_img(game, COLLECTIBLE);
+	game->i_exit = ft_memload_img(game, EXIT);
+	game->i_player = ft_memload_img(game, PLAYER);
+	game->i_blur = ft_memload_img(game, BLUR);
+	game->i_pause = ft_memload_img(game, PAUSE);
 	return (1);
 }
 
@@ -81,4 +83,26 @@ t_imgdata	*ft_memload_img(t_game *game, char *filename)
 	img->address = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 			&img->line_length, &img->endian);
 	return (img);
+}
+
+int	ft_fill_window(t_game *game, t_imgdata *img)
+{
+	int			x;
+	int			y;
+	t_map_item	**arr;
+
+	x = 0;
+	y = 0;
+	arr = game->map->arr;
+	while (arr[x] != NULL)
+	{
+		y = 0;
+		while (arr[x][y].c != '\0')
+		{
+			ft_put_img(game, img, x * game->size, y * game->size);
+			y++;
+		}
+		x++;
+	}
+	return (0);
 }

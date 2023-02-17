@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 16:43:36 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:03:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	ft_init_game(t_game *game)
 	game->size = PIX_SIZE;
 	game->width = game->map->lnlen * game->size;
 	game->height = game->map->lstsize * game->size;
+	game->state = Running;
 	game->n_moves = 0;
 	game->mlx = mlx_init();
 	game->mlx_window = ft_new_window(game, "so_long");

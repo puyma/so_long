@@ -6,17 +6,16 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 14:57:00 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:57:48 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_ismovekey(int keycode);
-int	ft_isutilkey(int keycode);
-
 int	ft_move(t_game *game);
-int	ft_pause(t_game *game);
+int	ft_toggle_pause(t_game *game);
+int	ft_ismovable(t_game *game, t_character *character);
+void	ft_log_state(t_game *game);
 
 int	ft_set_events(t_game *game)
 {
@@ -38,7 +37,7 @@ int	ft_keycode(int keycode, t_game *game)
 	if (ft_ismovekey(keycode) >= 0)
 		ft_move(game);
 	else if (keycode == KEY_PAUSE)
-		ft_pause(game);
+		ft_toggle_pause(game);
 	else if (keycode == KEY_ESC)
 	{
 		mlx_clear_window(game->mlx, game->mlx_window);
@@ -50,44 +49,54 @@ int	ft_keycode(int keycode, t_game *game)
 
 int	ft_move(t_game *game)
 {
-	(void) game;
-	ft_printf("> Move\n");
+	if (game->state == Running && ft_ismovable(game, game->player) != 0)
+	{
+		ft_printf("> Move\n");
+	}
 	return (0);
 }
 
-int	ft_ismovekey(int keycode)
+int	ft_ismovable(t_game *game, t_character *character)
 {
-	if (keycode == KEY_UP || keycode == KEY_DOWN)
-		return (keycode);
-	else if (keycode == KEY_W || keycode == KEY_S)
-		return (keycode);
-	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
-		return (keycode);
-	else if (keycode == KEY_A || keycode == KEY_D)
-		return (keycode);
-	return (-1);
-}
-
-int	ft_isutilkey(int keycode)
-{
-	if (keycode == KEY_ESC || keycode == KEY_PAUSE)
-		return (keycode);
+	(void) game;
+	(void) character;
+	return (1);
 	return (0);
 }
 
-int	ft_pause(t_game *game)
+int	ft_toggle_pause(t_game *game)
 {
-	(void) game;
+	if (game->state != Paused)
+	{
+		ft_fill_window(game, game->i_blur);
+		ft_put_img(game, game->i_pause, 0, game->width - game->size);
+		game->state = Paused;
+	}
+	else
+	{
+		ft_put_images(game);
+		game->state = Running;
+	}
 	ft_printf("> Pause\n");
+	ft_log_state(game);
 	return (0);
 }
 
 int	ft_destroy(t_game *game)
 {
+	game->state = Stopping;
+	ft_log_state(game);
 	ft_printf("> Exit\n");
 	mlx_destroy_window(game->mlx, game->mlx_window);
+	game->state = Stopped;
+	ft_log_state(game);
 	exit(0);
 	return (0);
+}
+
+void	ft_log_state(t_game *game)
+{
+	ft_printf("> state [%d]\n", game->state);
 }
 
 //mlx_loop_hook(game->mlx, &ft_nothing, game);

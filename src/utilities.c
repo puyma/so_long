@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:28:52 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/14 17:11:58 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:14:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,17 @@ void	ft_exit_str(char *error_str, int error_num)
 	ft_putstr_fd("]", 1);
 	ft_putchar_fd('\n', 1);
 	exit(error_num);
+}
+
+int	ft_ismovekey(int keycode)
+{
+	if (keycode == KEY_UP || keycode == KEY_W)
+		return (keycode);
+	else if (keycode == KEY_DOWN || keycode == KEY_S)
+		return (keycode);
+	else if (keycode == KEY_RIGHT || keycode == KEY_D)
+		return (keycode);
+	else if (keycode == KEY_LEFT || keycode == KEY_A)
+		return (keycode);
+	return (-1);
 }

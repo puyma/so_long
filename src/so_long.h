@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 16:52:19 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:57:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # define COLLECTIBLE	"./src/assets/collectible.png"
 # define EXIT			"./src/assets/exit.png"
 # define PLAYER			"./src/assets/player.png"
+# define BLUR			"./src/assets/blur.png"
+# define PAUSE			"./src/assets/pause.png"
 
 # define MAP_EXT		".ber"
 
@@ -108,11 +110,24 @@ typedef struct s_map
 	char				c_player;
 }						t_map;
 
+enum e_game {
+	Stopped = 0,
+	Running,
+	Paused,
+	Stopping
+} state;
+
+typedef struct s_character
+{
+	int					x;
+	int					y;
+}						t_character;
+
 typedef struct s_game
 {
 	void				*mlx;
 	void				*mlx_window;
-	void				*img;
+	//void				*img;
 	int					height;
 	int					width;
 	t_map				*map;
@@ -120,12 +135,16 @@ typedef struct s_game
 	int					mlx_window_height;
 	int					size;
 	t_list				**buttons;
-	t_imgdata			*floor;
-	t_imgdata			*wall;
-	t_imgdata			*collectible;
-	t_imgdata			*exit;
-	t_imgdata			*player;
+	t_imgdata			*i_floor;
+	t_imgdata			*i_wall;
+	t_imgdata			*i_collectible;
+	t_imgdata			*i_exit;
+	t_imgdata			*i_player;
+	t_imgdata			*i_blur;
+	t_imgdata			*i_pause;
 	unsigned int		n_moves;
+	enum e_game			state;
+	t_character			*player;
 	int					k_up;
 	int					k_down;
 	int					k_left;
@@ -161,5 +180,9 @@ int			ft_memload_images(t_game *game);
 t_imgdata	*ft_memload_img(t_game *game, char *filename);
 int			ft_put_images(t_game *game);
 int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
+
+int			ft_fill_window(t_game *game, t_imgdata *img);
+
+int			ft_ismovekey(int keycode);
 
 #endif /* so_long.h */
