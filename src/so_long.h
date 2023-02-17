@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 14:50:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:52:19 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,13 @@
 # define ERR_05			""
 # define ERR_06			""
 # define ERR_07			""
-# define ERR_08			""
-# define ERR_09			""
-# define ERR_0A			""
-# define ERR_0B			""
-# define ERR_0C			""
-# define ERR_0D			""
-# define ERR_0E			""
-# define ERR_0F			""
+# define ERR_FD			"Could not open fd"
+# define ERR_FD_RD		"Could not read from file descriptor"
+# define ERR_N_LINES	"All lines should contain the same number of chars"
 # define ERR_RECT		"Map is not rectangular"
 # define ERR_CHAR		"Found some shit inside your fmap"
+# define ERR_PATH		"Path is invalid"
+# define ERR_IMG_LOAD	"Could not load image"
 
 # define KEY_A			0
 # define KEY_S			1

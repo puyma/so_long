@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/16 12:19:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:52:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int			ft_filext_isvalid(char *filename, char *ext);
 static int	ft_load_map(t_map *map);
 static int	ft_check_length(t_map *map);
 static int	ft_isrectangle(t_map *map);
-
-int	ft_check_characters(t_map *map);
-int	ft_check_surroundings(t_map *map);
-
+int			ft_check_characters(t_map *map);
+int			ft_check_surroundings(t_map *map);
 static t_map_item	**ft_map2array(t_map *map);
 
 int	ft_map_isvalid(t_map *map)
@@ -29,9 +27,9 @@ int	ft_map_isvalid(t_map *map)
 		ft_exit_str(ERR_01, 3);
 	map->fd = open(map->filename, O_RDONLY);
 	if (map->fd == -1)
-		ft_exit_str("Could not open fd", 4);
+		ft_exit_str(ERR_FD, 4);
 	if (read(map->fd, NULL, 0) != 0)
-		ft_exit_str("Couldn\'t read from file descriptor", 0);
+		ft_exit_str(ERR_FD_RD, 0);
 	ft_load_map(map);
 	if (ft_check_length(map) == 0 || ft_isrectangle(map) == 0)
 		return (0);
@@ -91,7 +89,7 @@ static int	ft_check_length(t_map *map)
 	{
 		if (len != ft_strlen(t->content))
 		{
-			map->exit_str = "Lines should contain the same number of chars";
+			map->exit_str = ERR_N_LINES;
 			return (0);
 		}
 		len = ft_strlen(t->content);
@@ -217,7 +215,7 @@ int	ft_path_isvalid(t_map *map)
 	t_map_item	**arr;
 
 	map->arr = ft_map2array(map);
-	map->exit_str = "Path is invalid";
+	map->exit_str = ERR_PATH;
 	x = 0;
 	y = 0;
 	arr = map->arr;
