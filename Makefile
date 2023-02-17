@@ -39,10 +39,8 @@ endif
 
 SRC_FILES	:=	src/events.c \
 				src/launch.c \
-				src/launch_graphics.c \
+				src/images.c \
 				src/map.c \
-				src/map_content.c \
-				src/map_path.c \
 				src/utils.c \
 				src/main.c src/button.c
 

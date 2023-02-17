@@ -1,44 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_graphics.c                                  :+:      :+:    :+:   */
+/*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/16 15:33:16 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:41:08 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int			ft_memload_images(t_game *game);
-t_imgdata	*ft_memload_img(t_game *game, char *filename);
-int			ft_put_images(t_game *game);
-int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
-void		*ft_new_window(t_game *game, char *title);
-int			ft_test_win(t_game *game);
-
-int			ft_filext_isvalid(char *filename, char *ext);
-
-int			mlx_put_string();
-
-int	ft_launch_graphics(t_map *map)
-{
-	t_game		game;
-
-	game.size = PIX_SIZE;
-	game.width = map->lnlen * game.size;
-	game.height = map->lstsize * game.size;
-	game.map = map;
-	game.mlx = mlx_init();
-	game.mlx_window = ft_new_window(&game, "so_long");
-	if (ft_memload_images(&game) != 0)
-		ft_put_images(&game);
-	ft_set_events(&game);
-	mlx_loop(game.mlx);
-	return (0);
-}
 
 int	ft_put_images(t_game *game)
 {
@@ -59,27 +31,15 @@ int	ft_put_images(t_game *game)
 			img_x = (x * game->size);
 			img_y = (y * game->size);
 			if (arr[x][y].c == '1')
-			{
-				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->wall, img_x, img_y);
-			}
 			else if (arr[x][y].c == '0')
 				ft_put_img(game, game->floor, img_x, img_y);
 			else if (arr[x][y].c == 'C')
-			{
-				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->collectible, img_x, img_y);
-			}
 			else if (arr[x][y].c == 'E')
-			{
-				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->exit, img_x, img_y);
-			}
 			else if (arr[x][y].c == 'P')
-			{
-				ft_put_img(game, game->floor, img_x, img_y);
 				ft_put_img(game, game->player, img_x, img_y);
-			}
 			y++;
 		}
 		x++;
@@ -91,15 +51,6 @@ int	ft_put_img(t_game *game, t_imgdata *img, int x, int y)
 {
 	mlx_put_image_to_window(game->mlx, game->mlx_window, img->img, y, x);
 	return (0);
-}
-
-void	*ft_new_window(t_game *game, char *title)
-{
-	void	*window;
-
-	window = NULL;
-	window = mlx_new_window(game->mlx, game->width, game->height, title);
-	return (window);
 }
 
 int	ft_memload_images(t_game *game)

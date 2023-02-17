@@ -17,6 +17,11 @@ static int	ft_load_map(t_map *map);
 static int	ft_check_length(t_map *map);
 static int	ft_isrectangle(t_map *map);
 
+int	ft_check_characters(t_map *map);
+int	ft_check_surroundings(t_map *map);
+
+static t_map_item	**ft_map2array(t_map *map);
+
 int	ft_map_isvalid(t_map *map)
 {
 	ft_printf("> %s\n", map->filename);
@@ -107,4 +112,115 @@ static int	ft_isrectangle(t_map *map)
 		return (0);
 	}
 	return ((int) len);
+}
+
+int	ft_check_characters(t_map *map)
+{
+	t_list	*t;
+	char	*temp;
+	size_t	i;
+
+	t = map->lst;
+	temp = NULL;
+	while (t != NULL)
+	{
+		i = map->lnlen;
+		temp = t->content;
+		while (i-- > 0)
+		{
+			if (ft_strchr(C_ALLOWED, *temp) == 0)
+			{
+				map->exit_str = "Invalid character found in map.";
+				return (0);
+			}
+			temp++;
+		}
+		t = t->next;
+	}
+	return (1);
+}
+
+int	ft_check_surroundings(t_map *map)
+{
+	t_list			*t;
+	char			*temp;
+	unsigned int	line;
+	unsigned int	i;
+
+	t = map->lst;
+	temp = NULL;
+	line = 0;
+	while (t != NULL)
+	{
+		temp = t->content;
+		if (line == 0 || line == map->lstsize)
+		{
+			i = 0;
+			while (i < map->lnlen)
+			{
+				if (temp[i] != map->c_wall)
+				{
+					map->exit_str = "Map is not surrounded by walls";
+					return (0);
+				}
+				i++;
+			}
+		}
+		else if (temp[0] != map->c_wall || temp[map->lnlen - 1] != map->c_wall)
+		{
+			map->exit_str = "Map is not surrounded by walls";
+			return (0);
+		}
+		line++;
+		t = t->next;
+	}
+	return (1);
+}
+
+static t_map_item	**ft_map2array(t_map *map)
+{
+	t_list			*t;
+	unsigned int	i;
+	unsigned int	line;
+	t_map_item		**arr;
+	char			*temp;
+
+	t = map->lst;
+	i = 0;
+	line = 0;
+	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
+	if (arr == NULL)
+		return (NULL);
+	while (i < map->lstsize)
+		arr[i++] = (t_map_item *) ft_calloc((map->lnlen + 1), sizeof(t_map_item));
+	i = 0;
+	line = 0;
+	while (t != NULL && line < map->lstsize)
+	{
+		temp = t->content;
+		i = 0;
+		while (i < map->lnlen)
+		{
+			arr[line][i].c = temp[i];
+			i++;
+		}
+		line++;
+		t = t->next;
+	}
+	return (arr);
+}
+
+int	ft_path_isvalid(t_map *map)
+{
+	int		x;
+	int		y;
+	t_map_item	**arr;
+
+	map->arr = ft_map2array(map);
+	map->exit_str = "Path is invalid";
+	x = 0;
+	y = 0;
+	arr = map->arr;
+	return (1);
+	return (0);
 }

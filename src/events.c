@@ -6,50 +6,20 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/16 11:37:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:47:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_put_img(t_game *game, t_imgdata *img, int x, int y);
+int	ft_ismovekey(int keycode);
+int	ft_isutilkey(int keycode);
 
-int	ft_destroy(t_game *game)
+int	ft_set_events(t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->mlx_window);
-	write(1, "> Exiting...\n", 13);
-	exit(0);
-	return (0);
-}
-
-int	ft_keycode(int keycode, t_game *game)
-{
-	write(1, "> key: ", 7);
-	if (keycode == KEY_UP)
-		ft_putstr("↑\n");
-	else if (keycode == KEY_DOWN)
-		ft_putstr("↓\n");
-	else if (keycode == KEY_LEFT)
-	{
-		ft_putstr("←\n");
-		ft_put_img(game, game->player, 4 * PIX_SIZE, 12 * PIX_SIZE);
-		ft_put_img(game, game->player, 2 * PIX_SIZE, 11 * PIX_SIZE);
-	}
-	else if (keycode ==KEY_RIGHT)
-	{
-		ft_putstr("→\n");
-		ft_put_img(game, game->player, 0, 0);
-	}
-	else
-	{
-		ft_putnbr(keycode);
-		write(1, "\n", 1);
-	}
-	if (keycode == KEY_ESC)
-	{
-		mlx_clear_window(game->mlx, game->mlx_window);
-		ft_destroy(game);
-	}
+	mlx_key_hook(game->mlx_window, &ft_keycode, game);
+	mlx_mouse_hook(game->mlx_window, &ft_mousecode, game);
+	mlx_hook(game->mlx_window, 17, 0, &ft_destroy, game);
 	return (0);
 }
 
@@ -60,36 +30,44 @@ int	ft_mousecode(int button, int x, int y, t_game *game)
 	return (0);
 }
 
-int	ft_set_events(t_game *game)
+int	ft_keycode(int keycode, t_game *game)
 {
-	mlx_key_hook(game->mlx_window, &ft_keycode, game);
-	mlx_mouse_hook(game->mlx_window, &ft_mousecode, game);
-	mlx_hook(game->mlx_window, 17, 0, &ft_destroy, game);
+	if (ft_ismovekey(keycode) != 0)
+	{
+		ft_printf("> Move\n");
+	}
+	if (ft_isutilkey(keycode) != 0)
+	{
+		mlx_clear_window(game->mlx, game->mlx_window);
+		ft_destroy(game);
+	}
+	//ft_printf("i> keycode: %d\n", keycode);
+	return (0);
+}
+
+int	ft_ismovekey(int keycode)
+{
+	if (keycode == KEY_UP || keycode == KEY_DOWN)
+		return (keycode);
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
+		return (keycode);
+	return (0);
+}
+
+int	ft_isutilkey(int keycode)
+{
+	if (keycode == KEY_ESC || keycode == KEY_PAUSE)
+		return (keycode);
+	return (0);
+}
+
+int	ft_destroy(t_game *game)
+{
+	mlx_destroy_window(game->mlx, game->mlx_window);
+	write(1, "> Exiting...\n", 13);
+	exit(0);
 	return (0);
 }
 
 //mlx_loop_hook(game->mlx, &ft_nothing, game);
 //mlx_hook(game->mlx_window, 6, 0, &ft_do_motion_events, game);
-
-/*
-int	ft_do_motion_events(int x, int y, t_game *game)
-{
-	t_list		*button_node;
-	t_button	*button;
-
-	button_node = *(game->buttons);
-	while (button_node != NULL)
-	{
-		button = button_node->content;
-		//ft_printf("mousemove> X: %d, Y: %d\n", x, y);
-		if (button->x <= x && x <= button->x + button->width)
-		{
-			//if (button->y <= y && y <= button->y + button->height)
-			(void) y;
-			write(1, "Clickitty\n", 10);
-		}
-		button_node = button_node->next;
-	}
-	return (0);
-}
-*/
