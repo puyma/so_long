@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/17 18:04:27 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/17 18:29:25 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ CC			:=	gcc
 CFLAGS		:=	-Wall -Werror -Wextra
 CCFLAGS		:=	-MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm -lz -framework OpenGL -framework Appkit
+DEBUG		:=	-g
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
 
@@ -47,7 +48,7 @@ SRC_FILES	:=	src/events.c \
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
 
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all debug
 
 $(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
 	$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
@@ -71,5 +72,9 @@ fclean: clean
 
 re: fclean
 	$(MAKE)
+
+debug: $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
+	$(CC) $(DEBUG) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
+	@echo "Built $(STYLE)$(NAME)$(NOSTYLE) (debug)"
 
 all: $(NAME)
