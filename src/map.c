@@ -6,18 +6,18 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 16:52:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:47:31 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int			ft_filext_isvalid(char *filename, char *ext);
-static int	ft_load_map(t_map *map);
-static int	ft_check_length(t_map *map);
-static int	ft_isrectangle(t_map *map);
-int			ft_check_characters(t_map *map);
-int			ft_check_surroundings(t_map *map);
+int					ft_filext_isvalid(char *filename, char *ext);
+static int			ft_load_map(t_map *map);
+static int			ft_check_length(t_map *map);
+static int			ft_isrectangle(t_map *map);
+int					ft_check_characters(t_map *map);
+int					ft_check_surroundings(t_map *map);
 static t_map_item	**ft_map2array(t_map *map);
 
 int	ft_map_isvalid(t_map *map)
@@ -63,6 +63,44 @@ static int	ft_load_map(t_map *map)
 	map->lstsize = (unsigned) ft_lstsize(map->lst);
 	return (0);
 }
+
+static t_map_item	**ft_map2array(t_map *map)
+{
+	t_list			*t;
+	unsigned int	i;
+	unsigned int	line;
+	t_map_item		**arr;
+	char			*temp;
+
+	t = map->lst;
+	i = 0;
+	line = 0;
+	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
+	if (arr == NULL)
+		return (NULL);
+	while (i < map->lstsize)
+	{
+		arr[i] = (t_map_item *) ft_calloc((map->lnlen + 1), sizeof(t_map_item));
+		i++;
+	}
+	i = 0;
+	line = 0;
+	while (t != NULL && line < map->lstsize)
+	{
+		temp = t->content;
+		i = 0;
+		while (i < map->lnlen)
+		{
+			arr[line][i].c = temp[i];
+			i++;
+		}
+		line++;
+		t = t->next;
+	}
+	return (arr);
+}
+
+/* ==================== */
 
 int	ft_filext_isvalid(char *filename, char *ext)
 {
@@ -128,7 +166,7 @@ int	ft_check_characters(t_map *map)
 		{
 			if (ft_strchr(C_ALLOWED, *temp) == 0)
 			{
-				map->exit_str = "Invalid character found in map.";
+				map->exit_str = ERR_CHAR_2;
 				return (0);
 			}
 			temp++;
@@ -175,43 +213,10 @@ int	ft_check_surroundings(t_map *map)
 	return (1);
 }
 
-static t_map_item	**ft_map2array(t_map *map)
-{
-	t_list			*t;
-	unsigned int	i;
-	unsigned int	line;
-	t_map_item		**arr;
-	char			*temp;
-
-	t = map->lst;
-	i = 0;
-	line = 0;
-	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
-	if (arr == NULL)
-		return (NULL);
-	while (i < map->lstsize)
-		arr[i++] = (t_map_item *) ft_calloc((map->lnlen + 1), sizeof(t_map_item));
-	i = 0;
-	line = 0;
-	while (t != NULL && line < map->lstsize)
-	{
-		temp = t->content;
-		i = 0;
-		while (i < map->lnlen)
-		{
-			arr[line][i].c = temp[i];
-			i++;
-		}
-		line++;
-		t = t->next;
-	}
-	return (arr);
-}
-
 int	ft_path_isvalid(t_map *map)
 {
-	int		x;
-	int		y;
+	int			x;
+	int			y;
 	t_map_item	**arr;
 
 	map->arr = ft_map2array(map);
