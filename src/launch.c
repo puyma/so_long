@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 10:40:23 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:30:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	ft_launch_graphics(t_map *map)
 		ft_put_images(&game);
 	ft_set_events(&game);
 	mlx_loop(game.mlx);
+	free(game.map);
 	return (0);
 }
 
