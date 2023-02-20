@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 10:26:14 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:16:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int	ft_put_default_img(t_game *game, int x, int y)
 	else if (arr[x][y].c == 'E')
 		ft_put_img(game, game->i_exit, x, y);
 	else if (arr[x][y].c == 'P')
+	{
 		ft_put_img(game, game->i_player, x, y);
+		game->player.x = x;
+		game->player.y = y;
+	}
 	return (0);
 }
 
