@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 18:23:35 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:17:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,42 @@
 
 int	ft_put_images(t_game *game)
 {
-	t_map		*map;
+	int			x;
+	int			y;
 	t_map_item	**arr;
 
-	int	img_x = 0;
-	int	img_y = 0;
-	int	x = 0;
-	int	y = 0;
-	map = game->map;
-	arr = map->arr;
+	x = 0;
+	y = 0;
+	arr = game->map->arr;
 	while (arr[x] != NULL)
 	{
 		y = 0;
 		while (arr[x][y].c != '\0')
-		{
-			img_x = (x * game->size);
-			img_y = (y * game->size);
-			if (arr[x][y].c == '1')
-				ft_put_img(game, game->i_wall, img_x, img_y);
-			else if (arr[x][y].c == '0')
-				ft_put_img(game, game->i_floor, img_x, img_y);
-			else if (arr[x][y].c == 'C')
-				ft_put_img(game, game->i_collectible, img_x, img_y);
-			else if (arr[x][y].c == 'E')
-				ft_put_img(game, game->i_exit, img_x, img_y);
-			else if (arr[x][y].c == 'P')
-				ft_put_img(game, game->i_player, img_x, img_y);
-			y++;
-		}
+			ft_put_default_img(game, x, y++);
 		x++;
 	}
+	return (0);
+}
+
+int	ft_put_default_img(t_game *game, int x, int y)
+{
+	int			img_x;
+	int			img_y;
+	t_map_item	**arr;
+
+	img_x = x * game->size;
+	img_y = y * game->size;
+	arr = game->map->arr;
+	if (arr[x][y].c == '1')
+		ft_put_img(game, game->i_wall, img_x, img_y);
+	else if (arr[x][y].c == '0')
+		ft_put_img(game, game->i_floor, img_x, img_y);
+	else if (arr[x][y].c == 'C')
+		ft_put_img(game, game->i_collectible, img_x, img_y);
+	else if (arr[x][y].c == 'E')
+		ft_put_img(game, game->i_exit, img_x, img_y);
+	else if (arr[x][y].c == 'P')
+		ft_put_img(game, game->i_player, img_x, img_y);
 	return (0);
 }
 
