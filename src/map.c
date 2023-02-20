@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 09:47:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:52:04 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int	ft_check_surroundings(t_map *map)
 			{
 				if (temp[i] != map->c_wall)
 				{
-					map->exit_str = "Map is not surrounded by walls";
+					map->exit_str = ERR_SURR;
 					return (0);
 				}
 				i++;
@@ -204,7 +204,7 @@ int	ft_check_surroundings(t_map *map)
 		}
 		else if (temp[0] != map->c_wall || temp[map->lnlen - 1] != map->c_wall)
 		{
-			map->exit_str = "Map is not surrounded by walls";
+			map->exit_str = ERR_SURR;
 			return (0);
 		}
 		line++;
