@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 18:03:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:40:23 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	ft_init_game(t_game *game)
 	game->n_moves = 0;
 	game->mlx = mlx_init();
 	game->mlx_window = ft_new_window(game, "so_long");
+	game->state = Running;
+	ft_log_state(game);
 }
 
 void	*ft_new_window(t_game *game, char *title)
