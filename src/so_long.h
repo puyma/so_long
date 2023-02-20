@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 10:46:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:25:59 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,13 @@ typedef struct s_map
 
 enum e_game { Stopped = 0, Running, Paused, Stopping }	state;
 
-enum e_character {Left = 0, Right, Up, Down }	direction;
+enum e_character { None = 0, Left, Right, Up, Down }	direction;
+
+typedef struct s_vector
+{
+	int					x;
+	int					y;
+}						t_vector;
 
 typedef struct s_character
 {
@@ -121,11 +127,11 @@ typedef struct s_game
 {
 	void				*mlx;
 	void				*mlx_window;
+	int					mlx_window_width;
+	int					mlx_window_height;
 	int					height;
 	int					width;
 	t_map				*map;
-	int					mlx_window_width;
-	int					mlx_window_height;
 	int					size;
 	t_list				**buttons;
 	t_imgdata			*i_floor;
@@ -137,7 +143,7 @@ typedef struct s_game
 	t_imgdata			*i_pause;
 	unsigned int		n_moves;
 	enum e_game			state;
-	t_character			*player;
+	t_character			player;
 	int					k_up;
 	int					k_down;
 	int					k_left;
@@ -175,6 +181,7 @@ int			ft_put_images(t_game *game);
 int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
 int			ft_put_default_img(t_game *game, int x, int y);
 int			ft_fill_window(t_game *game, t_imgdata *img);
+
 int			ft_ismovekey(int keycode);
 
 void		ft_log_state(t_game *game);
