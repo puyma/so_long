@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 10:16:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:46:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define ERR_FD_RD		"Could not read from file descriptor"
 # define ERR_N_LINES	"All lines should contain the same number of chars"
 # define ERR_RECT		"Map is not rectangular"
+# define ERR_SURR		"Map is not surrounded by walls"
 # define ERR_CHAR		"Found some shit inside your fmap"
 # define ERR_CHAR_2		"Invalid character found in map"
 # define ERR_PATH		"Path is invalid"
@@ -175,5 +176,7 @@ int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
 int			ft_put_default_img(t_game *game, int x, int y);
 int			ft_fill_window(t_game *game, t_imgdata *img);
 int			ft_ismovekey(int keycode);
+
+void		ft_log_state(t_game *game);
 
 #endif /* so_long.h */
