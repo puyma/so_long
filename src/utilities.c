@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:28:52 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 18:14:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:45:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ void	ft_exit_str(char *error_str, int error_num)
 
 int	ft_ismovekey(int keycode)
 {
+	enum e_character	direction;
+
+	direction = None;
 	if (keycode == KEY_UP || keycode == KEY_W)
-		return (keycode);
+		direction = Up;
 	else if (keycode == KEY_DOWN || keycode == KEY_S)
-		return (keycode);
+		direction = Down;
 	else if (keycode == KEY_RIGHT || keycode == KEY_D)
-		return (keycode);
+		direction = Right;
 	else if (keycode == KEY_LEFT || keycode == KEY_A)
-		return (keycode);
-	return (-1);
+		direction = Left;
+	return (direction);
 }
