@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 11:16:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:39:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ int	ft_put_img(t_game *game, t_imgdata *img, int x, int y)
 {
 	x *= game->size;
 	y *= game->size;
+	mlx_put_image_to_window(game->mlx, game->mlx_window, img->img, y, x);
+	return (0);
+}
+
+int	ft_smoother_put_img(t_game *game, t_imgdata *img, int x, int y)
+{
 	mlx_put_image_to_window(game->mlx, game->mlx_window, img->img, y, x);
 	return (0);
 }

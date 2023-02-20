@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 12:25:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:58:39 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int			ft_memload_images(t_game *game);
 t_imgdata	*ft_memload_img(t_game *game, char *filename);
 int			ft_put_images(t_game *game);
 int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
+int			ft_smoother_put_img(t_game *game, t_imgdata *img, int x, int y);
 int			ft_put_default_img(t_game *game, int x, int y);
 int			ft_fill_window(t_game *game, t_imgdata *img);
 

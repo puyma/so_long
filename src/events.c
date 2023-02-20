@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 12:49:23 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:02:14 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_set_events(t_game *game)
 
 int	ft_mousecode(int button, int x, int y, t_game *game)
 {
-	ft_printf("button: %d, x: %d, y: %d\n", button, x, y);
+	ft_printf("> button: %d, x: %d, y: %d\n", button, x, y);
 	(void) game;
 	return (0);
 }
@@ -45,12 +45,19 @@ int	ft_keycode(int keycode, t_game *game)
 int	ft_move(t_game *game, t_character *player, int keycode)
 {
 	t_vector	direction;
+	t_map_item	**arr;
 
 	if (game->state != Running)
 		return (0);
 	if (ft_ismovable(game, &game->player, &direction, keycode) != 0)
-	ft_put_default_img(game, game->player.x, game->player.y);
-	ft_put_img(game, game->i_player, player->x + direction.x, player->y + direction.y);
+	{
+		arr = game->map->arr;
+		arr[player->x][player->y].c = '0';
+		arr[player->x + direction.x][player->y + direction.y].c = 'P';
+	}
+	ft_put_default_img(game, player->x, player->y);
+	ft_put_default_img(game, player->x + direction.x, player->y + direction.y);
+
 	ft_printf("> Move\n");
 	return (0);
 }
@@ -59,14 +66,10 @@ int	ft_ismovable(t_game *game, t_character *character, t_vector *direction, int 
 {
 	int	move;
 
-	(void) game;
-	(void) character;
 	move = ft_ismovekey(keycode);
-	direction->x = 0;
-	direction->y = 0;
 	if (move == None)
 		return (0);
-	else if (move == Left)
+	if (move == Left)
 	{
 		direction->x = 0;
 		direction->y = -1;
@@ -86,6 +89,12 @@ int	ft_ismovable(t_game *game, t_character *character, t_vector *direction, int 
 		direction->x = 1;
 		direction->y = 0;
 	}
+	if (game->map->arr[character->x + direction->x][character->y + direction->y].c == '1')
+		return (0);
+	else if (game->map->arr[character->x + direction->x][character->y + direction->y].c == 'C')
+		ft_printf(">>f you\n");
+	else if (game->map->arr[character->x + direction->x][character->y + direction->y].c == 'E')
+		ft_printf(">>the end\n");
 	return (1);
 }
 
