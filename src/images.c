@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 10:17:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:26:14 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,26 @@ int	ft_put_images(t_game *game)
 
 int	ft_put_default_img(t_game *game, int x, int y)
 {
-	int			img_x;
-	int			img_y;
 	t_map_item	**arr;
 
-	img_x = x * game->size;
-	img_y = y * game->size;
 	arr = game->map->arr;
 	if (arr[x][y].c == '1')
-		ft_put_img(game, game->i_wall, img_x, img_y);
+		ft_put_img(game, game->i_wall, x, y);
 	else if (arr[x][y].c == '0')
-		ft_put_img(game, game->i_floor, img_x, img_y);
+		ft_put_img(game, game->i_floor, x, y);
 	else if (arr[x][y].c == 'C')
-		ft_put_img(game, game->i_collectible, img_x, img_y);
+		ft_put_img(game, game->i_collectible, x, y);
 	else if (arr[x][y].c == 'E')
-		ft_put_img(game, game->i_exit, img_x, img_y);
+		ft_put_img(game, game->i_exit, x, y);
 	else if (arr[x][y].c == 'P')
-		ft_put_img(game, game->i_player, img_x, img_y);
+		ft_put_img(game, game->i_player, x, y);
 	return (0);
 }
 
 int	ft_put_img(t_game *game, t_imgdata *img, int x, int y)
 {
+	x *= game->size;
+	y *= game->size;
 	mlx_put_image_to_window(game->mlx, game->mlx_window, img->img, y, x);
 	return (0);
 }
@@ -105,7 +103,7 @@ int	ft_fill_window(t_game *game, t_imgdata *img)
 		y = 0;
 		while (arr[x][y].c != '\0')
 		{
-			ft_put_img(game, img, x * game->size, y * game->size);
+			ft_put_img(game, img, x, y);
 			y++;
 		}
 		x++;
