@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 10:52:04 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:29:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static t_map_item	**ft_map2array(t_map *map)
 		line++;
 		t = t->next;
 	}
+	ft_lstclear(&map->lst, free);
 	return (arr);
 }
 
