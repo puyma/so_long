@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/17 18:57:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:16:47 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,12 @@
 # define ERR_00			"Something went wrong..."
 # define ERR_01			"Filename is not valid"
 # define ERR_02			""
-# define ERR_03			""
-# define ERR_04			""
-# define ERR_05			""
-# define ERR_06			""
-# define ERR_07			""
 # define ERR_FD			"Could not open fd"
 # define ERR_FD_RD		"Could not read from file descriptor"
 # define ERR_N_LINES	"All lines should contain the same number of chars"
 # define ERR_RECT		"Map is not rectangular"
 # define ERR_CHAR		"Found some shit inside your fmap"
+# define ERR_CHAR_2		"Invalid character found in map"
 # define ERR_PATH		"Path is invalid"
 # define ERR_IMG_LOAD	"Could not load image"
 
@@ -110,12 +106,9 @@ typedef struct s_map
 	char				c_player;
 }						t_map;
 
-enum e_game {
-	Stopped = 0,
-	Running,
-	Paused,
-	Stopping
-} state;
+enum e_game { Stopped = 0, Running, Paused, Stopping }	state;
+
+enum e_character {Left = 0, Right, Up, Down }	direction;
 
 typedef struct s_character
 {
@@ -127,7 +120,6 @@ typedef struct s_game
 {
 	void				*mlx;
 	void				*mlx_window;
-	//void				*img;
 	int					height;
 	int					width;
 	t_map				*map;
@@ -180,9 +172,8 @@ int			ft_memload_images(t_game *game);
 t_imgdata	*ft_memload_img(t_game *game, char *filename);
 int			ft_put_images(t_game *game);
 int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
-
+int			ft_put_default_img(t_game *game, int x, int y);
 int			ft_fill_window(t_game *game, t_imgdata *img);
-
 int			ft_ismovekey(int keycode);
 
 #endif /* so_long.h */
