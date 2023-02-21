@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/21 12:56:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:14:16 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,11 @@ int			ft_fill_window(t_game *game, t_imgdata *img);
 int			ft_ismovekey(int keycode);
 
 void		ft_log_state(t_game *game);
+
+int			ft_toggle_pause(t_game *game);
+int			ft_ismovable(t_game *game, t_character *character, t_vector *direction, int keycode);
+int			ft_the_end(t_game *game);
+int			ft_state_render(t_game *game);
+int			ft_move(t_game *game, t_character *player, int keycode);
 
 #endif /* so_long.h */
