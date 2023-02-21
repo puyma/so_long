@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 14:58:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/21 11:19:15 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,6 @@ typedef struct s_game
 	int					k_left;
 	int					k_right;
 }						t_game;
-
-void		ft_mlx_pixel_put(t_imgdata *data, int x, int y, int color);
 
 int			ft_launch(const char *input_file);
 int			ft_launch_graphics(t_map *map);
