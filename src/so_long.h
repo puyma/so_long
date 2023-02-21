@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/21 11:19:15 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/21 12:56:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include <stdlib.h> /* malloc, free, exit */
 # include <stdio.h> /* perror */
 # include <string.h> /* strerror */
-
-//# include "ft_button.h"
-//# include "keycodes.h"
 
 # include "libft.h"
 # include "mlx.h"
@@ -110,6 +107,16 @@ typedef struct s_map
 enum e_game { Stopped = 0, Running, Paused, Stopping }	state;
 
 enum e_character { None = 0, Left, Right, Up, Down }	direction;
+
+enum e_event {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+}	event;
 
 typedef struct s_vector
 {
