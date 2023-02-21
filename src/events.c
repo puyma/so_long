@@ -6,21 +6,39 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 19:02:14 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/21 12:02:28 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 int			ft_move(t_game *game, t_character *player, int keycode);
+int			ft_smoother_move(t_game *game, t_character *player, int keycode);
+int			ft_smooth_move_right(t_game *game, t_character *player, t_vector *direction);
+int			ft_smooth_move_left(t_game *game, t_character *player, t_vector *direction);
+int			ft_smooth_move_down(t_game *game, t_character *player, t_vector *direction);
+int			ft_smooth_move_up(t_game *game, t_character *player, t_vector *direction);
 int			ft_toggle_pause(t_game *game);
 int			ft_ismovable(t_game *game, t_character *character, t_vector *direction, int keycode);
+int			ft_the_end(t_game *game);
+int			ft_hey(t_game *game);
 
 int	ft_set_events(t_game *game)
 {
 	mlx_key_hook(game->mlx_window, &ft_keycode, game);
 	mlx_mouse_hook(game->mlx_window, &ft_mousecode, game);
 	mlx_hook(game->mlx_window, 17, 0, &ft_destroy, game);
+	ft_printf("> Now setting &render\n");
+	mlx_do_key_autorepeaton(game->mlx);
+	mlx_loop_hook(game->mlx, ft_hey, game);
+	return (0);
+}
+
+int	ft_hey(t_game *game)
+{
+	mlx_do_sync(game->mlx);
+	if (ft_the_end(game) != 0)
+		ft_destroy(game);
 	return (0);
 }
 
@@ -34,7 +52,7 @@ int	ft_mousecode(int button, int x, int y, t_game *game)
 int	ft_keycode(int keycode, t_game *game)
 {
 	if (ft_ismovekey(keycode) != 0)
-		ft_move(game, &game->player, keycode);
+		ft_smoother_move(game, &game->player, keycode);
 	else if (keycode == KEY_PAUSE)
 		ft_toggle_pause(game);
 	if (keycode == KEY_ESC)
@@ -45,26 +63,109 @@ int	ft_keycode(int keycode, t_game *game)
 int	ft_move(t_game *game, t_character *player, int keycode)
 {
 	t_vector	direction;
-	t_map_item	**arr;
 
 	if (game->state != Running)
 		return (0);
-	if (ft_ismovable(game, &game->player, &direction, keycode) != 0)
-	{
-		arr = game->map->arr;
-		arr[player->x][player->y].c = '0';
-		arr[player->x + direction.x][player->y + direction.y].c = 'P';
-	}
+	if (ft_ismovable(game, &game->player, &direction, keycode) == 0)
+		return (0);
+	game->map->arr[player->x][player->y].c = '0';
+	game->map->arr[player->x + direction.x][player->y + direction.y].c = 'P';
 	ft_put_default_img(game, player->x, player->y);
 	ft_put_default_img(game, player->x + direction.x, player->y + direction.y);
+	ft_printf("> Moves: %d\n", ++game->n_moves);
+	return (0);
+}
 
-	ft_printf("> Move\n");
+int	ft_smoother_move(t_game *game, t_character *player, int keycode)
+{
+	t_vector	direction;
+	int			movable;
+
+	if (game->state != Running)
+		return (0);
+	movable = ft_ismovable(game, &game->player, &direction, keycode);
+	if (movable == None)
+		return (0);
+	game->map->arr[player->x][player->y].c = '0';
+	game->map->arr[player->x + direction.x][player->y + direction.y].c = 'P';
+	if (movable == Right)
+		ft_smooth_move_right(game, player, &direction);
+	else if (movable == 1)
+		ft_smooth_move_left(game, player, &direction);
+	else if (movable == Down)
+		ft_smooth_move_down(game, player, &direction);
+	else if (movable == Up)
+		ft_smooth_move_up(game, player, &direction);
+	player->x += direction.x;
+	player->y += direction.y;
+	ft_put_default_img(game, player->x + direction.x, player->y + direction.y);
+	ft_printf("> Moves: %d\n", ++game->n_moves);
+	return (0);
+}
+
+int	ft_smooth_move_right(t_game *game, t_character *player, t_vector *direction)
+{
+	int	i;
+
+	i = 1;
+	while (i <= game->size)
+	{
+		ft_smoother_put_img(game, game->i_floor, player->x * game->size, player->y * game->size);
+		ft_smoother_put_img(game, game->i_player, (player->x + direction->x) * game->size, (player->y * game->size) + i);
+		mlx_do_sync(game->mlx);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_smooth_move_left(t_game *game, t_character *player, t_vector *direction)
+{
+	int	i;
+
+	i = 1;
+	while (i <= game->size)
+	{
+		ft_smoother_put_img(game, game->i_floor, player->x * game->size, player->y * game->size);
+		ft_smoother_put_img(game, game->i_player, (player->x + direction->x) * game->size, (player->y * game->size) - i);
+		mlx_do_sync(game->mlx);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_smooth_move_down(t_game *game, t_character *player, t_vector *direction)
+{
+	int	i;
+
+	i = 1;
+	while (i <= game->size)
+	{
+		ft_smoother_put_img(game, game->i_floor, player->x * game->size, player->y * game->size);
+		ft_smoother_put_img(game, game->i_player, (player->x * game->size) + i, (player->y + direction->y) * game->size);
+		mlx_do_sync(game->mlx);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_smooth_move_up(t_game *game, t_character *player, t_vector *direction)
+{
+	int	i;
+
+	i = 1;
+	while (i <= game->size)
+	{
+		ft_smoother_put_img(game, game->i_floor, player->x * game->size, player->y * game->size);
+		ft_smoother_put_img(game, game->i_player, (player->x * game->size) - i, (player->y + direction->y) * game->size);
+		mlx_do_sync(game->mlx);
+		i++;
+	}
 	return (0);
 }
 
 int	ft_ismovable(t_game *game, t_character *character, t_vector *direction, int keycode)
 {
-	int	move;
+	enum e_character	move;
 
 	move = ft_ismovekey(keycode);
 	if (move == None)
@@ -94,8 +195,8 @@ int	ft_ismovable(t_game *game, t_character *character, t_vector *direction, int 
 	else if (game->map->arr[character->x + direction->x][character->y + direction->y].c == 'C')
 		ft_printf(">>f you\n");
 	else if (game->map->arr[character->x + direction->x][character->y + direction->y].c == 'E')
-		ft_printf(">>the end\n");
-	return (1);
+		game->state = Stopping;
+	return (move);
 }
 
 int	ft_toggle_pause(t_game *game)
@@ -113,6 +214,13 @@ int	ft_toggle_pause(t_game *game)
 	}
 	ft_printf("> Pause\n");
 	ft_log_state(game);
+	return (0);
+}
+
+int	ft_the_end(t_game *game)
+{
+	if (game->state == Stopping)
+		return (1);
 	return (0);
 }
 
