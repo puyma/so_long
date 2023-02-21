@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/21 12:02:28 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:06:38 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int			ft_hey(t_game *game);
 
 int	ft_set_events(t_game *game)
 {
+	mlx_do_key_autorepeaton(game->mlx);
 	mlx_key_hook(game->mlx_window, &ft_keycode, game);
 	mlx_mouse_hook(game->mlx_window, &ft_mousecode, game);
 	mlx_hook(game->mlx_window, 17, 0, &ft_destroy, game);
-	ft_printf("> Now setting &render\n");
-	mlx_do_key_autorepeaton(game->mlx);
 	mlx_loop_hook(game->mlx, ft_hey, game);
 	return (0);
 }
