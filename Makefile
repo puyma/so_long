@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/17 18:29:25 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/21 17:03:15 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CC			:=	gcc
 CFLAGS		:=	-Wall -Werror -Wextra
 CCFLAGS		:=	-MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm -lz -framework OpenGL -framework Appkit
-DEBUG		:=	-g
+DEBUG		:=	-g -fsanitize='address,undefined' -Og
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
 
@@ -43,6 +43,8 @@ SRC_FILES	:=	src/events.c \
 				src/images.c \
 				src/map.c \
 				src/utilities.c \
+				src/log.c \
+				src/move.c \
 				src/main.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
@@ -51,7 +53,7 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 .PHONY: clean fclean re all debug
 
 $(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
-	$(CC) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
+	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -O3 $(SRC_FILES) -o $(NAME)
 	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
 	
 $(LIBFT) $(LIBMLX):
@@ -68,7 +70,7 @@ clean:
 	make clean -C $(SRC_DIR)/libmlx
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME)*
 
 re: fclean
 	$(MAKE)
