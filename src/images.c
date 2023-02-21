@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 18:39:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:58:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ int	ft_memload_images(t_game *game)
 	game->i_blur = ft_memload_img(game, BLUR);
 	game->i_pause = ft_memload_img(game, PAUSE);
 	return (1);
+}
+
+void	ft_unload_images(t_game * game)
+{
+	free(game->i_wall);
 }
 
 t_imgdata	*ft_memload_img(t_game *game, char *filename)
