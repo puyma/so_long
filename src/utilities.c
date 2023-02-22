@@ -62,3 +62,12 @@ int	ft_ismovekey(int keycode)
 		direction = Left;
 	return (direction);
 }
+
+void	*ft_new_window(t_game *game, char *title)
+{
+	void	*window;
+
+	window = NULL;
+	window = mlx_new_window(game->mlx, game->width, game->height, title);
+	return (window);
+}

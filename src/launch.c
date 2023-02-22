@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 18:45:31 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:40:26 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	ft_init_map(t_map *map);
 static void	ft_init_game(t_game *game);
-void		*ft_new_window(t_game *game, char *title);
 
 int	ft_launch(const char *input_file)
 {
@@ -66,13 +65,4 @@ static void	ft_init_game(t_game *game)
 	game->mlx_window = ft_new_window(game, "so_long");
 	game->state = Running;
 	ft_log_state(game);
-}
-
-void	*ft_new_window(t_game *game, char *title)
-{
-	void	*window;
-
-	window = NULL;
-	window = mlx_new_window(game->mlx, game->width, game->height, title);
-	return (window);
 }
