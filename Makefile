@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/21 17:03:15 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/02/22 09:33:36 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBMLX		:=	libmlx.a
 NAME		:=	so_long
 
 CC			:=	gcc
-CFLAGS		:=	-Wall -Werror -Wextra
+CFLAGS		:=	-Wall -Werror -Wextra -O3
 CCFLAGS		:=	-MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm -lz -framework OpenGL -framework Appkit
 DEBUG		:=	-g -fsanitize='address,undefined' -Og
