@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/20 11:29:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:12:33 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,45 +63,6 @@ static int	ft_load_map(t_map *map)
 	map->lstsize = (unsigned) ft_lstsize(map->lst);
 	return (0);
 }
-
-static t_map_item	**ft_map2array(t_map *map)
-{
-	t_list			*t;
-	unsigned int	i;
-	unsigned int	line;
-	t_map_item		**arr;
-	char			*temp;
-
-	t = map->lst;
-	i = 0;
-	line = 0;
-	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
-	if (arr == NULL)
-		return (NULL);
-	while (i < map->lstsize)
-	{
-		arr[i] = (t_map_item *) ft_calloc((map->lnlen + 1), sizeof(t_map_item));
-		i++;
-	}
-	i = 0;
-	line = 0;
-	while (t != NULL && line < map->lstsize)
-	{
-		temp = t->content;
-		i = 0;
-		while (i < map->lnlen)
-		{
-			arr[line][i].c = temp[i];
-			i++;
-		}
-		line++;
-		t = t->next;
-	}
-	ft_lstclear(&map->lst, free);
-	return (arr);
-}
-
-/* ==================== */
 
 int	ft_filext_isvalid(char *filename, char *ext)
 {
@@ -227,4 +188,39 @@ int	ft_path_isvalid(t_map *map)
 	arr = map->arr;
 	return (1);
 	return (0);
+}
+
+static t_map_item	**ft_map2array(t_map *map)
+{
+	t_list			*t;
+	unsigned int	i;
+	unsigned int	line;
+	t_map_item		**arr;
+	char			*temp;
+
+	t = map->lst;
+	i = 0;
+	line = 0;
+	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
+	while (arr && i < map->lstsize)
+	{
+		arr[i] = (t_map_item *) ft_calloc((map->lnlen + 1), sizeof(t_map_item));
+		i++;
+	}
+	i = 0;
+	line = 0;
+	while (arr && t != NULL && line < map->lstsize)
+	{
+		temp = t->content;
+		i = 0;
+		while (i < map->lnlen)
+		{
+			arr[line][i].c = temp[i];
+			i++;
+		}
+		line++;
+		t = t->next;
+	}
+	ft_lstclear(&map->lst, free);
+	return (arr);
 }
