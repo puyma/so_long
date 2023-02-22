@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/21 17:14:16 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:42:01 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,18 @@
 # define C_COLLECTIBLE	'C'
 # define C_EXIT			'E'
 # define C_PLAYER		'P'
-
 # define C_ALLOWED		"01CEP"
+
+# define KEY_A			0
+# define KEY_S			1
+# define KEY_D			2
+# define KEY_W			13
+# define KEY_LEFT		123
+# define KEY_DOWN		125
+# define KEY_RIGHT		124
+# define KEY_UP			126
+# define KEY_ESC		53
+# define KEY_PAUSE		35
 
 # define FLOOR			"./src/assets/floor.png"
 # define WALL			"./src/assets/wall.png"
@@ -56,19 +66,6 @@
 # define ERR_CHAR_2		"Invalid character found in map"
 # define ERR_PATH		"Path is invalid"
 # define ERR_IMG_LOAD	"Could not load image"
-
-# define KEY_A			0
-# define KEY_S			1
-# define KEY_D			2
-# define KEY_W			13
-
-# define KEY_LEFT		123
-# define KEY_DOWN		125
-# define KEY_RIGHT		124
-# define KEY_UP			126
-
-# define KEY_ESC		53
-# define KEY_PAUSE		35
 
 typedef struct s_imgdata
 {
@@ -164,7 +161,6 @@ int			ft_map_isvalid(t_map *map);
 int			ft_destroy(t_game *game);
 int			ft_keycode(int keycode, t_game *game);
 int			ft_nothing(int x, int y, t_game *game);
-int			ft_mousecode(int button, int x, int y, t_game *game);
 
 int			ft_do_motion_events(int x, int y, t_game *game);
 int			ft_test(void);
@@ -193,9 +189,12 @@ int			ft_ismovekey(int keycode);
 void		ft_log_state(t_game *game);
 
 int			ft_toggle_pause(t_game *game);
-int			ft_ismovable(t_game *game, t_character *character, t_vector *direction, int keycode);
+int			ft_ismovable(t_game *game, t_character *character,
+				t_vector *direction, int keycode);
 int			ft_the_end(t_game *game);
 int			ft_state_render(t_game *game);
 int			ft_move(t_game *game, t_character *player, int keycode);
+
+void		*ft_new_window(t_game *game, char *title);
 
 #endif /* so_long.h */
