@@ -6,18 +6,23 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/21 17:13:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:01:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+int	ft_keyup(t_game *game)
+{
+	(void) game;
+	return (0);
+}
+
 int	ft_set_events(t_game *game)
 {
-	ft_printf("--%d\n", ON_KEYUP);
-	mlx_key_hook(game->mlx_window, &ft_keycode, game);
-	//mlx_mouse_hook(game->mlx_window, &ft_mousecode, game);
-	mlx_hook(game->mlx_window, 17, 0, &ft_destroy, game);
+	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
+	mlx_hook(game->mlx_window, ON_KEYUP, 0, &ft_keyup, game);
+	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
 	mlx_loop_hook(game->mlx, ft_state_render, game);
 	return (0);
 }
@@ -27,13 +32,6 @@ int	ft_state_render(t_game *game)
 	mlx_do_sync(game->mlx);
 	if (ft_the_end(game) != 0)
 		ft_destroy(game);
-	return (0);
-}
-
-int	ft_mousecode(int button, int x, int y, t_game *game)
-{
-	ft_printf("> button: %d, x: %d, y: %d\n", button, x, y);
-	(void) game;
 	return (0);
 }
 
