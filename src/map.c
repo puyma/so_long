@@ -14,6 +14,7 @@
 
 static int			ft_load_map(t_map *map);
 static t_map_item	**ft_map2array(t_map *map);
+static t_map_item	**ft_allocate_map(t_map *map);
 
 int	ft_map_isvalid(t_map *map)
 {
@@ -69,14 +70,7 @@ static t_map_item	**ft_map2array(t_map *map)
 	char			*temp;
 
 	t = map->lst;
-	i = 0;
-	line = 0;
-	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
-	while (arr && i < map->lstsize)
-	{
-		arr[i] = (t_map_item *) ft_calloc((map->lnlen + 1), sizeof(t_map_item));
-		i++;
-	}
+	arr = ft_allocate_map(map);
 	i = 0;
 	line = 0;
 	while (arr && t != NULL && line < map->lstsize)
@@ -90,6 +84,21 @@ static t_map_item	**ft_map2array(t_map *map)
 		}
 		line++;
 		t = t->next;
+	}
+	return (arr);
+}
+
+static t_map_item	**ft_allocate_map(t_map *map)
+{
+	t_map_item		**arr;
+	unsigned int	i;
+
+	i = 0;
+	arr = (t_map_item **) ft_calloc((map->lstsize + 1), sizeof(t_map_item *));
+	while (arr && i < map->lstsize)
+	{
+		arr[i] = (t_map_item *) ft_calloc((map->lnlen + 1), sizeof(t_map_item));
+		i++;
 	}
 	return (arr);
 }
