@@ -12,6 +12,8 @@
 
 #include "so_long.h"
 
+static int	ft_check_wall_str(char *temp, int c);
+
 int	ft_check_length(t_map *map)
 {
 	t_list	*t;
@@ -77,34 +79,32 @@ int	ft_check_surroundings(t_map *map)
 	t_list			*t;
 	char			*temp;
 	unsigned int	line;
-	unsigned int	i;
 
 	t = map->lst;
 	temp = NULL;
 	line = 0;
+	map->exit_str = ERR_SURR;
 	while (t != NULL)
 	{
 		temp = t->content;
-		if (line == 0 || line == map->lstsize)
-		{
-			i = 0;
-			while (i < map->lnlen)
-			{
-				if (temp[i] != map->c_wall)
-				{
-					map->exit_str = ERR_SURR;
-					return (0);
-				}
-				i++;
-			}
-		}
-		else if (temp[0] != map->c_wall || temp[map->lnlen - 1] != map->c_wall)
-		{
-			map->exit_str = ERR_SURR;
+		if (temp[0] != map-> c_wall || temp[map->lnlen - 1] != map->c_wall)
 			return (0);
-		}
+		else if ((line == 0 || line == map->lstsize)
+			&& ft_check_wall_str(temp, map->c_wall) != 0)
+			return (0);
 		line++;
 		t = t->next;
 	}
 	return (1);
+}
+
+static int	ft_check_wall_str(char *temp, int c)
+{
+	while (*temp != '\0')
+	{
+		if (*temp != c)
+			return (1);
+		temp++;
+	}
+	return (0);
 }
