@@ -25,28 +25,6 @@ void	ft_delete_nl(void *ptr)
 	}
 }
 
-void	ft_exit_error(int error_num)
-{
-	ft_putstr_fd("Error: ", 1);
-	ft_putstr_fd(strerror(error_num), 1);
-	ft_putstr_fd(" [", 1);
-	ft_putnbr_fd(error_num, 1);
-	ft_putstr_fd("]", 1);
-	ft_putchar_fd('\n', 1);
-	exit(error_num);
-}
-
-void	ft_exit_str(char *error_str, int error_num)
-{
-	ft_putstr_fd("Error: ", 1);
-	ft_putstr_fd(error_str, 1);
-	ft_putstr_fd(" [", 1);
-	ft_putnbr_fd(error_num, 1);
-	ft_putstr_fd("]", 1);
-	ft_putchar_fd('\n', 1);
-	exit(error_num);
-}
-
 int	ft_ismovekey(int keycode)
 {
 	enum e_character	direction;
@@ -70,4 +48,18 @@ void	*ft_new_window(t_game *game, char *title)
 	window = NULL;
 	window = mlx_new_window(game->mlx, game->width, game->height, title);
 	return (window);
+}
+
+int	ft_filext_isvalid(char *filename, char *ext)
+{
+	size_t	path_length;
+	size_t	ext_len;
+
+	path_length = ft_strlen(filename);
+	ext_len = ft_strlen(ext);
+	if (path_length == 0 || path_length > FILENAME_LEN)
+		return (0);
+	if (ft_strncmp((filename + path_length - ext_len), ext, ext_len) != 0)
+		return (0);
+	return ((int) path_length);
 }

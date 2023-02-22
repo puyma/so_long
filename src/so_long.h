@@ -160,7 +160,7 @@ int			ft_map_isvalid(t_map *map);
 
 int			ft_destroy(t_game *game);
 int			ft_keycode(int keycode, t_game *game);
-int			ft_nothing(int x, int y, t_game *game);
+int			ft_keyup(t_game *game);
 
 int			ft_do_motion_events(int x, int y, t_game *game);
 int			ft_test(void);
@@ -170,9 +170,6 @@ void		ft_exit_error(int error_num);
 void		ft_exit_str(char *error_str, int error_num);
 
 void		ft_delete_nl(void *ptr);
-int			ft_check_characters(t_map *map);
-int			ft_check_surroundings(t_map *map);
-int			ft_path_isvalid(t_map *map);
 
 int			ft_filext_isvalid(char *filename, char *ext);
 
@@ -180,7 +177,7 @@ int			ft_memload_images(t_game *game);
 t_imgdata	*ft_memload_img(t_game *game, char *filename);
 int			ft_put_images(t_game *game);
 int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
-int			ft_smoother_put_img(t_game *game, t_imgdata *img, int x, int y);
+int			ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int			ft_put_default_img(t_game *game, int x, int y);
 int			ft_fill_window(t_game *game, t_imgdata *img);
 
@@ -196,5 +193,12 @@ int			ft_state_render(t_game *game);
 int			ft_move(t_game *game, t_character *player, int keycode);
 
 void		*ft_new_window(t_game *game, char *title);
+int			ft_filext_isvalid(char *filename, char *ext);
+
+int			ft_check_length(t_map *map);
+int			ft_isrectangle(t_map *map);
+int			ft_check_characters(t_map *map);
+int			ft_check_surroundings(t_map *map);
+int			ft_path_isvalid(t_map *map);
 
 #endif /* so_long.h */

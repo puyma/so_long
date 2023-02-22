@@ -12,12 +12,6 @@
 
 #include "so_long.h"
 
-int	ft_keyup(t_game *game)
-{
-	(void) game;
-	return (0);
-}
-
 int	ft_set_events(t_game *game)
 {
 	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
@@ -32,71 +26,6 @@ int	ft_state_render(t_game *game)
 	mlx_do_sync(game->mlx);
 	if (ft_the_end(game) != 0)
 		ft_destroy(game);
-	return (0);
-}
-
-int	ft_keycode(int keycode, t_game *game)
-{
-	if (ft_ismovekey(keycode) != 0)
-		ft_move(game, &game->player, keycode);
-	else if (keycode == KEY_PAUSE)
-		ft_toggle_pause(game);
-	if (keycode == KEY_ESC)
-		ft_destroy(game);
-	return (0);
-}
-
-int	ft_ismovable(t_game *game, t_character *character, t_vector *direction, int keycode)
-{
-	enum e_character	move;
-
-	move = ft_ismovekey(keycode);
-	if (move == None)
-		return (0);
-	if (move == Left)
-	{
-		direction->x = 0;
-		direction->y = -1;
-	}
-	else if (move == Right)
-	{
-		direction->x = 0;
-		direction->y = 1;
-	}
-	else if (move == Up)
-	{
-		direction->x = -1;
-		direction->y = 0;
-	}
-	else if (move == Down)
-	{
-		direction->x = 1;
-		direction->y = 0;
-	}
-	if (game->map->arr[character->x + direction->x][character->y + direction->y].c == '1')
-		return (0);
-	else if (game->map->arr[character->x + direction->x][character->y + direction->y].c == 'C')
-		ft_putstr(">>f you\n");
-	else if (game->map->arr[character->x + direction->x][character->y + direction->y].c == 'E')
-		game->state = Stopping;
-	return (move);
-}
-
-int	ft_toggle_pause(t_game *game)
-{
-	if (game->state != Paused)
-	{
-		ft_fill_window(game, game->i_blur);
-		ft_put_img(game, game->i_pause, 0, game->width - game->size);
-		game->state = Paused;
-	}
-	else
-	{
-		ft_put_images(game);
-		game->state = Running;
-	}
-	ft_putstr("> Pause\n");
-	ft_log_state(game);
 	return (0);
 }
 
