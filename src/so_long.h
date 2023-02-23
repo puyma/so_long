@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/22 10:42:01 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:31:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,15 @@
 
 # define ERR_00			"Something went wrong..."
 # define ERR_01			"Filename is not valid"
-# define ERR_02			""
+# define ERR_02			"Map is empty"
 # define ERR_FD			"Could not open fd"
 # define ERR_FD_RD		"Could not read from file descriptor"
 # define ERR_N_LINES	"All lines should contain the same number of chars"
 # define ERR_RECT		"Map is not rectangular"
 # define ERR_SURR		"Map is not surrounded by walls"
 # define ERR_CHAR		"Found some shit inside your fmap"
-# define ERR_CHAR_2		"Invalid character found in map"
+# define ERR_CHAR_INV	"Invalid character found in map"
+# define ERR_CHAR_TM	"Not a valid amount of player/exit/collectibles"
 # define ERR_PATH		"Path is invalid"
 # define ERR_IMG_LOAD	"Could not load image"
 
@@ -94,26 +95,16 @@ typedef struct s_map
 	int					exit_err;
 	char				*exit_str;
 	t_map_item			**arr;
-	char				c_floor;
-	char				c_wall;
-	char				c_collectible;
-	char				c_exit;
-	char				c_player;
+	int					n_collectible;
+	int					n_exit;
+	int					n_player;
 }						t_map;
 
 enum e_game { Stopped = 0, Running, Paused, Stopping }	state;
 
 enum e_character { None = 0, Left, Right, Up, Down }	direction;
 
-enum e_event {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-}	event;
+enum e_event { ON_KEYDOWN = 2, ON_KEYUP = 3, ON_DESTROY = 17 }	event;
 
 typedef struct s_vector
 {
@@ -148,6 +139,7 @@ typedef struct s_game
 	unsigned int		n_moves;
 	enum e_game			state;
 	t_character			player;
+	t_character			end_gate;
 	int					k_up;
 	int					k_down;
 	int					k_left;
@@ -183,12 +175,10 @@ int			ft_fill_window(t_game *game, t_imgdata *img);
 
 int			ft_ismovekey(int keycode);
 
+void		ft_log(char *str);
 void		ft_log_state(t_game *game);
 
 int			ft_toggle_pause(t_game *game);
-int			ft_ismovable(t_game *game, t_character *character,
-				t_vector *direction, int keycode);
-int			ft_the_end(t_game *game);
 int			ft_state_render(t_game *game);
 int			ft_move(t_game *game, t_character *player, int keycode);
 
