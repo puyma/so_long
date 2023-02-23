@@ -6,11 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:20:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/21 16:58:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:22:15 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static int	ft_set_character(t_game *game, int x, int y);
 
 int	ft_put_images(t_game *game)
 {
@@ -25,8 +27,34 @@ int	ft_put_images(t_game *game)
 	{
 		y = 0;
 		while (arr[x][y].c != '\0')
-			ft_put_default_img(game, x, y++);
+		{
+			if (arr[x][y].c == 'P' || arr[x][y].c == 'E')
+				ft_set_character(game, x, y);
+			if (arr[x][y].c == 'E')
+				ft_put_img(game, game->i_floor, x, y);
+			else
+				ft_put_default_img(game, x, y);
+			y++;
+		}
 		x++;
+	}
+	return (0);
+}
+
+static int	ft_set_character(t_game *game, int x, int y)
+{
+	int	c;
+
+	c = game->map->arr[x][y].c;
+	if (c == 'E')
+	{
+		game->end_gate.x = x;
+		game->end_gate.y = y;
+	}
+	else if (c == 'P')
+	{
+		game->player.x = x;
+		game->player.y = y;
 	}
 	return (0);
 }
@@ -45,11 +73,7 @@ int	ft_put_default_img(t_game *game, int x, int y)
 	else if (arr[x][y].c == 'E')
 		ft_put_img(game, game->i_exit, x, y);
 	else if (arr[x][y].c == 'P')
-	{
 		ft_put_img(game, game->i_player, x, y);
-		game->player.x = x;
-		game->player.y = y;
-	}
 	return (0);
 }
 

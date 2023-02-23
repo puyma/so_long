@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/22 10:12:33 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:31:20 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	ft_map_isvalid(t_map *map)
 		ft_exit_str(ERR_FD, 4);
 	if (read(map->fd, NULL, 0) != 0)
 		ft_exit_str(ERR_FD_RD, 0);
-	ft_load_map(map);
+	if (ft_load_map(map) != 0)
+		ft_exit_str(ERR_02, 6);
 	if (ft_check_length(map) == 0 || ft_isrectangle(map) == 0)
 		return (0);
 	if (ft_check_characters(map) == 0 || ft_check_surroundings(map) == 0)
@@ -45,6 +46,8 @@ static int	ft_load_map(t_map *map)
 	map->lst = NULL;
 	map->exit_str = ERR_00;
 	line = get_next_line(map->fd);
+	if (line == NULL)
+		return (1);
 	while (line && *line != '1')
 	{
 		free(line);

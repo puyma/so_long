@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:00:55 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/22 10:20:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:39:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define VEL 4
 
 static int	ft_slide(t_game *game, t_character *player, t_vector *direction);
+static int	ft_ismovable(t_game *game, t_character *character,
+				t_vector *d, int keycode);
 
 int	ft_move(t_game *game, t_character *player, int keycode)
 {
@@ -56,9 +58,12 @@ static int	ft_slide(t_game *game, t_character *player, t_vector *d)
 	return (0);
 }
 
-int	ft_ismovable(t_game *game, t_character *character, t_vector *d, int keycode)
+static int	ft_ismovable(t_game *game, t_character *character,
+				t_vector *d, int keycode)
 {
 	enum e_character	move;
+	int					cx;
+	int					cy;
 
 	move = ft_ismovekey(keycode);
 	d->x = 0;
@@ -73,11 +78,30 @@ int	ft_ismovable(t_game *game, t_character *character, t_vector *d, int keycode)
 		d->x = -1;
 	else if (move == Down)
 		d->x = 1;
-	if (game->map->arr[character->x + d->x][character->y + d->y].c == '1')
+	cx = character->x + d->x;
+	cy = character->y + d->y;
+	if (game->map->arr[cx][cy].c == '1')
 		return (0);
-	else if (game->map->arr[character->x + d->x][character->y + d->y].c == 'C')
-		ft_putstr(">>f you\n");
-	else if (game->map->arr[character->x + d->x][character->y + d->y].c == 'E')
+	else if (game->map->arr[cx][cy].c == 'C')
+		game->map->n_collectible--;
+	else if (game->map->arr[cx][cy].c == 'E' && game->map->n_collectible == 0)
 		game->state = Stopping;
+	ft_printf(">>n_collectible: %d", game->map->n_collectible);
 	return (move);
+}
+
+int	ft_ismovekey(int keycode)
+{
+	enum e_character	direction;
+
+	direction = None;
+	if (keycode == KEY_UP || keycode == KEY_W)
+		direction = Up;
+	else if (keycode == KEY_DOWN || keycode == KEY_S)
+		direction = Down;
+	else if (keycode == KEY_RIGHT || keycode == KEY_D)
+		direction = Right;
+	else if (keycode == KEY_LEFT || keycode == KEY_A)
+		direction = Left;
+	return (direction);
 }
