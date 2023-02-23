@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:10:16 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/22 10:40:26 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:14:36 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ int	ft_launch(const char *input_file)
 	ft_init_map(&map);
 	map.filename = (char *) input_file;
 	if (ft_map_isvalid(&map))
-	{
-		write(1, "> OK\n", 5);
 		ft_launch_graphics(&map);
-	}
 	else
 		ft_exit_str(map.exit_str, -1);
+	ft_log("> OK\n");
 	return (0);
 }
 
@@ -47,11 +45,9 @@ int	ft_launch_graphics(t_map *map)
 
 static void	ft_init_map(t_map *map)
 {
-	map->c_floor = C_EMPTY_SPACE;
-	map->c_wall = C_WALL;
-	map->c_collectible = C_COLLECTIBLE;
-	map->c_exit = C_EXIT;
-	map->c_player = C_PLAYER;
+	map->n_player = 0;
+	map->n_exit = 0;
+	map->n_collectible = 0;
 }
 
 static void	ft_init_game(t_game *game)
