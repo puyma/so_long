@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:47:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/22 10:01:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:23:36 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ int	ft_set_events(t_game *game)
 int	ft_state_render(t_game *game)
 {
 	mlx_do_sync(game->mlx);
-	if (ft_the_end(game) != 0)
-		ft_destroy(game);
-	return (0);
-}
-
-int	ft_the_end(t_game *game)
-{
 	if (game->state == Stopping)
-		return (1);
+		ft_destroy(game);
+	else if (game->map->n_collectible == 0 && game->map->n_exit != 0)
+	{
+		ft_log(">> Obtained all collectibles\n");
+		game->map->arr[game->end_gate.x][game->end_gate.y].c = 'E';
+		ft_put_img(game, game->i_exit, game->end_gate.x, game->end_gate.y);
+		game->map->n_exit = 0;
+	}
 	return (0);
 }
 
