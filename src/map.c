@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/24 09:42:46 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:49:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	ft_map_isvalid(t_map *map)
 		return (0);
 	if (ft_check_characters(map) == 0 || ft_check_surroundings(map) == 0)
 		return (0);
+	map->arr = ft_map2array(map);
 	if (ft_path_isvalid(map) == 0)
 		return (0);
-	map->arr = ft_map2array(map);
 	return (map->lnlen);
 }
 
@@ -83,6 +83,8 @@ static t_map_item	**ft_map2array(t_map *map)
 		while (i < map->lnlen)
 		{
 			arr[line][i].c = temp[i];
+			if (arr[line][i].c == '1')
+				arr[line][i].i = 1;
 			i++;
 		}
 		line++;
