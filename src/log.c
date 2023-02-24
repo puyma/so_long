@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:01:57 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/24 09:29:00 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:47:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 void	ft_log(char *str)
 {
-	while (LOG_LEVEL > 0 && *str != '\0')
-		write(1, str++, 1);
+	if (LOG_LEVEL > 0)
+	{
+		while (*str != '\0')
+			write(1, str++, 1);
+		write(1, "\n", 1);
+	}
 }
 
 void	ft_log_state(enum e_game state)
 {
 	if (state == Paused)
-		ft_log("> Paused\n");
+		ft_log("> Paused");
 	else if (state == Running)
-		ft_log("> Running\n");
+		ft_log("> Runninn");
 	else if (state == Stopped)
-		ft_log("> Stopped\n");
+		ft_log("> Stoppen");
 	else if (state == Stopping)
-		ft_log("> Stopping\n");
+		ft_log("> Stoppinn");
 }
