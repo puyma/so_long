@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/24 09:27:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:45:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define LOG_LEVEL		1
+# define LOG_LEVEL		0
 # define PIX_SIZE		32
 # define FILENAME_LEN	42
 
@@ -152,7 +152,6 @@ int			ft_map_isvalid(t_map *map);
 
 int			ft_destroy(t_game *game);
 int			ft_keycode(int keycode, t_game *game);
-int			ft_keyup(t_game *game);
 
 int			ft_do_motion_events(int x, int y, t_game *game);
 int			ft_test(void);

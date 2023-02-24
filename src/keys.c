@@ -6,17 +6,11 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:30:38 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/22 11:30:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:44:15 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	ft_keyup(t_game *game)
-{
-	(void) game;
-	return (0);
-}
 
 int	ft_keycode(int keycode, t_game *game)
 {
