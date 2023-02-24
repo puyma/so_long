@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/24 09:45:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:49:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 # define ERR_CHAR		"Found some shit inside your fmap"
 # define ERR_CHAR_INV	"Invalid character found in map"
 # define ERR_CHAR_TM	"Not a valid amount of player/exit/collectibles"
-# define ERR_PATH		"Path is invalid"
+# define ERR_PATH		"There is not a valid path in this map"
 # define ERR_IMG_LOAD	"Could not load image"
 
 typedef struct s_imgdata
