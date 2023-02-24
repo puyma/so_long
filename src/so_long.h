@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/23 18:31:10 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:27:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int			ft_fill_window(t_game *game, t_imgdata *img);
 int			ft_ismovekey(int keycode);
 
 void		ft_log(char *str);
-void		ft_log_state(t_game *game);
+void		ft_log_state(enum e_game state);
 
 int			ft_toggle_pause(t_game *game);
 int			ft_state_render(t_game *game);
