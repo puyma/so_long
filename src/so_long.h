@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/24 09:49:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:51:01 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,38 +68,6 @@
 # define ERR_PATH		"There is not a valid path in this map"
 # define ERR_IMG_LOAD	"Could not load image"
 
-typedef struct s_imgdata
-{
-	void				*img;
-	char				*address;
-	int					bits_per_pixel;
-	int					line_length;
-	int					endian;
-	int					width;
-	int					height;
-}						t_imgdata;
-
-typedef struct s_map_item
-{
-	char				c;
-	t_imgdata			img;
-}						t_map_item;
-
-typedef struct s_map
-{
-	char				*filename;
-	int					fd;
-	t_list				*lst;
-	unsigned int		lstsize;
-	size_t				lnlen;
-	int					exit_err;
-	char				*exit_str;
-	t_map_item			**arr;
-	int					n_collectible;
-	int					n_exit;
-	int					n_player;
-}						t_map;
-
 enum e_game { Stopped = 0, Running, Paused, Stopping }	state;
 
 enum e_character { None = 0, Left, Right, Up, Down }	direction;
@@ -117,6 +85,39 @@ typedef struct s_character
 	int					x;
 	int					y;
 }						t_character;
+typedef struct s_imgdata
+{
+	void				*img;
+	char				*address;
+	int					bits_per_pixel;
+	int					line_length;
+	int					endian;
+	int					width;
+	int					height;
+}						t_imgdata;
+
+typedef struct s_map_item
+{
+	char				c;
+	int					i;
+}						t_map_item;
+
+typedef struct s_map
+{
+	char				*filename;
+	int					fd;
+	t_list				*lst;
+	unsigned int		lstsize;
+	size_t				lnlen;
+	int					exit_err;
+	char				*exit_str;
+	t_map_item			**arr;
+	int					n_collectible;
+	int					n_exit;
+	int					n_player;
+	t_vector			*player;
+	t_vector			*exit;
+}						t_map;
 
 typedef struct s_game
 {
