@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:02:54 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/23 18:31:20 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:42:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_map_item	**ft_allocate_map(t_map *map);
 
 int	ft_map_isvalid(t_map *map)
 {
-	ft_printf("> %s\n", map->filename);
+	ft_log(map->filename);
 	if (ft_filext_isvalid(map->filename, MAP_EXT) == 0)
 		ft_exit_str(ERR_01, 3);
 	map->fd = open(map->filename, O_RDONLY);
