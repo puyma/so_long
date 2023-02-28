@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pause.c                                            :+:      :+:    :+:   */
+/*   ft_toggle_pause.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,14 +16,14 @@ int	ft_toggle_pause(t_game *game)
 {
 	if (game->state != Paused)
 	{
-		ft_fill_window(game, game->i_blur);
-		ft_put_img(game, game->i_pause, 0, game->width - game->size);
 		game->state = Paused;
+		ft_fill_window(game, game->i_blur);
+		ft_put_img(game, game->i_pause, 1, game->map->lnlen - 2);
 	}
 	else
 	{
-		ft_put_images(game);
 		game->state = Running;
+		ft_put_images(game);
 	}
 	ft_log_state(game->state);
 	return (0);
