@@ -40,7 +40,7 @@ ifeq ($(TERM_COLORS), 256)
 endif
 
 SRC_FILES	:=	src/events.c \
-				src/exit.c \
+				src/ft_exit.c \
 				src/images.c \
 				src/keys.c \
 				src/launch.c \
