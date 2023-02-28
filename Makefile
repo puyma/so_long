@@ -39,22 +39,23 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/ft_state_render.c \
-				src/ft_destroy.c \
+SRC_FILES	:=	src/ft_destroy.c \
 				src/ft_exit.c \
+				src/ft_keycode.c \
+				src/ft_locate_character.c \
+				src/ft_state_render.c \
+				src/ft_toggle_pause.c \
 				src/images.c \
-				src/keys.c \
 				src/launch.c \
 				src/load.c \
 				src/log.c \
+				src/main.c \
 				src/map.c \
 				src/map_check.c \
 				src/move.c \
 				src/path.c \
-				src/ft_toggle_pause.c \
 				src/utilities.c \
-				src/launch_generator.c \
-				src/main.c
+				src/window.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
