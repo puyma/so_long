@@ -50,7 +50,7 @@ SRC_FILES	:=	src/events.c \
 				src/map_check.c \
 				src/move.c \
 				src/path.c \
-				src/pause.c \
+				src/ft_toggle_pause.c \
 				src/utilities.c \
 				src/main.c
 
