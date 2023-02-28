@@ -45,15 +45,15 @@ SRC_FILES	:=	src/ft_destroy.c \
 				src/ft_locate_character.c \
 				src/ft_state_render.c \
 				src/ft_toggle_pause.c \
-				src/images.c \
 				src/launch.c \
-				src/load.c \
+				src/load_images.c \
 				src/log.c \
 				src/main.c \
 				src/map.c \
 				src/map_check.c \
 				src/move.c \
 				src/path.c \
+				src/put_images.c \
 				src/utilities.c \
 				src/window.c
 
