@@ -37,10 +37,10 @@ t_imgdata	*ft_memload_img(t_game *game, char *filename)
 	t_imgdata	*img;
 
 	img = (t_imgdata *) ft_calloc(sizeof(t_imgdata), 1);
-	if (ft_filext_isvalid(filename, ".xpm") != 0)
+	if (ft_extension_isvalid(filename, ".xpm") != 0)
 		img->img = mlx_xpm_file_to_image(game->mlx, filename, \
 			&img->width, &img->height);
-	else if (ft_filext_isvalid(filename, ".png") != 0)
+	else if (ft_extension_isvalid(filename, ".png") != 0)
 		img->img = mlx_png_file_to_image(game->mlx, filename, \
 			&img->width, &img->height);
 	else

@@ -147,17 +147,17 @@ int			ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int			ft_put_default_img(t_game *game, int x, int y);
 
 int			ft_map_isvalid(t_map *map);
-int			ft_filext_isvalid(char *filename, char *ext);
+int			ft_extension_isvalid(char *filename, char *ext);
 void		ft_delete_nl(void *ptr);
 int			ft_ismovekey(int keycode);
 int			ft_move(t_game *game, t_vector *player, int keycode);
-int			ft_filext_isvalid(char *filename, char *ext);
 int			ft_check_length(t_map *map);
-int			ft_isrectangle(t_map *map);
 int			ft_check_characters(t_map *map);
 int			ft_check_surroundings(t_map *map);
 int			ft_path_isvalid(t_map *map);
 t_vector	*ft_locate_character(t_map *map, int c);
+int			ft_check_wall_str(char *temp, int c);
+int			ft_check_allowedchar(t_map *map, char *line);
 
 int			ft_keycode(int keycode, t_game *game);
 int			ft_state_render(t_game *game);

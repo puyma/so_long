@@ -13,7 +13,7 @@
 #include "so_long.h"
 #define VEL 4
 
-static int	ft_slide(t_game *game, t_vector *player, t_vector *direction);
+static int	ft_slide(t_game *game, t_vector *player, t_vector *d);
 static int	ft_ismovable(t_game *game, t_vector *character,
 				t_vector *d, int keycode);
 static int	ft_set_direction(enum e_character move, t_vector *d);
@@ -82,22 +82,6 @@ static int	ft_ismovable(t_game *game, t_vector *character,
 		&& game->map->n_collectible == 0)
 		game->state = Stopping;
 	return (move);
-}
-
-int	ft_ismovekey(int keycode)
-{
-	enum e_character	direction;
-
-	direction = None;
-	if (keycode == KEY_UP || keycode == KEY_W)
-		direction = Up;
-	else if (keycode == KEY_DOWN || keycode == KEY_S)
-		direction = Down;
-	else if (keycode == KEY_RIGHT || keycode == KEY_D)
-		direction = Right;
-	else if (keycode == KEY_LEFT || keycode == KEY_A)
-		direction = Left;
-	return (direction);
 }
 
 static int	ft_set_direction(enum e_character move, t_vector *d)

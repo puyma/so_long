@@ -19,7 +19,7 @@ static t_map_item	**ft_allocate_map(t_map *map);
 int	ft_map_isvalid(t_map *map)
 {
 	ft_log(map->filename);
-	if (ft_filext_isvalid(map->filename, MAP_EXT) == 0)
+	if (ft_extension_isvalid(map->filename, MAP_EXT) == 0)
 		ft_exit(ERR_01, 3);
 	map->fd = open(map->filename, O_RDONLY);
 	if (map->fd == -1)
@@ -28,7 +28,7 @@ int	ft_map_isvalid(t_map *map)
 		ft_exit(ERR_FD_RD, 0);
 	if (ft_load_map(map) != 0)
 		ft_exit(ERR_02, 6);
-	if (ft_check_length(map) == 0 || ft_isrectangle(map) == 0)
+	if (ft_check_length(map) == 0 || map->lstsize == map->lnlen)
 		return (0);
 	if (ft_check_characters(map) == 0 || ft_check_surroundings(map) == 0)
 		return (0);

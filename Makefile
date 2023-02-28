@@ -39,8 +39,11 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/ft_destroy.c \
+SRC_FILES	:=	src/ft_delete_nl.c \
+				src/ft_destroy.c \
 				src/ft_exit.c \
+				src/ft_extension_isvalid.c \
+				src/ft_ismovekey.c \
 				src/ft_keycode.c \
 				src/ft_locate_character.c \
 				src/ft_state_render.c \
@@ -54,7 +57,6 @@ SRC_FILES	:=	src/ft_destroy.c \
 				src/move.c \
 				src/path.c \
 				src/put_images.c \
-				src/utilities.c \
 				src/window.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))

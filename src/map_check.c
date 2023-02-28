@@ -12,9 +12,6 @@
 
 #include "so_long.h"
 
-static int	ft_check_wall_str(char *temp, int c);
-static int	ft_check_allowedchar(t_map *map, char *line);
-
 int	ft_check_length(t_map *map)
 {
 	t_list	*t;
@@ -52,7 +49,7 @@ int	ft_check_characters(t_map *map)
 	return (1);
 }
 
-static int	ft_check_allowedchar(t_map *map, char *line)
+int	ft_check_allowedchar(t_map *map, char *line)
 {
 	while (*line != '\0')
 	{
@@ -93,7 +90,7 @@ int	ft_check_surroundings(t_map *map)
 	return (1);
 }
 
-static int	ft_check_wall_str(char *temp, int c)
+int	ft_check_wall_str(char *temp, int c)
 {
 	while (*temp != '\0')
 	{
