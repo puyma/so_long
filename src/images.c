@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static int	ft_set_character(t_game *game, int x, int y);
+//static int	ft_set_character(t_game *game, int x, int y);
 
 int	ft_put_images(t_game *game)
 {
@@ -28,33 +28,15 @@ int	ft_put_images(t_game *game)
 		y = 0;
 		while (arr[x][y].c != '\0')
 		{
-			if (arr[x][y].c == C_PLAYER || arr[x][y].c == C_EXIT)
-				ft_set_character(game, x, y);
-			if (arr[x][y].c == C_EXIT)
+			if (arr[x][y].c == C_EXIT && game->map->n_exit != 0)
 				ft_put_img(game, game->i_floor, x, y);
+			else if (arr[x][y].c == C_EXIT && game->map->n_exit == 0)
+				ft_put_img(game, game->i_exit, x, y);
 			else
 				ft_put_default_img(game, x, y);
 			y++;
 		}
 		x++;
-	}
-	return (0);
-}
-
-static int	ft_set_character(t_game *game, int x, int y)
-{
-	int	c;
-
-	c = game->map->arr[x][y].c;
-	if (c == C_EXIT)
-	{
-		game->map->exit->x = x;
-		game->map->exit->y = y;
-	}
-	else if (c == C_PLAYER)
-	{
-		game->map->player->x = x;
-		game->map->player->y = y;
 	}
 	return (0);
 }

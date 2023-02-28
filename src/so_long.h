@@ -22,7 +22,7 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define LOG_LEVEL		0
+# define LOG_LEVEL		1
 # define PIX_SIZE		32
 # define FILENAME_LEN	42
 
@@ -67,6 +67,7 @@
 # define ERR_CHAR_TM	"Not a valid amount of player/exit/collectibles"
 # define ERR_PATH		"There is not a valid path in this map"
 # define ERR_IMG_LOAD	"Could not load image"
+# define ERR_IMGS		"Could not load some of the images"
 
 enum e_game { Stopped = 0, Running, Paused, Stopping }	state;
 
@@ -101,10 +102,10 @@ typedef struct s_map
 {
 	char				*filename;
 	int					fd;
-	t_list				*lst;
-	unsigned int		lstsize;
+	size_t				lstsize;
 	size_t				lnlen;
 	char				*exit_str;
+	t_list				*lst;
 	t_map_item			**arr;
 	int					n_collectible;
 	int					n_exit;
@@ -119,10 +120,10 @@ typedef struct s_game
 	void				*mlx_window;
 	int					height;
 	int					width;
-	t_map				*map;
-	int					size;
-	enum e_game			state;
+	unsigned int		size;
 	unsigned int		n_moves;
+	enum e_game			state;
+	t_map				*map;
 	t_imgdata			*i_floor;
 	t_imgdata			*i_wall;
 	t_imgdata			*i_collectible;
@@ -133,46 +134,38 @@ typedef struct s_game
 }						t_game;
 
 int			ft_launch(const char *input_file);
-int			ft_launch_graphics(t_map *map);
-int			ft_map_isvalid(t_map *map);
+//int		ft_launch_generator(const char *input_file);
 
-int			ft_destroy(t_game *game);
-int			ft_keycode(int keycode, t_game *game);
-
-int			ft_do_motion_events(int x, int y, t_game *game);
-int			ft_test(void);
-int			ft_set_events(t_game *game);
-
-void		ft_exit(char *error_str, int error_num);
-
-void		ft_delete_nl(void *ptr);
-
-int			ft_filext_isvalid(char *filename, char *ext);
-
+void		*ft_new_window(t_game *game, char *title);
+int			ft_fill_window(t_game *game, t_imgdata *img);
 int			ft_memload_images(t_game *game);
 t_imgdata	*ft_memload_img(t_game *game, char *filename);
+void		ft_memunload_images(t_game *game);
 int			ft_put_images(t_game *game);
 int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
 int			ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int			ft_put_default_img(t_game *game, int x, int y);
-int			ft_fill_window(t_game *game, t_imgdata *img);
 
-int			ft_ismovekey(int keycode);
-
-void		ft_log(char *str);
-void		ft_log_state(enum e_game state);
-
-int			ft_toggle_pause(t_game *game);
-int			ft_state_render(t_game *game);
-int			ft_move(t_game *game, t_vector *player, int keycode);
-
-void		*ft_new_window(t_game *game, char *title);
+int			ft_map_isvalid(t_map *map);
 int			ft_filext_isvalid(char *filename, char *ext);
-
+void		ft_delete_nl(void *ptr);
+int			ft_ismovekey(int keycode);
+int			ft_move(t_game *game, t_vector *player, int keycode);
+int			ft_filext_isvalid(char *filename, char *ext);
 int			ft_check_length(t_map *map);
 int			ft_isrectangle(t_map *map);
 int			ft_check_characters(t_map *map);
 int			ft_check_surroundings(t_map *map);
 int			ft_path_isvalid(t_map *map);
+t_vector	*ft_locate_character(t_map *map, int c);
+
+int			ft_keycode(int keycode, t_game *game);
+int			ft_state_render(t_game *game);
+int			ft_toggle_pause(t_game *game);
+int			ft_destroy(t_game *game);
+void		ft_exit(char *error_str, int error_num);
+
+void		ft_log(char *str);
+void		ft_log_state(enum e_game state);
 
 #endif /* so_long.h */

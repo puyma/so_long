@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_locate_character.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 11:23:29 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/02/22 11:23:31 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/02/28 13:43:50 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/02/28 13:43:52 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_exit(char *error_str, int error_num)
+t_vector	*ft_locate_character(t_map *map, int c)
 {
-	if (*error_str == '\0')
-		error_str = strerror(error_num);
-	ft_putstr_fd("Error: ", 1);
-	ft_putstr_fd(error_str, 1);
-	ft_putstr_fd(" [", 1);
-	ft_putnbr_fd(error_num, 1);
-	ft_putstr_fd("]", 1);
-	ft_putchar_fd('\n', 1);
-	exit(error_num);
+	t_vector	*coordinates;
+	int			x;
+	int			y;
+
+	coordinates = ft_calloc(1, sizeof(t_vector));
+	x = 0;
+	while (coordinates && map->arr[x] != NULL)
+	{
+		y = 0;
+		while (map->arr[x][y].c != '\0')
+		{
+			if (map->arr[x][y].c == c)
+			{
+				coordinates->x = x;
+				coordinates->y = y;
+				return (coordinates);
+			}
+			y++;
+		}
+		x++;
+	}
+	return (NULL);
 }

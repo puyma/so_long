@@ -18,20 +18,22 @@ static int	ft_ismovable(t_game *game, t_vector *character,
 				t_vector *d, int keycode);
 static int	ft_set_direction(enum e_character move, t_vector *d);
 
+// t_vector d -> direction
+
 int	ft_move(t_game *game, t_vector *player, int keycode)
 {
-	t_vector	direction;
+	t_vector	d;
 
 	if (game->state != Running)
 		return (0);
-	if (ft_ismovable(game, game->map->player, &direction, keycode) == 0)
+	if (ft_ismovable(game, game->map->player, &d, keycode) == 0)
 		return (0);
 	game->map->arr[player->x][player->y].c = C_EMPTY_SPACE;
-	game->map->arr[player->x + direction.x][player->y + direction.y].c = C_PLAYER;
-	ft_slide(game, player, &direction);
+	game->map->arr[player->x + d.x][player->y + d.y].c = C_PLAYER;
+	ft_slide(game, player, &d);
 	ft_put_default_img(game, player->x, player->y);
-	player->x += direction.x;
-	player->y += direction.y;
+	player->x += d.x;
+	player->y += d.y;
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
 	ft_printf("> Moves: %d\n", ++game->n_moves);
@@ -76,7 +78,8 @@ static int	ft_ismovable(t_game *game, t_vector *character,
 		return (0);
 	else if (game->map->arr[cx][cy].c == C_COLLECTIBLE)
 		game->map->n_collectible--;
-	else if (game->map->arr[cx][cy].c == C_EXIT && game->map->n_collectible == 0)
+	else if (game->map->arr[cx][cy].c == C_EXIT
+		&& game->map->n_collectible == 0)
 		game->state = Stopping;
 	return (move);
 }
