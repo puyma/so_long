@@ -24,7 +24,7 @@ int	ft_launch(const char *input_file)
 	if (ft_map_isvalid(&map))
 		ft_launch_graphics(&map);
 	else
-		ft_exit_str(map.exit_str, -1);
+		ft_exit(map.exit_str, -1);
 	ft_log("> OK\n");
 	return (0);
 }

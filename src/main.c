@@ -21,6 +21,6 @@ int	main(int argc, char **argv)
 	else if (argc == 2)
 		ft_launch(argv[1]);
 	else if (argc > 2)
-		ft_exit_error(22);
+		ft_exit(NULL, 22);
 	return (0);
 }

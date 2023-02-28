@@ -38,7 +38,7 @@ t_imgdata	*ft_memload_img(t_game *game, char *filename)
 	else
 		exit(69);
 	if (img->img == NULL)
-		ft_exit_str("Could not load image", 79);
+		ft_exit(ERR_IMG_LOAD, 79);
 	img->address = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 			&img->line_length, &img->endian);
 	return (img);

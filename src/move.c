@@ -13,12 +13,12 @@
 #include "so_long.h"
 #define VEL 4
 
-static int	ft_slide(t_game *game, t_character *player, t_vector *direction);
-static int	ft_ismovable(t_game *game, t_character *character,
+static int	ft_slide(t_game *game, t_vector *player, t_vector *direction);
+static int	ft_ismovable(t_game *game, t_vector *character,
 				t_vector *d, int keycode);
 static int	ft_set_direction(enum e_character move, t_vector *d);
 
-int	ft_move(t_game *game, t_character *player, int keycode)
+int	ft_move(t_game *game, t_vector *player, int keycode)
 {
 	t_vector	direction;
 
@@ -38,7 +38,7 @@ int	ft_move(t_game *game, t_character *player, int keycode)
 	return (0);
 }
 
-static int	ft_slide(t_game *game, t_character *player, t_vector *d)
+static int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 {
 	int	size;
 	int	px;
@@ -59,7 +59,7 @@ static int	ft_slide(t_game *game, t_character *player, t_vector *d)
 	return (0);
 }
 
-static int	ft_ismovable(t_game *game, t_character *character,
+static int	ft_ismovable(t_game *game, t_vector *character,
 				t_vector *d, int keycode)
 {
 	enum e_character	move;

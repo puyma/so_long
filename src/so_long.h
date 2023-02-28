@@ -80,11 +80,6 @@ typedef struct s_vector
 	int					y;
 }						t_vector;
 
-typedef struct s_character
-{
-	int					x;
-	int					y;
-}						t_character;
 typedef struct s_imgdata
 {
 	void				*img;
@@ -139,8 +134,8 @@ typedef struct s_game
 	t_imgdata			*i_pause;
 	unsigned int		n_moves;
 	enum e_game			state;
-	t_character			player;
-	t_character			end_gate;
+	t_vector			player;
+	t_vector			end_gate;
 	int					k_up;
 	int					k_down;
 	int					k_left;
@@ -158,8 +153,7 @@ int			ft_do_motion_events(int x, int y, t_game *game);
 int			ft_test(void);
 int			ft_set_events(t_game *game);
 
-void		ft_exit_error(int error_num);
-void		ft_exit_str(char *error_str, int error_num);
+void		ft_exit(char *error_str, int error_num);
 
 void		ft_delete_nl(void *ptr);
 
@@ -180,7 +174,7 @@ void		ft_log_state(enum e_game state);
 
 int			ft_toggle_pause(t_game *game);
 int			ft_state_render(t_game *game);
-int			ft_move(t_game *game, t_character *player, int keycode);
+int			ft_move(t_game *game, t_vector *player, int keycode);
 
 void		*ft_new_window(t_game *game, char *title);
 int			ft_filext_isvalid(char *filename, char *ext);

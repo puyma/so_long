@@ -36,7 +36,7 @@ void	*ft_new_window(t_game *game, char *title)
 
 int	ft_filext_isvalid(char *filename, char *ext)
 {
-	size_t	path_length;
+	size_t	path_length;	
 	size_t	ext_len;
 
 	path_length = ft_strlen(filename);
