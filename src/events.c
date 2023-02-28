@@ -28,8 +28,8 @@ int	ft_state_render(t_game *game)
 	else if (game->map->n_collectible == 0 && game->map->n_exit != 0)
 	{
 		ft_log("Obtained all collectibles");
-		game->map->arr[game->end_gate.x][game->end_gate.y].c = 'E';
-		ft_put_img(game, game->i_exit, game->end_gate.x, game->end_gate.y);
+		game->map->arr[game->map->exit->x][game->map->exit->y].c = C_EXIT;
+		ft_put_img(game, game->i_exit, game->map->exit->x, game->map->exit->y);
 		game->map->n_exit = 0;
 	}
 	return (0);

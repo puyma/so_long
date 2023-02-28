@@ -28,9 +28,9 @@ int	ft_put_images(t_game *game)
 		y = 0;
 		while (arr[x][y].c != '\0')
 		{
-			if (arr[x][y].c == 'P' || arr[x][y].c == 'E')
+			if (arr[x][y].c == C_PLAYER || arr[x][y].c == C_EXIT)
 				ft_set_character(game, x, y);
-			if (arr[x][y].c == 'E')
+			if (arr[x][y].c == C_EXIT)
 				ft_put_img(game, game->i_floor, x, y);
 			else
 				ft_put_default_img(game, x, y);
@@ -46,15 +46,15 @@ static int	ft_set_character(t_game *game, int x, int y)
 	int	c;
 
 	c = game->map->arr[x][y].c;
-	if (c == 'E')
+	if (c == C_EXIT)
 	{
-		game->end_gate.x = x;
-		game->end_gate.y = y;
+		game->map->exit->x = x;
+		game->map->exit->y = y;
 	}
-	else if (c == 'P')
+	else if (c == C_PLAYER)
 	{
-		game->player.x = x;
-		game->player.y = y;
+		game->map->player->x = x;
+		game->map->player->y = y;
 	}
 	return (0);
 }
@@ -64,15 +64,15 @@ int	ft_put_default_img(t_game *game, int x, int y)
 	t_map_item	**arr;
 
 	arr = game->map->arr;
-	if (arr[x][y].c == '1')
+	if (arr[x][y].c == C_WALL)
 		ft_put_img(game, game->i_wall, x, y);
-	else if (arr[x][y].c == '0')
+	else if (arr[x][y].c == C_EMPTY_SPACE)
 		ft_put_img(game, game->i_floor, x, y);
-	else if (arr[x][y].c == 'C')
+	else if (arr[x][y].c == C_COLLECTIBLE)
 		ft_put_img(game, game->i_collectible, x, y);
-	else if (arr[x][y].c == 'E')
+	else if (arr[x][y].c == C_EXIT)
 		ft_put_img(game, game->i_exit, x, y);
-	else if (arr[x][y].c == 'P')
+	else if (arr[x][y].c == C_PLAYER)
 		ft_put_img(game, game->i_player, x, y);
 	return (0);
 }

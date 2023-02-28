@@ -24,10 +24,10 @@ int	ft_move(t_game *game, t_vector *player, int keycode)
 
 	if (game->state != Running)
 		return (0);
-	if (ft_ismovable(game, &game->player, &direction, keycode) == 0)
+	if (ft_ismovable(game, game->map->player, &direction, keycode) == 0)
 		return (0);
-	game->map->arr[player->x][player->y].c = '0';
-	game->map->arr[player->x + direction.x][player->y + direction.y].c = 'P';
+	game->map->arr[player->x][player->y].c = C_EMPTY_SPACE;
+	game->map->arr[player->x + direction.x][player->y + direction.y].c = C_PLAYER;
 	ft_slide(game, player, &direction);
 	ft_put_default_img(game, player->x, player->y);
 	player->x += direction.x;
@@ -72,11 +72,11 @@ static int	ft_ismovable(t_game *game, t_vector *character,
 	ft_set_direction(move, d);
 	cx = character->x + d->x;
 	cy = character->y + d->y;
-	if (game->map->arr[cx][cy].c == '1')
+	if (game->map->arr[cx][cy].c == C_WALL)
 		return (0);
-	else if (game->map->arr[cx][cy].c == 'C')
+	else if (game->map->arr[cx][cy].c == C_COLLECTIBLE)
 		game->map->n_collectible--;
-	else if (game->map->arr[cx][cy].c == 'E' && game->map->n_collectible == 0)
+	else if (game->map->arr[cx][cy].c == C_EXIT && game->map->n_collectible == 0)
 		game->state = Stopping;
 	return (move);
 }

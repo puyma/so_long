@@ -104,7 +104,6 @@ typedef struct s_map
 	t_list				*lst;
 	unsigned int		lstsize;
 	size_t				lnlen;
-	int					exit_err;
 	char				*exit_str;
 	t_map_item			**arr;
 	int					n_collectible;
@@ -118,13 +117,12 @@ typedef struct s_game
 {
 	void				*mlx;
 	void				*mlx_window;
-	int					mlx_window_width;
-	int					mlx_window_height;
 	int					height;
 	int					width;
 	t_map				*map;
 	int					size;
-	t_list				**buttons;
+	enum e_game			state;
+	unsigned int		n_moves;
 	t_imgdata			*i_floor;
 	t_imgdata			*i_wall;
 	t_imgdata			*i_collectible;
@@ -132,14 +130,6 @@ typedef struct s_game
 	t_imgdata			*i_player;
 	t_imgdata			*i_blur;
 	t_imgdata			*i_pause;
-	unsigned int		n_moves;
-	enum e_game			state;
-	t_vector			player;
-	t_vector			end_gate;
-	int					k_up;
-	int					k_down;
-	int					k_left;
-	int					k_right;
 }						t_game;
 
 int			ft_launch(const char *input_file);

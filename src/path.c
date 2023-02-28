@@ -18,8 +18,8 @@ static t_vector	*ft_locate(t_map *map, int c);
 int	ft_path_isvalid(t_map *map)
 {
 	map->exit_str = ERR_PATH;
-	map->player = ft_locate(map, 'P');
-	map->exit = ft_locate(map, 'E');
+	map->player = ft_locate(map, C_PLAYER);
+	map->exit = ft_locate(map, C_EXIT);
 	ft_log("Searching for a valid path...");
 	if (ft_solve(map, map->player->x, map->player->y) != 0)
 		return (1);

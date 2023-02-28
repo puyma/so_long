@@ -48,12 +48,12 @@ static int	ft_load_map(t_map *map)
 	line = get_next_line(map->fd);
 	if (line == NULL)
 		return (1);
-	while (line && *line != '1')
+	while (line && *line != C_WALL)
 	{
 		free(line);
 		line = get_next_line(map->fd);
 	}
-	while (line && *line == '1')
+	while (line && *line == C_WALL)
 	{
 		temp = ft_lstnew(line);
 		ft_lstadd_back(&map->lst, temp);
@@ -83,7 +83,7 @@ static t_map_item	**ft_map2array(t_map *map)
 		while (i < map->lnlen)
 		{
 			arr[line][i].c = temp[i];
-			if (arr[line][i].c == '1')
+			if (arr[line][i].c == C_WALL)
 				arr[line][i].i = 1;
 			i++;
 		}

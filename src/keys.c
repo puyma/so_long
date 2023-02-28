@@ -15,7 +15,7 @@
 int	ft_keycode(int keycode, t_game *game)
 {
 	if (ft_ismovekey(keycode) != 0)
-		ft_move(game, &game->player, keycode);
+		ft_move(game, game->map->player, keycode);
 	else if (keycode == KEY_PAUSE)
 		ft_toggle_pause(game);
 	if (keycode == KEY_ESC)
