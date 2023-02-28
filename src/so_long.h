@@ -138,6 +138,7 @@ int			ft_launch(const char *input_file);
 
 void		*ft_new_window(t_game *game, char *title);
 int			ft_fill_window(t_game *game, t_imgdata *img);
+int			ft_display_nmoves(t_game *game, int n);
 int			ft_memload_images(t_game *game);
 t_imgdata	*ft_memload_img(t_game *game, char *filename);
 void		ft_memunload_images(t_game *game);
