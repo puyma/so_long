@@ -36,20 +36,23 @@ int	ft_move(t_game *game, t_vector *player, int keycode)
 	player->y += d.y;
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
-	ft_display_nmoves(game, ++game->n_moves);	
+	ft_display_nmoves(game, ++game->n_moves);
 	return (0);
 }
 
 int	ft_display_nmoves(t_game *game, int n)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	int			digits;
 	
 	ft_printf("> Moves: %d\n", game->n_moves);
-	x = game->height - (game->size / 2);
+	x = game->height - (game->size / 2) + 3;
 	y = (game->width - 1) / 2;
+	digits = ft_count_digits(n, 10);
 	ft_put_default_img(game, x / game->size, y / game->size);
-	mlx_string_put(game->mlx, game->mlx_window, y, x, 0xFFFF88, ft_itoa(n));
+	ft_put_default_img(game, x / game->size, (y + game->size) / game->size);
+	mlx_string_put(game->mlx, game->mlx_window, y, x, 0x00F6CDAF, ft_itoa(n));
 	return (0);
 }
 
