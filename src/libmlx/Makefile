@@ -5,7 +5,7 @@ SRC		:=	mlx_shaders.c mlx_new_window.m \
 SRC		+=	mlx_png.c mlx_mouse.m
 OBJ1	=	$(SRC:.c=.o)
 OBJ		=	$(OBJ1:.m=.o)
-CFLAGS	+=	-O2
+CFLAGS	+=	-O2 -Wno-deprecated
 
 # add to match string put with X11 in size and position
 CFLAGS	+=	-DSTRINGPUTX11
