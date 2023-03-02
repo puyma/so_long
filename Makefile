@@ -42,10 +42,10 @@ endif
 
 SRC_FILES	:=	src/events.c src/launch.c src/load_images.c src/log.c src/main.c src/map.c \
 				src/map_check.c src/move.c src/movement.c src/path.c \
-				src/put_images.c src/utils.c src/window.c src/write_map.c
+				src/put_images.c src/utils.c src/window.c
 				
 BONUS_FILES	:=	$(addsuffix _bonus.c, $(basename $(SRC_FILES))) \
-				src/pause_bonus.c
+				src/pause_bonus.c src/write_map_bonus.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
@@ -56,11 +56,11 @@ B_DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(B
 
 #mv generator (&functions) to bonus files (&rule/target)
 
-$(NAME) generator: $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
-	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -lz -O3 $(SRC_FILES) -D$(shell echo $@ | tr '[:lower:]' '[:upper:]') -o $(basename $@)
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
+	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -O3 $(SRC_FILES) -o $(basename $@)
 	@echo "Built $(STYLE)$(basename $@)$(NOSTYLE)"
 	
-bonus: $(LIBFT) $(LIBMLX) $(B_OBJ_FILES) $(B_DEP_FILES) src/$(NAME).h
+bonus generator: $(LIBFT) $(LIBMLX) $(B_OBJ_FILES) $(B_DEP_FILES) src/$(NAME).h
 	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -lz -O3 $(BONUS_FILES) -D$(shell echo $@ | tr '[:lower:]' '[:upper:]') -o $(basename $@)
 	@echo "Built $(STYLE)$(basename $@)$(NOSTYLE)"
 

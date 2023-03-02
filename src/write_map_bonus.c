@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	ft_write_empty_map(int fd, int y, int x)
+int	ft_write_empty_map(int fd, int x, int y)
 {
 	int	xx;
 	int	yy;
@@ -43,16 +43,16 @@ void	ft_write_map(t_map *map, int fd)
 
 	fd = open(map->filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
 	arr = map->arr;
-	y = 0;
-	while (y < map->lnlen)
+	x = 0;
+	while (x < map->lstsize)
 	{
-		x = 0;
-		while (x < map->lstsize)
+		y = 0;
+		while (y < map->lnlen)
 		{
 			write(fd, &arr[x][y].c, 1);
-			x++;
+			y++;
 		}
 		write(fd, "\n", 1);
-		y++;
+		x++;
 	}
 }

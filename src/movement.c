@@ -14,26 +14,6 @@
 
 #define VEL 4
 
-#ifdef GENERATOR
-
-int	ft_slide(t_game *game, t_vector *player, t_vector *d)
-{
-	int	size;
-	int	px;
-	int	py;
-	int	i;
-
-	size = game->size;
-	px = player->x * size;
-	py = player->y * size;
-	i = 1;
-	ft_put_default_img(game, player->x, player->y);
-	ft_put_img(game, game->i_player, player->x + d->x, player->y + d->y);
-	return (0);
-}
-
-#else
-
 int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 {
 	int	size;
@@ -54,8 +34,6 @@ int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 	}
 	return (0);
 }
-
-#endif
 
 int	ft_set_direction(enum e_character move, t_vector *d)
 {

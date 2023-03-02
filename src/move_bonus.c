@@ -17,6 +17,28 @@ static int	ft_ismovable(t_game *game, t_vector *character,
 
 // t_vector d -> direction
 
+#ifdef GENERATOR
+
+int	ft_move(t_game *game, t_vector *player, int keycode)
+{
+	t_vector	d;
+
+	if (game->state != Running)
+		return (0);
+	if (ft_ismovable(game, game->map->player, &d, keycode) == 0)
+		return (0);
+	//game->map->arr[player->x + d.x][player->y + d.y].c = C_PLAYER;
+	ft_slide(game, player, &d);
+	player->x += d.x;
+	player->y += d.y;
+	ft_put_default_img(game, player->x, player->y);
+	mlx_do_sync(game->mlx);
+	ft_printf("> Moves: %d\n", ++game->n_moves);
+	return (0);
+}
+
+#else
+
 int	ft_move(t_game *game, t_vector *player, int keycode)
 {
 	t_vector	d;
@@ -36,6 +58,8 @@ int	ft_move(t_game *game, t_vector *player, int keycode)
 	ft_display_nmoves(game, ++game->n_moves, 1);
 	return (0);
 }
+
+#endif
 
 int	ft_display_nmoves(t_game *game, int n, int background)
 {
