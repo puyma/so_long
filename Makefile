@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/02 10:53:22 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/02 14:47:13 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CC			:=	gcc
 CFLAGS		:=	-Wall -Werror -Wextra -O3
 CCFLAGS		:=	-MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft
-LFLAGS		+=	-lm -lz
+LFLAGS		+=	-lm
 LFLAGS		+=	-framework OpenGL -framework Appkit
 DEBUG		:=	-g -fsanitize='address,undefined' -Og
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
@@ -40,27 +40,28 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/events.c \
-				src/launch.c \
-				src/load_images.c \
-				src/log.c \
-				src/main.c \
-				src/map.c \
-				src/map_check.c \
-				src/move.c \
-				src/path.c \
-				src/pause.c \
-				src/put_images.c \
-				src/utils.c \
-				src/window.c
+SRC_FILES	:=	src/events.c src/launch.c src/load_images.c src/log.c src/main.c src/map.c \
+				src/map_check.c src/move.c src/movement.c src/path.c \
+				src/put_images.c src/utils.c src/window.c src/write_map.c
+				
+BONUS_FILES	:=	$(addsuffix _bonus.c, $(basename $(SRC_FILES))) \
+				src/pause_bonus.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))
+B_OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(BONUS_FILES)))))
+B_DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(BONUS_FILES)))))
 
 .PHONY: clean fclean re all debug
 
+#mv generator (&functions) to bonus files (&rule/target)
+
 $(NAME) generator: $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
-	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -O3 $(SRC_FILES) -D$(shell echo $@ | tr '[:lower:]' '[:upper:]') -o $(basename $@)
+	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -lz -O3 $(SRC_FILES) -D$(shell echo $@ | tr '[:lower:]' '[:upper:]') -o $(basename $@)
+	@echo "Built $(STYLE)$(basename $@)$(NOSTYLE)"
+	
+bonus: $(LIBFT) $(LIBMLX) $(B_OBJ_FILES) $(B_DEP_FILES) src/$(NAME).h
+	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -lz -O3 $(BONUS_FILES) -D$(shell echo $@ | tr '[:lower:]' '[:upper:]') -o $(basename $@)
 	@echo "Built $(STYLE)$(basename $@)$(NOSTYLE)"
 
 $(LIBFT) $(LIBMLX):
@@ -77,7 +78,7 @@ clean:
 	make clean -C $(SRC_DIR)/libmlx
 
 fclean: clean
-	$(RM) $(NAME)*
+	$(RM) $(NAME)* generator
 
 re: fclean
 	$(MAKE)

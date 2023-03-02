@@ -14,6 +14,8 @@
 
 int	ft_toggle_pause(t_game *game)
 {
+	if (game->state != Paused && game->state != Running)
+		return (0);
 	if (game->state != Paused)
 	{
 		game->state = Paused;
@@ -25,6 +27,7 @@ int	ft_toggle_pause(t_game *game)
 		game->state = Running;
 		ft_put_images(game);
 	}
+	ft_display_nmoves(game, game->n_moves, 0);
 	ft_log_state(game->state);
 	return (0);
 }

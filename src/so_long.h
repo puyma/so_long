@@ -43,14 +43,19 @@
 # define KEY_UP			126
 # define KEY_ESC		53
 # define KEY_PAUSE		35
+# define KEY_0			29
+# define KEY_1			18
+# define KEY_C			8
+# define KEY_E			14
+# define KEY_P			35
 
 # define FLOOR			"./src/assets/floor.xpm"
 # define WALL			"./src/assets/wall.xpm"
 # define COLLECTIBLE	"./src/assets/collectible.xpm"
 # define EXIT			"./src/assets/exit.xpm"
 # define PLAYER			"./src/assets/player.xpm"
-# define BLUR			"./src/assets/blur.xpm"
-# define PAUSE			"./src/assets/pause.xpm"
+# define BLUR			"./src/assets/blur.png"
+# define PAUSE			"./src/assets/pause.png"
 
 # define MAP_EXT		".ber"
 
@@ -69,7 +74,7 @@
 # define ERR_IMG_LOAD	"Could not load image"
 # define ERR_IMGS		"Could not load some of the images"
 
-enum e_game { Stopped = 0, Running, Paused, Stopping }	state;
+enum e_game { Stopped = 0, Running, Paused, Stopping, Ended }	state;
 
 enum e_character { None = 0, Left, Right, Up, Down }	direction;
 
@@ -138,7 +143,7 @@ int			ft_launch(const char *input_file);
 
 void		*ft_new_window(t_game *game, char *title);
 int			ft_fill_window(t_game *game, t_imgdata *img);
-int			ft_display_nmoves(t_game *game, int n);
+int			ft_display_nmoves(t_game *game, int n, int background);
 int			ft_memload_images(t_game *game);
 t_imgdata	*ft_memload_img(t_game *game, char *filename);
 void		ft_memunload_images(t_game *game);
@@ -152,6 +157,8 @@ int			ft_extension_isvalid(char *filename, char *ext);
 void		ft_delete_nl(void *ptr);
 int			ft_ismovekey(int keycode);
 int			ft_move(t_game *game, t_vector *player, int keycode);
+int			ft_set_direction(enum e_character move, t_vector *d);
+int			ft_slide(t_game *game, t_vector *player, t_vector *d);
 int			ft_check_length(t_map *map);
 int			ft_check_characters(t_map *map);
 int			ft_check_surroundings(t_map *map);
@@ -159,14 +166,20 @@ t_vector	*ft_locate_character(t_map *map, int c);
 int			ft_check_wall_str(char *temp, int c);
 int			ft_check_allowedchar(t_map *map, char *line);
 int			ft_solve(t_map *map, unsigned x, unsigned y);
+t_map_item	**ft_map2array(t_map *map);
+int			ft_load_map(t_map *map);
 
 int			ft_keycode(int keycode, t_game *game);
 int			ft_state_render(t_game *game);
-int			ft_toggle_pause(t_game *game);
 int			ft_destroy(t_game *game);
 void		ft_exit(char *error_str, int error_num);
 
 void		ft_log(char *str);
 void		ft_log_state(enum e_game state);
+
+int			ft_toggle_pause(t_game *game);
+
+int			ft_write_empty_map(int fd, int y, int x);
+void		ft_write_map(t_map *map, int fd);
 
 #endif /* so_long.h */
