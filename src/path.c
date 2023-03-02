@@ -12,24 +12,9 @@
 
 #include "so_long.h"
 
-static int		ft_solve(t_map *map, unsigned x, unsigned y);
-
 // faltara comprovar (ft_solve) des de cadaun dels collectibles al exit
 
-int	ft_path_isvalid(t_map *map)
-{
-	map->exit_str = ERR_PATH;
-	map->player = ft_locate_character(map, C_PLAYER);
-	map->exit = ft_locate_character(map, C_EXIT);
-	ft_log("Searching for a valid path...");
-	if (map->player == NULL || map->exit == NULL)
-		return (0);
-	if (ft_solve(map, map->player->x, map->player->y) != 0)
-		return (1);
-	return (0);
-}
-
-static int	ft_solve(t_map *map, unsigned x, unsigned y)
+int	ft_solve(t_map *map, unsigned x, unsigned y)
 {
 	if (x == (unsigned)(map->exit->x) && y == (unsigned)(map->exit->y))
 	{

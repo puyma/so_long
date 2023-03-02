@@ -22,7 +22,7 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define LOG_LEVEL		1
+# define LOG_LEVEL		0
 # define PIX_SIZE		32
 # define FILENAME_LEN	42
 
@@ -44,13 +44,13 @@
 # define KEY_ESC		53
 # define KEY_PAUSE		35
 
-# define FLOOR			"./src/assets/floor.png"
-# define WALL			"./src/assets/wall.png"
-# define COLLECTIBLE	"./src/assets/collectible.png"
-# define EXIT			"./src/assets/exit.png"
-# define PLAYER			"./src/assets/player.png"
-# define BLUR			"./src/assets/blur.png"
-# define PAUSE			"./src/assets/pause.png"
+# define FLOOR			"./src/assets/floor.xpm"
+# define WALL			"./src/assets/wall.xpm"
+# define COLLECTIBLE	"./src/assets/collectible.xpm"
+# define EXIT			"./src/assets/exit.xpm"
+# define PLAYER			"./src/assets/player.xpm"
+# define BLUR			"./src/assets/blur.xpm"
+# define PAUSE			"./src/assets/pause.xpm"
 
 # define MAP_EXT		".ber"
 
@@ -155,10 +155,10 @@ int			ft_move(t_game *game, t_vector *player, int keycode);
 int			ft_check_length(t_map *map);
 int			ft_check_characters(t_map *map);
 int			ft_check_surroundings(t_map *map);
-int			ft_path_isvalid(t_map *map);
 t_vector	*ft_locate_character(t_map *map, int c);
 int			ft_check_wall_str(char *temp, int c);
 int			ft_check_allowedchar(t_map *map, char *line);
+int			ft_solve(t_map *map, unsigned x, unsigned y);
 
 int			ft_keycode(int keycode, t_game *game);
 int			ft_state_render(t_game *game);

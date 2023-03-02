@@ -40,16 +40,7 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/ft_delete_nl.c \
-				src/ft_destroy.c \
-				src/ft_exit.c \
-				src/ft_extension_isvalid.c \
-				src/ft_ismovekey.c \
-				src/ft_keycode.c \
-				src/ft_locate_character.c \
-				src/ft_solve.c \
-				src/ft_state_render.c \
-				src/ft_toggle_pause.c \
+SRC_FILES	:=	src/events.c \
 				src/launch.c \
 				src/load_images.c \
 				src/log.c \
@@ -57,7 +48,10 @@ SRC_FILES	:=	src/ft_delete_nl.c \
 				src/map.c \
 				src/map_check.c \
 				src/move.c \
+				src/path.c \
+				src/pause.c \
 				src/put_images.c \
+				src/utils.c \
 				src/window.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
@@ -66,7 +60,7 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 .PHONY: clean fclean re all debug
 
 $(NAME) generator: $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
-	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -O3 $(SRC_FILES) -o $(basename $@)
+	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -O3 $(SRC_FILES) -D$(shell echo $@ | tr '[:lower:]' '[:upper:]') -o $(basename $@)
 	@echo "Built $(STYLE)$(basename $@)$(NOSTYLE)"
 
 $(LIBFT) $(LIBMLX):

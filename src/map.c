@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+static int			ft_path_isvalid(t_map *map);
 static int			ft_load_map(t_map *map);
 static t_map_item	**ft_map2array(t_map *map);
 static t_map_item	**ft_allocate_map(t_map *map);
@@ -33,9 +34,24 @@ int	ft_map_isvalid(t_map *map)
 	if (ft_check_characters(map) == 0 || ft_check_surroundings(map) == 0)
 		return (0);
 	map->arr = ft_map2array(map);
+	ft_lstclear(&map->lst, &free);
+	ft_log("Freed map->lst");
 	if (ft_path_isvalid(map) == 0)
 		return (0);
 	return (map->lnlen);
+}
+
+static int	ft_path_isvalid(t_map *map)
+{
+	map->exit_str = ERR_PATH;
+	map->player = ft_locate_character(map, C_PLAYER);
+	map->exit = ft_locate_character(map, C_EXIT);
+	ft_log("Searching for a valid path...");
+	if (map->player == NULL || map->exit == NULL)
+		return (0);
+	if (ft_solve(map, map->player->x, map->player->y) != 0)
+		return (1);
+	return (0);
 }
 
 static int	ft_load_map(t_map *map)

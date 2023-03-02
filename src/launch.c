@@ -60,5 +60,5 @@ static void	ft_set_events(t_game *game)
 {
 	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
 	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
-	mlx_loop_hook(game->mlx, ft_state_render, game);
+	mlx_loop_hook(game->mlx, &ft_state_render, game);
 }

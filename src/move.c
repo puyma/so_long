@@ -45,7 +45,7 @@ int	ft_display_nmoves(t_game *game, int n)
 	int			x;
 	int			y;
 	int			digits;
-	
+
 	ft_printf("> Moves: %d\n", game->n_moves);
 	x = game->height - (game->size / 2) + 3;
 	y = (game->width - 1) / 2;

@@ -32,6 +32,8 @@ int	ft_memload_images(t_game *game)
 	return (1);
 }
 
+//#ifdef ZLIB_AVAILABLE
+
 t_imgdata	*ft_memload_img(t_game *game, char *filename)
 {
 	t_imgdata	*img;
@@ -51,6 +53,8 @@ t_imgdata	*ft_memload_img(t_game *game, char *filename)
 			&img->line_length, &img->endian);
 	return (img);
 }
+
+//#endif
 
 void	ft_memunload_images(t_game *game)
 {
