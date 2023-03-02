@@ -179,7 +179,7 @@ void		ft_log_state(enum e_game state);
 
 int			ft_toggle_pause(t_game *game);
 
-int	ft_write_empty_map(int fd, int y, int x);
-void	ft_write_map(t_map *map, int fd);
+int			ft_write_empty_map(int fd, int y, int x);
+void		ft_write_map(t_map *map, int fd);
 
 #endif /* so_long.h */

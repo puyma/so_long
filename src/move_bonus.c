@@ -27,7 +27,6 @@ int	ft_move(t_game *game, t_vector *player, int keycode)
 		return (0);
 	if (ft_ismovable(game, game->map->player, &d, keycode) == 0)
 		return (0);
-	//game->map->arr[player->x + d.x][player->y + d.y].c = C_PLAYER;
 	ft_slide(game, player, &d);
 	player->x += d.x;
 	player->y += d.y;

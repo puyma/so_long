@@ -28,7 +28,6 @@ int	ft_memload_images(t_game *game)
 	return (1);
 }
 
-
 // load directly xpm from memory though compilation (no .xpm files)
 
 t_imgdata	*ft_memload_img(t_game *game, char *filename)
