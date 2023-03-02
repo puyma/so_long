@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/02/24 13:43:28 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/02 10:53:22 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,13 @@ LIBMLX_DIR	:=	$(SRC_DIR)/libmlx
 LIBFT		:=	libft.a
 LIBMLX		:=	libmlx.a
 NAME		:=	so_long
-GENERATOR	:=	generator
 
 CC			:=	gcc
 CFLAGS		:=	-Wall -Werror -Wextra -O3
 CCFLAGS		:=	-MMD
-LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft -lm -lz -framework OpenGL -framework Appkit
+LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft
+LFLAGS		+=	-lm -lz
+LFLAGS		+=	-framework OpenGL -framework Appkit
 DEBUG		:=	-g -fsanitize='address,undefined' -Og
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
@@ -46,6 +47,7 @@ SRC_FILES	:=	src/ft_delete_nl.c \
 				src/ft_ismovekey.c \
 				src/ft_keycode.c \
 				src/ft_locate_character.c \
+				src/ft_solve.c \
 				src/ft_state_render.c \
 				src/ft_toggle_pause.c \
 				src/launch.c \
@@ -55,7 +57,6 @@ SRC_FILES	:=	src/ft_delete_nl.c \
 				src/map.c \
 				src/map_check.c \
 				src/move.c \
-				src/path.c \
 				src/put_images.c \
 				src/window.c
 
@@ -64,9 +65,9 @@ DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC
 
 .PHONY: clean fclean re all debug
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
-	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -O3 $(SRC_FILES) -o $(NAME)
-	@echo "Built $(STYLE)$(NAME)$(NOSTYLE)"
+$(NAME) generator: $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
+	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -O3 $(SRC_FILES) -o $(basename $@)
+	@echo "Built $(STYLE)$(basename $@)$(NOSTYLE)"
 
 $(LIBFT) $(LIBMLX):
 	make -C $(SRC_DIR)/$(basename $@)
