@@ -12,7 +12,28 @@
 
 #include "so_long.h"
 
-#ifndef GENERATOR
+#ifdef GENERATOR
+
+int	ft_put_images(t_game *game)
+{
+	int			x;
+	int			y;
+	t_map_item	**arr;
+
+	x = 0;
+	y = 0;
+	arr = game->map->arr;
+	while (arr[x] != NULL)
+	{
+		y = 0;
+		while (arr[x][y].c != '\0')
+			ft_put_default_img(game, x, y++);
+		x++;
+	}
+	return (0);
+}
+
+#else /* ifndef GENERATOR */
 
 int	ft_put_images(t_game *game)
 {
@@ -36,27 +57,6 @@ int	ft_put_images(t_game *game)
 				ft_put_default_img(game, x, y);
 			y++;
 		}
-		x++;
-	}
-	return (0);
-}
-
-#else
-
-int	ft_put_images(t_game *game)
-{
-	int			x;
-	int			y;
-	t_map_item	**arr;
-
-	x = 0;
-	y = 0;
-	arr = game->map->arr;
-	while (arr[x] != NULL)
-	{
-		y = 0;
-		while (arr[x][y].c != '\0')
-			ft_put_default_img(game, x, y++);
 		x++;
 	}
 	return (0);

@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	ft_write_empty_map(int fd, int x, int y)
+void	ft_write_empty_map(int fd, int x, int y)
 {
 	int	xx;
 	int	yy;
@@ -23,16 +23,19 @@ int	ft_write_empty_map(int fd, int x, int y)
 	while (xx++ < x)
 	{
 		yy = 0;
-		while (yy++ < y)
+		while (yy < y)
 		{
-			write(fd, "1", 1);
-			if (xx == 2 && yy == 1)
+			if (yy == 0 || yy == y - 1 || xx == 1 || xx == x)
+				write(fd, "1", 1);
+			else
+				write(fd, "0", 1);
+			if (xx == 2 && yy == 0 && y > 4)
 				yy += write(fd, "ECP", 3);
+			yy++;
 		}
 		write(fd, "\n", 1);
 	}
 	ft_putchar_fd(0, fd);
-	return (0);
 }
 
 void	ft_write_map(t_map *map, int fd)
@@ -55,4 +58,5 @@ void	ft_write_map(t_map *map, int fd)
 		write(fd, "\n", 1);
 		x++;
 	}
+	ft_printf("Saved map: %s\n", map->filename);
 }

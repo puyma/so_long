@@ -41,8 +41,8 @@ static int	ft_ismovable(t_game *game, t_vector *character,
 				t_vector *d, int keycode)
 {
 	enum e_character	move;
-	int					cx;
-	int					cy;
+	size_t				cx;
+	size_t				cy;
 
 	move = ft_ismovekey(keycode);
 	if (move == None)
@@ -56,6 +56,6 @@ static int	ft_ismovable(t_game *game, t_vector *character,
 		game->map->n_collectible--;
 	else if (game->map->arr[cx][cy].c == C_EXIT
 		&& game->map->n_collectible == 0)
-		game->state = Ended;
+		ft_ended(game);
 	return (move);
 }

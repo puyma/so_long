@@ -26,6 +26,14 @@
 # define PIX_SIZE		32
 # define FILENAME_LEN	42
 
+# ifndef LOG_LEVEL
+#  ifdef GENERATOR
+#   define LOG_LEVEL	1
+#  else /* ifndef GENERATOR */
+#   define LOG_LEVEL	0
+#  endif
+# endif
+
 # define C_EMPTY_SPACE	'0'
 # define C_WALL			'1'
 # define C_COLLECTIBLE	'C'
@@ -172,6 +180,7 @@ int			ft_load_map(t_map *map);
 int			ft_keycode(int keycode, t_game *game);
 int			ft_state_render(t_game *game);
 int			ft_destroy(t_game *game);
+int			ft_ended(t_game *game);
 void		ft_exit(char *error_str, int error_num);
 
 void		ft_log(char *str);
@@ -179,7 +188,7 @@ void		ft_log_state(enum e_game state);
 
 int			ft_toggle_pause(t_game *game);
 
-int			ft_write_empty_map(int fd, int y, int x);
+void		ft_write_empty_map(int fd, int y, int x);
 void		ft_write_map(t_map *map, int fd);
 
 #endif /* so_long.h */

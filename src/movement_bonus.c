@@ -32,7 +32,7 @@ int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 	return (0);
 }
 
-#else
+#else /* ifndef GENERATOR */
 
 int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 {

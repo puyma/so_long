@@ -46,6 +46,12 @@ int	ft_destroy(t_game *game)
 	exit(0);
 }
 
+int	ft_ended(t_game *game)
+{
+	game->state = Ended;
+	return (0);
+}
+
 #ifdef GENERATOR
 
 int	ft_keycode(int keycode, t_game *game)
@@ -77,7 +83,7 @@ int	ft_keycode(int keycode, t_game *game)
 	return (0);
 }
 
-#else
+#else /* ifndef GENERATOR */
 
 int	ft_keycode(int keycode, t_game *game)
 {

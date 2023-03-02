@@ -32,11 +32,29 @@ int	ft_move(t_game *game, t_vector *player, int keycode)
 	player->y += d.y;
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
-	ft_printf("> Moves: %d\n", ++game->n_moves);
 	return (0);
 }
 
-#else
+static int	ft_ismovable(t_game *game, t_vector *character,
+				t_vector *d, int keycode)
+{
+	enum e_character	move;
+	size_t				cx;
+	size_t				cy;
+
+	move = ft_ismovekey(keycode);
+	if (move == None)
+		return (0);
+	ft_set_direction(move, d);
+	cx = character->x + d->x;
+	cy = character->y + d->y;
+	if (cx == 0 || cx == game->map->lstsize - 1
+		|| cy == 0 || cy == game->map->lnlen - 1)
+		return (0);
+	return (move);
+}
+
+#else /* ifndef GENERATOR */
 
 int	ft_move(t_game *game, t_vector *player, int keycode)
 {
@@ -56,6 +74,29 @@ int	ft_move(t_game *game, t_vector *player, int keycode)
 	mlx_do_sync(game->mlx);
 	ft_display_nmoves(game, ++game->n_moves, 1);
 	return (0);
+}
+
+static int	ft_ismovable(t_game *game, t_vector *character,
+				t_vector *d, int keycode)
+{
+	enum e_character	move;
+	size_t				cx;
+	size_t				cy;
+
+	move = ft_ismovekey(keycode);
+	if (move == None)
+		return (0);
+	ft_set_direction(move, d);
+	cx = character->x + d->x;
+	cy = character->y + d->y;
+	if (game->map->arr[cx][cy].c == C_WALL)
+		return (0);
+	else if (game->map->arr[cx][cy].c == C_COLLECTIBLE)
+		game->map->n_collectible--;
+	else if (game->map->arr[cx][cy].c == C_EXIT
+		&& game->map->n_collectible == 0)
+		ft_ended(game);
+	return (move);
 }
 
 #endif
@@ -79,49 +120,3 @@ int	ft_display_nmoves(t_game *game, int n, int background)
 	mlx_string_put(game->mlx, game->mlx_window, y, x, 0x00F6CDAF, ft_itoa(n));
 	return (0);
 }
-
-#ifdef GENERATOR
-
-static int	ft_ismovable(t_game *game, t_vector *character,
-				t_vector *d, int keycode)
-{
-	enum e_character	move;
-	int					cx;
-	int					cy;
-
-	move = ft_ismovekey(keycode);
-	if (move == None)
-		return (0);
-	ft_set_direction(move, d);
-	cx = character->x + d->x;
-	cy = character->y + d->y;
-	(void) game;
-	return (move);
-}
-
-#else
-
-static int	ft_ismovable(t_game *game, t_vector *character,
-				t_vector *d, int keycode)
-{
-	enum e_character	move;
-	int					cx;
-	int					cy;
-
-	move = ft_ismovekey(keycode);
-	if (move == None)
-		return (0);
-	ft_set_direction(move, d);
-	cx = character->x + d->x;
-	cy = character->y + d->y;
-	if (game->map->arr[cx][cy].c == C_WALL)
-		return (0);
-	else if (game->map->arr[cx][cy].c == C_COLLECTIBLE)
-		game->map->n_collectible--;
-	else if (game->map->arr[cx][cy].c == C_EXIT
-		&& game->map->n_collectible == 0)
-		game->state = Ended;
-	return (move);
-}
-
-#endif
