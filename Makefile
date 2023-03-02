@@ -78,7 +78,8 @@ clean:
 	make clean -C $(SRC_DIR)/libmlx
 
 fclean: clean
-	$(RM) $(NAME)* generator
+	$(RM) $(NAME)* 
+	$(RM) generator bonus *.ber
 
 re: fclean
 	$(MAKE)
