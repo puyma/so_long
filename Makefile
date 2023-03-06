@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/06 15:30:09 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/06 22:00:39 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)* 
-	$(RM) generator bonus *.ber
+	$(RM) generator* bonus* *.ber
 
 re: fclean
 	$(MAKE)
