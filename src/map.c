@@ -12,8 +12,8 @@
 
 #include "so_long.h"
 
-static int			ft_path_isvalid(t_map *map);
 static t_map_item	**ft_allocate_map(t_map *map);
+static int			ft_save_collectibles(t_map *map);
 
 int	ft_map_isvalid(t_map *map)
 {
@@ -34,21 +34,36 @@ int	ft_map_isvalid(t_map *map)
 	map->arr = ft_map2array(map);
 	ft_lstclear(&map->lst, &free);
 	ft_log("Freed map->lst");
+	ft_save_collectibles(map);
 	if (ft_path_isvalid(map) == 0)
 		return (0);
 	return (map->lnlen);
 }
 
-static int	ft_path_isvalid(t_map *map)
+static int	ft_save_collectibles(t_map *map)
 {
-	map->exit_str = ERR_PATH;
-	map->player = ft_locate_character(map, C_PLAYER);
-	map->exit = ft_locate_character(map, C_EXIT);
-	ft_log("Searching for a valid path...");
-	if (map->player == NULL || map->exit == NULL)
-		return (0);
-	if (ft_solve(map, map->player->x, map->player->y) != 0)
-		return (1);
+	unsigned int	x;
+	unsigned int	y;
+	t_vector		*temp;
+
+	x = 0;
+	y = 0;
+	while (map->arr[x] != NULL)
+	{
+		y = 0;
+		while (map->arr[x][y].c != '\0')
+		{
+			if (map->arr[x][y].c == 'C')
+			{
+				temp = ft_calloc(1, sizeof(t_vector));
+				temp->x = x;
+				temp->y = y;
+				ft_lstadd_back(&map->collectibles, ft_lstnew(temp));
+			}
+			y++;
+		}
+		x++;
+	}
 	return (0);
 }
 

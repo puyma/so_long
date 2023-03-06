@@ -52,6 +52,8 @@ void	ft_delete_nl(void *ptr)
 	}
 }
 
+// assumes there's only one character
+
 t_vector	*ft_locate_character(t_map *map, int c)
 {
 	t_vector	*coordinates;

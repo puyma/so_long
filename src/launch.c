@@ -43,6 +43,7 @@ static void	ft_init_map(t_map *map)
 	map->n_player = 0;
 	map->n_exit = 0;
 	map->n_collectible = 0;
+	map->collectibles = NULL;
 }
 
 static void	ft_init_game(t_game *game)
