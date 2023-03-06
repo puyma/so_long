@@ -15,6 +15,8 @@
 static t_map_item	**ft_allocate_map(t_map *map);
 static int			ft_save_collectibles(t_map *map);
 
+# ifndef GENERATOR
+
 int	ft_map_isvalid(t_map *map)
 {
 	ft_log(map->filename);
@@ -39,6 +41,26 @@ int	ft_map_isvalid(t_map *map)
 		return (0);
 	return (map->lnlen);
 }
+
+# else
+
+int	ft_map_isvalid(t_map *map)
+{
+	ft_log(map->filename);
+	if (ft_extension_isvalid(map->filename, MAP_EXT) == 0)
+		ft_exit(ERR_01, 3);
+	map->fd = open(map->filename, O_RDONLY);
+	ft_load_map(map);
+	ft_check_characters(map);
+	ft_check_surroundings(map);
+	map->arr = ft_map2array(map);
+	ft_lstclear(&map->lst, &free);
+	ft_log("Freed map->lst");
+	ft_save_collectibles(map);
+	return (map->lnlen);
+}
+
+#endif
 
 static int	ft_save_collectibles(t_map *map)
 {

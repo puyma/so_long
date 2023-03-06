@@ -39,17 +39,37 @@ int	ft_launch(const char *filename)
 	return (0);
 }
 
+int	ft_launch_bypass(const char *filename)
+{
+	t_map	map;
+	t_game	game;
+
+	ft_init_map(&map);
+	map.filename = (char *) filename;
+	ft_map_isvalid(&map);
+	close(map.fd);
+	game.map = &map;
+	ft_init_game(&game);
+	if (ft_memload_images(&game) == 0)
+		ft_exit("ERR_IMGS", 0);
+	ft_put_images(&game);
+	mlx_hook(game.mlx_window, ON_KEYDOWN, 0, &ft_keycode, &game);
+	mlx_hook(game.mlx_window, ON_DESTROY, 0, &ft_destroy, &game);
+	mlx_loop_hook(game.mlx, &ft_state_render, &game);
+	mlx_loop(game.mlx);
+	ft_memunload_images(&game);
+	ft_log("> OK (bypass)");
+	return (0);
+}
+
 int	ft_generate(const char *filename, int x, int y)
 {
 	int	fd;
 
 	if (x == 0 && y == 0)
 	{
-		fd = open(filename, O_RDONLY);
-		if (fd == -1)
-			ft_exit("Could not open/create file", 0);
-		close(fd);
-		//ft_launch(filename);
+		ft_printf("hey\n");
+		ft_launch(filename);
 	}
 	else
 	{

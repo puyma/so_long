@@ -39,7 +39,8 @@ int	main(int argc, char **argv)
 		else if (x == y)
 			ft_exit("Usage: filename, width, height (!= width)", 0);
 	}
-	ft_generate(filename, ft_atoi(argv[3]), ft_atoi(argv[2]));
+	ft_printf("receiving: %d, %d\n", x, y);
+	ft_generate(filename, x, y);
 	return (0);
 }
 

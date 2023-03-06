@@ -148,6 +148,7 @@ typedef struct s_game
 }						t_game;
 
 int			ft_launch(const char *filename);
+int			ft_launch_bypass(const char *filename);
 
 void		*ft_new_window(t_game *game, char *title);
 int			ft_fill_window(t_game *game, t_imgdata *img);
