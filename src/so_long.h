@@ -120,6 +120,7 @@ typedef struct s_map
 	char				*exit_str;
 	t_list				*lst;
 	t_map_item			**arr;
+	t_list				*collectibles;
 	int					n_collectible;
 	int					n_exit;
 	int					n_player;
@@ -146,8 +147,7 @@ typedef struct s_game
 	t_imgdata			*i_pause;
 }						t_game;
 
-int			ft_launch(const char *input_file);
-//int		ft_launch_generator(const char *input_file);
+int			ft_launch(const char *filename);
 
 void		*ft_new_window(t_game *game, char *title);
 int			ft_fill_window(t_game *game, t_imgdata *img);
@@ -173,9 +173,9 @@ int			ft_check_surroundings(t_map *map);
 t_vector	*ft_locate_character(t_map *map, int c);
 int			ft_check_wall_str(char *temp, int c);
 int			ft_check_allowedchar(t_map *map, char *line);
-int			ft_solve(t_map *map, unsigned x, unsigned y);
 t_map_item	**ft_map2array(t_map *map);
 int			ft_load_map(t_map *map);
+int			ft_path_isvalid(t_map *map);
 
 int			ft_keycode(int keycode, t_game *game);
 int			ft_state_render(t_game *game);
