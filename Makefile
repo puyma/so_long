@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/02 14:47:13 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/06 15:30:09 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ SRC_DIR		:=	src
 LIBFT_DIR	:=	$(SRC_DIR)/libft
 LIBMLX_DIR	:=	$(SRC_DIR)/libmlx
 
-LIBFT		:=	libft.a
-LIBMLX		:=	libmlx.a
+LIBFT		:=	$(LIBFT_DIR)/libft.a
+LIBMLX		:=	$(LIBMLX_DIR)/libmlx.a
 NAME		:=	so_long
 
 CC			:=	gcc
@@ -65,17 +65,16 @@ bonus generator: $(LIBFT) $(LIBMLX) $(B_OBJ_FILES) $(B_DEP_FILES) src/$(NAME).h
 	@echo "Built $(STYLE)$(basename $@)$(NOSTYLE)"
 
 $(LIBFT) $(LIBMLX):
-	make -C $(SRC_DIR)/$(basename $@)
-	cp -f $(SRC_DIR)/$(basename $@)/$@ ./
-	
+	make -C $(dir $@)
+
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c 
 	@mkdir -p $(@D)
 	$(CC) $(INC) $(CFLAGS) $(CCFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(BUILD_DIR)/ $(LIBFT) $(LIBMLX)
-	make fclean -C $(SRC_DIR)/libft
-	make clean -C $(SRC_DIR)/libmlx
+	make fclean -C $(LIBFT_DIR)
+	make clean -C $(LIBMLX_DIR)
 
 fclean: clean
 	$(RM) $(NAME)* 
