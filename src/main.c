@@ -42,8 +42,9 @@ int		ft_write_empty_map(char *filename, int x, int y);
 int		ft_check_map(t_map *map);
 void	ft_delete_nl(void *ptr);
 void	ft_parse_map(t_map *map);
-int		ft_map2array(t_map *map);
+void	ft_map2array(void *ptr);
 t_map	*ft_new_map(void);
+int		ft_set_board(t_list *list, int **board);
 
 #ifndef GENERATOR
 
@@ -85,7 +86,7 @@ int	main(int argc, char **argv)
 		//better if ft_generate_empty_map (array)
 	ft_load_map(map);
 	ft_parse_map(map);
-	ft_map2array(map);
+	ft_set_board(map);
 	ft_lstclear(&map->list, &free);
 	//ft_launch(map); //only launch!! do not ft_check.
 	free(map);
@@ -93,6 +94,19 @@ int	main(int argc, char **argv)
 }
 
 #endif
+
+int	ft_set_board(t_list *list, int **board)
+{
+	board = ft_calloc(sizeof(int *), );
+	ft_lstiter(list, &ft_map2array);
+	return (0);
+}
+
+void	ft_map2array(void *ptr)
+{
+	
+	return (0);
+}
 
 t_map	*ft_new_map(void)
 {
@@ -137,7 +151,7 @@ int	ft_load_map(t_map *map)
 			free(line);
 		line = get_next_line(map->fd);
 	}
-	ft_lstiter(map->list, ft_delete_nl);
+	ft_lstiter(map->list, &ft_delete_nl);
 	// try with ft_replace_char(int a, int b)
 	map->height = ft_lstsize(map->list);
 	// allocate map // load into list // parse stuff
@@ -148,12 +162,6 @@ int	ft_load_map(t_map *map)
 void	ft_parse_map(t_map *map)
 {
 	(void) map;
-}
-
-int	ft_map2array(t_map *map)
-{
-	(void) map;
-	return (0);
 }
 
 void	ft_replace_char(int a, int b)
