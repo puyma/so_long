@@ -43,7 +43,8 @@ int	ft_launch_bypass(const char *filename)
 {
 	t_map	map;
 	t_game	game;
-
+	
+	exit(0);
 	ft_init_map(&map);
 	map.filename = (char *) filename;
 	ft_map_isvalid(&map);

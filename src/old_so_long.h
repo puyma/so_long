@@ -19,10 +19,8 @@
 # include <stdio.h> /* perror */
 # include <string.h> /* strerror */
 
-//# include "libft.h"
-//# include "mlx.h"
-#include "./libft/src/libft.h"
-#include "./libmlx/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 
 # define LOG_LEVEL		0
 # define PIX_SIZE		32
@@ -83,8 +81,6 @@
 # define ERR_PATH		"There is not a valid path in this map"
 # define ERR_IMG_LOAD	"Could not load image"
 # define ERR_IMGS		"Could not load some of the images"
-
-/*
 
 enum e_game { Stopped = 0, Running, Paused, Stopping, Ended }	state;
 
@@ -151,51 +147,49 @@ typedef struct s_game
 	t_imgdata			*i_pause;
 }						t_game;
 
-*/
+int			ft_launch(const char *filename);
+int			ft_launch_bypass(const char *filename);
 
-//int			ft_launch(const char *filename);
-//int			ft_launch_bypass(const char *filename);
+void		*ft_new_window(t_game *game, char *title);
+int			ft_fill_window(t_game *game, t_imgdata *img);
+int			ft_display_nmoves(t_game *game, int n, int background);
+int			ft_memload_images(t_game *game);
+t_imgdata	*ft_memload_img(t_game *game, char *filename);
+void		ft_memunload_images(t_game *game);
+int			ft_put_images(t_game *game);
+int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
+int			ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
+int			ft_put_default_img(t_game *game, int x, int y);
 
-//void		*ft_new_window(t_game *game, char *title);
-//int			ft_fill_window(t_game *game, t_imgdata *img);
-//int			ft_display_nmoves(t_game *game, int n, int background);
-//int			ft_memload_images(t_game *game);
-//t_imgdata	*ft_memload_img(t_game *game, char *filename);
-//void		ft_memunload_images(t_game *game);
-//int			ft_put_images(t_game *game);
-//int			ft_put_img(t_game *game, t_imgdata *img, int x, int y);
-//int			ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
-//int			ft_put_default_img(t_game *game, int x, int y);
+int			ft_map_isvalid(t_map *map);
+int			ft_extension_isvalid(char *filename, char *ext);
+void		ft_delete_nl(void *ptr);
+int			ft_ismovekey(int keycode);
+int			ft_move(t_game *game, t_vector *player, int keycode);
+int			ft_set_direction(enum e_character move, t_vector *d);
+int			ft_slide(t_game *game, t_vector *player, t_vector *d);
+int			ft_check_length(t_map *map);
+int			ft_check_characters(t_map *map);
+int			ft_check_surroundings(t_map *map);
+t_vector	*ft_locate_character(t_map *map, int c);
+int			ft_check_wall_str(char *temp, int c);
+int			ft_check_allowedchar(t_map *map, char *line);
+t_map_item	**ft_map2array(t_map *map);
+int			ft_load_map(t_map *map);
+int			ft_path_isvalid(t_map *map);
 
-//int			ft_map_isvalid(t_map *map);
-//int			ft_extension_isvalid(char *filename, char *ext);
-//void		ft_delete_nl(void *ptr);
-//int			ft_ismovekey(int keycode);
-//int			ft_move(t_game *game, t_vector *player, int keycode);
-//int			ft_set_direction(enum e_character move, t_vector *d);
-//int			ft_slide(t_game *game, t_vector *player, t_vector *d);
-//int			ft_check_length(t_map *map);
-//int			ft_check_characters(t_map *map);
-//int			ft_check_surroundings(t_map *map);
-//t_vector	*ft_locate_character(t_map *map, int c);
-//int			ft_check_wall_str(char *temp, int c);
-//int			ft_check_allowedchar(t_map *map, char *line);
-//t_map_item	**ft_map2array(t_map *map);
-//int			ft_load_map(t_map *map);
-//int			ft_path_isvalid(t_map *map);
+int			ft_keycode(int keycode, t_game *game);
+int			ft_state_render(t_game *game);
+int			ft_destroy(t_game *game);
+int			ft_ended(t_game *game);
+void		ft_exit(char *error_str, int error_num);
 
-//int			ft_keycode(int keycode, t_game *game);
-//int			ft_state_render(t_game *game);
-//int			ft_destroy(t_game *game);
-//int			ft_ended(t_game *game);
-//void		ft_exit(char *error_str, int error_num);
+void		ft_log(char *str);
+void		ft_log_state(enum e_game state);
 
-//void		ft_log(char *str);
-//void		ft_log_state(enum e_game state);
+int			ft_toggle_pause(t_game *game);
 
-//int			ft_toggle_pause(t_game *game);
-
-//void		ft_write_empty_map(int fd, int y, int x);
-//void		ft_write_map(t_map *map, int fd);
+void		ft_write_empty_map(int fd, int y, int x);
+void		ft_write_map(t_map *map, int fd);
 
 #endif /* so_long.h */
