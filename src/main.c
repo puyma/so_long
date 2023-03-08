@@ -148,7 +148,7 @@ int	main(int argc, char **argv)
 int	ft_launch(t_map *map)
 {
 	t_game	*game;
-	
+
 	game = ft_new_game(map);
 	ft_memload_images(game); // error if return == 0
 	ft_put_images(game);
@@ -162,7 +162,7 @@ int	ft_launch(t_map *map)
 t_game	*ft_new_game(t_map *map)
 {
 	t_game	*game;
-	
+
 	game = ft_calloc(1, sizeof(t_game)); //exit if error oc
 	game->size = PIX_SIZE;
 	game->board = map->board;
@@ -173,6 +173,7 @@ t_game	*ft_new_game(t_map *map)
 	game->mlx_window = ft_new_window(game, "so_long");
 	return (game);
 }
+
 int	ft_set_board(t_map *map)
 {
 	map->board = ft_new_board(map->width, map->height);
@@ -182,9 +183,11 @@ int	ft_set_board(t_map *map)
 
 int	**ft_new_board(size_t x, size_t y)
 {
-	int	**board;
+	int		**board;
+	size_t	i;
+
 	board = (int **) ft_calloc(y + 1, sizeof(int *)); // exit if NULL
-	size_t i = 0;
+	i = 0;
 	while (i < y)
 		board[i++] = (int *) ft_calloc(x, sizeof(int));
 	return (board);
@@ -196,7 +199,7 @@ void	ft_map2array(t_map *map)
 	int		line;
 	size_t	i;
 	char	*temp;
-	
+
 	list = map->list;
 	line = 0;
 	i = 0;
@@ -218,7 +221,7 @@ void	ft_parse_map(t_map *map)
 {
 	t_list	*l;
 	size_t	len;
-	
+
 	l = map->list;
 	map->height = ft_lstsize(map->list);
 	while (l != NULL) // might as well write this into ft_lstiter
@@ -432,7 +435,7 @@ int	ft_put_images(t_game *game)
 		{
 			if (game->board[x][y] == C_EXIT) // && game->map->n_exit != 0)
 				ft_put_img(game, game->i_floor, x, y);
-			else if (game->board[x][y] == C_EXIT)// && game->map->n_exit == 0)
+			else if (game->board[x][y] == C_EXIT) // && game->map->n_exit == 0)
 				ft_put_img(game, game->i_exit, x, y);
 			else
 				ft_put_default_img(game, x, y);
