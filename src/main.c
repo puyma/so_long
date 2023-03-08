@@ -22,8 +22,8 @@ typedef struct s_map
 {
 	char		*filename;
 	int			fd;
-	int			width;
-	int			height;
+	size_t		width;
+	size_t		height;
 	int			**board;
 	t_list		*list;
 	t_list		*collectibles;
@@ -44,7 +44,7 @@ void	ft_delete_nl(void *ptr);
 void	ft_parse_map(t_map *map);
 void	ft_map2array(void *ptr);
 t_map	*ft_new_map(void);
-int		ft_set_board(t_list *list, int **board);
+int		ft_set_board(t_map *map);
 
 #ifndef GENERATOR
 
@@ -95,39 +95,55 @@ int	main(int argc, char **argv)
 
 #endif
 
-int	ft_set_board(t_list *list, int **board)
+int	**ft_new_board(size_t x, size_t y);
+
+int	ft_set_board(t_map *map)
 {
-	board = ft_calloc(sizeof(int *), );
-	ft_lstiter(list, &ft_map2array);
+	map->board = ft_new_board(map->width, map->height);
+	//int x = ft_lstsize(list);
+	//board = ft_calloc(sizeof(int *), );
+	ft_lstiter(map->list, &ft_map2array);
+	(void) map->board;
 	return (0);
+}
+
+int	**ft_new_board(size_t x, size_t y)
+{
+	int	**board;
+	
+	board = (int **) ft_calloc(y, sizeof(int *)); // exit if NULL
+	while (y--)
+		board[y] = (int *) ft_calloc(x, sizeof(int));
+	/*
+	size_t i = 0;
+	while (i < y)
+	{
+		board[i] = (int *) ft_calloc(x, sizeof(int));
+		i++;
+	}
+	*/
+	return (board);
 }
 
 void	ft_map2array(void *ptr)
 {
-	
-	return (0);
+	(void) ptr;
 }
 
-t_map	*ft_new_map(void)
+void	ft_parse_map(t_map *map)
 {
-	t_map	*map;
-
-	map = ft_calloc(sizeof(t_map), 1);
-	if (map == NULL)
-		exit (0); // error if null
-	map->filename = NULL;
-	map->fd = 0;
-	map->width = 0;
-	map->height = 0;
-	map->board = NULL;
-	map->list = NULL;
-	map->collectibles = 0;
-	map->player = NULL;
-	map->exit = NULL;
-	map->n_collectible = 0;
-	map->n_exit = 0;
-	map->n_player = 0;
-	return (map);
+	t_list	*l;
+	size_t	len;
+	
+	l = map->list;
+	map->height = ft_lstsize(map->list);
+	while (l != NULL) // might as well write this into ft_lstiter
+	{
+		len = ft_strlen(l->content);
+		if (len > map->width)
+			map->width = len;
+		l = l->next;
+	}
 }
 
 int	ft_load_map(t_map *map)
@@ -152,22 +168,32 @@ int	ft_load_map(t_map *map)
 		line = get_next_line(map->fd);
 	}
 	ft_lstiter(map->list, &ft_delete_nl);
-	// try with ft_replace_char(int a, int b)
 	map->height = ft_lstsize(map->list);
 	// allocate map // load into list // parse stuff
 	close(map->fd);
 	return (0);
 }
 
-void	ft_parse_map(t_map *map)
+t_map	*ft_new_map(void)
 {
-	(void) map;
-}
+	t_map	*map;
 
-void	ft_replace_char(int a, int b)
-{
-	(void) a;
-	(void) b;
+	map = ft_calloc(sizeof(t_map), 1);
+	if (map == NULL)
+		exit (0); // error if null
+	map->filename = NULL;
+	map->fd = 0;
+	map->width = 0;
+	map->height = 0;
+	map->board = NULL;
+	map->list = NULL;
+	map->collectibles = 0;
+	map->player = NULL;
+	map->exit = NULL;
+	map->n_collectible = 0;
+	map->n_exit = 0;
+	map->n_player = 0;
+	return (map);
 }
 
 int	ft_check_map(t_map *map)
