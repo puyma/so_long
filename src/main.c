@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/08 20:27:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:11:30 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ int				ft_slide(t_game *game, t_vector *player, t_vector *d);
 int				ft_display_nmoves(t_game *game, int n, int background);
 
 int				ft_load_game(t_game *game);
+t_vector		*ft_ismovekey(int keycode);
 
 #ifdef GENERATOR
 
 //better if ft_generate_empty_map (array). so it can be random as well
 // if GENERATOR, do not check map, just launch
-
 int	main(int argc, char **argv)
 {
 	t_map	*map;
@@ -185,14 +185,13 @@ int	ft_launch(t_game *game)
 		exit (8);
 	ft_put_images(game);
 	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
+	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
 	mlx_loop(game->mlx);
 	return (0);
 }
 
 // ft_put_images -> should only put images, should not do other stuff!
-//mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
 //mlx_loop_hook(game->mlx, &ft_state_render, game);
-
 t_game	*ft_new_game(t_map *map)
 {
 	t_game	*game;
@@ -333,7 +332,6 @@ void	ft_map2array(t_map *map)
 }
 
 // ft_get_largest_nl might as well be made into ft_lstiter style
-
 size_t	ft_get_largest_ln(t_list *list)
 {
 	size_t	len;
@@ -351,7 +349,6 @@ size_t	ft_get_largest_ln(t_list *list)
 }
 
 // exits to manage here
-
 int	ft_load_map(t_map *map)
 {
 	char	*line;
@@ -380,7 +377,6 @@ int	ft_load_map(t_map *map)
 }
 
 // exits to manage here
-
 t_map	*ft_new_map(char *input)
 {
 	t_map	*map;
@@ -423,7 +419,6 @@ int	ft_edit_map(char *filename)
 }
 
 // exits to manage here (return edit)
-
 int	ft_write_empty_map(char *filename, int x, int y)
 {
 	if (x < 1 || y < 1)
@@ -484,7 +479,6 @@ void	*ft_new_window(t_game *game, char *title)
 	// ft_memunload_images(game);
 	exit(0);
 */
-
 int	ft_destroy(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->mlx_window);
@@ -509,7 +503,6 @@ int	ft_memload_images(t_game *game)
 }
 
 // maybe load directly xpm from memory though compilation (no .xpm files)
-
 t_imgdata	*ft_memload_img(t_game *game, char *filename)
 {
 	t_imgdata	*img;
@@ -598,8 +591,8 @@ int	ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y)
 	//if (ft_ismovekey(keycode) != 0)
 	//	ft_move(game, game->player, keycode); // next, else if
 	//
-	//
-	//	ft_write_map(game->map);
+	// if (keycode == KEY_ESC)
+	// 	ft_write_map(game->map);
 
 int	ft_keycode(int keycode, t_game *game)
 {
@@ -646,6 +639,28 @@ int	ft_keycode(int keycode, t_game *game)
 }
 
 #endif
+
+t_vector	*ft_ismovekey(int keycode)
+{
+	t_vector	*direction;
+
+	direction = ft_calloc(1, sizeof(t_vector));
+	if (direction == NULL)
+		return (NULL);
+	direction->x = 0;
+	direction->y = 0;
+	if (keycode == KEY_UP || keycode == KEY_W)
+		direction->x = -1;
+	else if (keycode == KEY_DOWN || keycode == KEY_S)
+		direction->x = 1;
+	else if (keycode == KEY_RIGHT || keycode == KEY_D)
+		direction->y = 1;
+	else if (keycode == KEY_LEFT || keycode == KEY_A)
+		direction->y = -1;
+	else
+		free(direction);
+	return (direction);
+}
 
 void	ft_write_map(t_map *map)
 {
