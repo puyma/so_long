@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/08 21:11:30 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/08 22:20:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_game
 	size_t				n_collectible;
 	size_t				n_exit;
 	size_t				n_player;
+	char				*filename;
 }						t_game;
 
 int				ft_load_map(t_map *map);
@@ -101,7 +102,7 @@ int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 
 int				ft_keycode(int keycode, t_game *game);
 int				ft_display_help(void);
-void			ft_write_map(t_map *map);
+void			ft_write_map(char *filename, int **board);
 
 int				ft_set_direction(enum e_character move, t_vector *d);
 t_list			*ft_locate_items(int **board, int c);
@@ -112,6 +113,7 @@ int				ft_display_nmoves(t_game *game, int n, int background);
 
 int				ft_load_game(t_game *game);
 t_vector		*ft_ismovekey(int keycode);
+int				ft_move(t_game *game, t_vector *player, t_vector *direction);
 
 #ifdef GENERATOR
 
@@ -136,7 +138,7 @@ int	main(int argc, char **argv)
 	game = ft_new_game(map);
 	ft_load_game(game);
 	ft_launch(game);
-	ft_write_map(map);
+	ft_write_map(map->filename, map->board);
 	free(map);
 	return (0);
 }
@@ -210,10 +212,13 @@ t_game	*ft_new_game(t_map *map)
 	game->n_collectible = 0;
 	game->n_exit = 0;
 	game->n_player = 0;
+	game->filename = map->filename;
 	game->mlx = mlx_init();
 	game->mlx_window = ft_new_window(game, "so_long");
 	return (game);
 }
+
+// add a player if NULL...maybe also with exit and collectibles?
 
 int	ft_load_game(t_game *game)
 {
@@ -469,13 +474,6 @@ void	*ft_new_window(t_game *game, char *title)
 	mlx_destroy_window(game->mlx, game->mlx_window);
 	//game->state = Stopped;
 	//ft_log_state(game->state);
-	free(game->i_floor->img);
-	free(game->i_wall->img);
-	free(game->i_collectible->img);
-	free(game->i_exit->img);
-	free(game->i_player->img);
-	free(game->i_blur->img);
-	free(game->i_pause->img);
 	// ft_memunload_images(game);
 	exit(0);
 */
@@ -588,33 +586,31 @@ int	ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y)
 
 #ifdef GENERATOR
 
-	//if (ft_ismovekey(keycode) != 0)
-	//	ft_move(game, game->player, keycode); // next, else if
-	//
-	// if (keycode == KEY_ESC)
-	// 	ft_write_map(game->map);
-
+// there may be a leak in here...
 int	ft_keycode(int keycode, t_game *game)
 {
-	if (keycode == KEY_ESC)
+	int	px;
+	int	py;
+
+	px = game->player->x;
+	py = game->player->y;
+	if (ft_ismovekey(keycode) != NULL)
+		ft_move(game, game->player, ft_ismovekey(keycode));
+	else if (keycode == KEY_ESC)
 	{
+		ft_write_map(game->filename, game->board);
 		ft_destroy(game);
 	}
 	if (keycode == KEY_1)
-		game->board[game->player->x][game->player->y] \
-			= C_WALL;
+		game->board[px][py] = C_WALL;
 	else if (keycode == KEY_0)
-		game->board[game->player->x][game->player->y] \
-			= C_EMPTY_SPACE;
+		game->board[px][py] = C_EMPTY_SPACE;
 	else if (keycode == KEY_C)
-		game->board[game->player->x][game->player->y] \
-			= C_COLLECTIBLE;
+		game->board[px][py] = C_COLLECTIBLE;
 	else if (keycode == KEY_P)
-		game->board[game->player->x][game->player->y] \
-			= C_PLAYER;
+		game->board[px][py] = C_PLAYER;
 	else if (keycode == KEY_E)
-		game->board[game->player->x][game->player->y] \
-			= C_EXIT;
+		game->board[px][py] = C_EXIT;
 	ft_put_default_img(game, game->player->x, game->player->y);
 	ft_put_img(game, game->i_blur, game->player->x, game->player->y);
 	return (0);
@@ -622,23 +618,29 @@ int	ft_keycode(int keycode, t_game *game)
 
 #else /* ifndef GENERATOR */
 
-	/*
-	if (ft_ismovekey(keycode) != 0)
-		ft_move(game, game->player, keycode);
-	else if (keycode == KEY_PAUSE)
-		ft_toggle_pause(game);
-	else if (keycode == KEY_ESC)
-		ft_destroy(game);
-	*/
-
 int	ft_keycode(int keycode, t_game *game)
 {
+	t_vector	*direction;
+
 	if (keycode == KEY_ESC)
 		ft_destroy(game);
+	else if (keycode == KEY_PAUSE)
+		ft_printf("pause\n");
+	direction = ft_ismovekey(keycode);
+	if (direction != NULL)
+		ft_move(game, game->player, direction);
 	return (0);
 }
 
 #endif
+
+int	ft_move(t_game *game, t_vector *player, t_vector *direction)
+{
+	(void) game;
+	(void) player;
+	(void) direction;
+	return (0);
+}
 
 t_vector	*ft_ismovekey(int keycode)
 {
@@ -662,24 +664,25 @@ t_vector	*ft_ismovekey(int keycode)
 	return (direction);
 }
 
-void	ft_write_map(t_map *map)
+void	ft_write_map(char *filename, int **board)
 {
 	size_t		x;
 	size_t		y;
 	int			fd;
 
-	fd = open(map->filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
 	x = 0;
-	while (x < map->height)
+	y = 0;
+	while (board[x] != NULL)
 	{
 		y = 0;
-		while (y < map->width)
+		while (board[x][y] != '\0')
 		{
-			write(fd, &map->board[x][y], 1);
+			write(fd, &board[x][y], 1);
 			y++;
 		}
 		write(fd, "\n", 1);
 		x++;
 	}
-	ft_printf("Saved map: %s\n", map->filename);
+	ft_printf("Saved map: %s\n", filename);
 }
