@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/08 19:37:29 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:56:21 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,13 +203,13 @@ t_game	*ft_new_game(t_map *map)
 	game->width = map->width * game->size;
 	game->height = map->height * game->size;
 	game->board = map->board;
-	game->collectibles = NULL;//ft_locate_items(game->board, 'C');
-	game->exit = NULL;//ft_locate_character(game->board, 0, 0, 'E');
-	game->player = NULL;//ft_locate_character(game->board, 0, 0, 'P');
+	game->collectibles = NULL;
+	game->exit = NULL;
+	game->player = NULL;
 	game->n_moves = 0;
-	game->n_collectible = 0;//ft_lstsize(game->collectibles);
-	game->n_exit = 0;//ft_lstsize(ft_locate_items(game->board, 'E'));
-	game->n_player = 0;//ft_lstsize(ft_locate_items(game->board, 'P'));
+	game->n_collectible = 0;
+	game->n_exit = 0;
+	game->n_player = 0;
 	game->mlx = mlx_init();
 	game->mlx_window = ft_new_window(game, "so_long");
 	return (game);
@@ -217,7 +217,17 @@ t_game	*ft_new_game(t_map *map)
 
 int	ft_load_game(t_game *game)
 {
-	(void) game;
+	t_list		*list;
+
+	list = ft_locate_items(game->board, C_COLLECTIBLE);
+	game->collectibles = list;
+	game->n_collectible = ft_lstsize(list);
+	list = ft_locate_items(game->board, C_EXIT);
+	game->exit = (t_vector *) list->content;
+	game->n_exit = ft_lstsize(list);
+	list = ft_locate_items(game->board, C_PLAYER);
+	game->player = (t_vector *) list->content;
+	game->n_player = ft_lstsize(list);
 	return (0);
 }
 
@@ -231,12 +241,13 @@ t_list	*ft_locate_items(int **board, int c)
 	list = NULL;
 	x = 0;
 	y = 0;
-	while (ft_locate_character(board, x, y, c) != NULL)
-	{
-		position = ft_locate_character(board, x, y, c);
+	position = ft_locate_character(board, x, y, c);
+	while (position != NULL)
+	{	
 		ft_lstadd_back(&list, ft_lstnew(position));
-		x = position->x + 1;
+		x = position->x;
 		y = position->y + 1;
+		position = ft_locate_character(board, x, y, c);
 	}
 	return (list);
 }
@@ -256,7 +267,7 @@ t_vector	*ft_locate_character(int **board, int x, int y, int c)
 			{
 				coordinate->x = x;
 				coordinate->y = y;
-				ft_printf("%c: %u, %u\n", c, coordinate->x, coordinate->y);
+				ft_printf("%c: %u, %u\n", c, x, y);
 				return (coordinate);
 			}
 			y++;
