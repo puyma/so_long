@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/08 19:56:21 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:20:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,12 +222,20 @@ int	ft_load_game(t_game *game)
 	list = ft_locate_items(game->board, C_COLLECTIBLE);
 	game->collectibles = list;
 	game->n_collectible = ft_lstsize(list);
+	if (list)
+		ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_EXIT);
-	game->exit = (t_vector *) list->content;
+	if (list)
+		game->exit = (t_vector *) list->content;
 	game->n_exit = ft_lstsize(list);
+	if (list)
+		ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_PLAYER);
-	game->player = (t_vector *) list->content;
+	if (list)
+		game->player = (t_vector *) list->content;
 	game->n_player = ft_lstsize(list);
+	if (list)
+		ft_lstclear(&list, &free);
 	return (0);
 }
 
@@ -243,7 +251,7 @@ t_list	*ft_locate_items(int **board, int c)
 	y = 0;
 	position = ft_locate_character(board, x, y, c);
 	while (position != NULL)
-	{	
+	{
 		ft_lstadd_back(&list, ft_lstnew(position));
 		x = position->x;
 		y = position->y + 1;
@@ -267,7 +275,6 @@ t_vector	*ft_locate_character(int **board, int x, int y, int c)
 			{
 				coordinate->x = x;
 				coordinate->y = y;
-				ft_printf("%c: %u, %u\n", c, x, y);
 				return (coordinate);
 			}
 			y++;
@@ -531,9 +538,9 @@ int	ft_put_images(t_game *game)
 		y = 0;
 		while (game->board[x][y] != '\0')
 		{
-			if (game->board[x][y] == C_EXIT) // && game->map->n_exit != 0)
+			if (game->board[x][y] == C_EXIT && game->n_exit != 0)
 				ft_put_img(game, game->i_floor, x, y);
-			else if (game->board[x][y] == C_EXIT) // && game->map->n_exit == 0)
+			else if (game->board[x][y] == C_EXIT && game->n_exit == 0)
 				ft_put_img(game, game->i_exit, x, y);
 			else
 				ft_put_default_img(game, x, y);
