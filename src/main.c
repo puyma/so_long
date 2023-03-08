@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/08 20:20:17 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:27:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,12 +183,13 @@ int	ft_launch(t_game *game)
 {
 	if (ft_memload_images(game) == 0)
 		exit (8);
-	ft_put_images(game); //only put images not other stuff!!!!
+	ft_put_images(game);
 	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
 	mlx_loop(game->mlx);
 	return (0);
 }
 
+// ft_put_images -> should only put images, should not do other stuff!
 //mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
 //mlx_loop_hook(game->mlx, &ft_state_render, game);
 
@@ -331,6 +332,8 @@ void	ft_map2array(t_map *map)
 	}
 }
 
+// ft_get_largest_nl might as well be made into ft_lstiter style
+
 size_t	ft_get_largest_ln(t_list *list)
 {
 	size_t	len;
@@ -338,7 +341,7 @@ size_t	ft_get_largest_ln(t_list *list)
 
 	len = 0;
 	l = list;
-	while (l != NULL) // might as well write this into ft_lstiter
+	while (l != NULL)
 	{
 		if (len < ft_strlen(l->content))
 			len = ft_strlen(l->content);
@@ -347,6 +350,8 @@ size_t	ft_get_largest_ln(t_list *list)
 	return (len);
 }
 
+// exits to manage here
+
 int	ft_load_map(t_map *map)
 {
 	char	*line;
@@ -354,10 +359,10 @@ int	ft_load_map(t_map *map)
 
 	map->list = NULL;
 	if (ft_extension_isvalid(map->filename, MAP_EXT) == 0)
-		exit (2); // exit with invalid extension error
+		exit (2);
 	fd = open(map->filename, O_RDONLY);
 	if (fd == -1 || read(fd, NULL, 0) != 0)
-		exit (2); // exit with som error
+		exit (2);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -374,13 +379,15 @@ int	ft_load_map(t_map *map)
 	return (0);
 }
 
+// exits to manage here
+
 t_map	*ft_new_map(char *input)
 {
 	t_map	*map;
 
 	map = ft_calloc(sizeof(t_map), 1);
 	if (map == NULL)
-		exit (0); // error if null
+		exit (0);
 	map->filename = input;
 	map->width = 0;
 	map->height = 0;
@@ -389,11 +396,11 @@ t_map	*ft_new_map(char *input)
 	return (map);
 }
 
+// once everything parsed, determinate if the map is valid for the game
 int	ft_check_map(t_map *map)
 {
 	(void) map;
 	return (0);
-	// with everything parsed, determinate if the map is valid for the game
 }
 
 void	ft_delete_nl(void *ptr)
@@ -415,10 +422,12 @@ int	ft_edit_map(char *filename)
 	return (0);
 }
 
+// exits to manage here (return edit)
+
 int	ft_write_empty_map(char *filename, int x, int y)
 {
 	if (x < 1 || y < 1)
-		return (0); // exit with some error!
+		return (0);
 	(void) filename;
 	return (0);
 }
@@ -458,15 +467,13 @@ void	*ft_new_window(t_game *game, char *title)
 	return (window);
 }
 
-int	ft_destroy(t_game *game)
-{
+/*
 	mlx_clear_window(game->mlx, game->mlx_window);
 	//game->state = Stopping;
 	//ft_log_state(game->state);
 	mlx_destroy_window(game->mlx, game->mlx_window);
 	//game->state = Stopped;
 	//ft_log_state(game->state);
-	/*
 	free(game->i_floor->img);
 	free(game->i_wall->img);
 	free(game->i_collectible->img);
@@ -474,8 +481,14 @@ int	ft_destroy(t_game *game)
 	free(game->i_player->img);
 	free(game->i_blur->img);
 	free(game->i_pause->img);
-	*/
 	// ft_memunload_images(game);
+	exit(0);
+*/
+
+int	ft_destroy(t_game *game)
+{
+	mlx_clear_window(game->mlx, game->mlx_window);
+	mlx_destroy_window(game->mlx, game->mlx_window);
 	exit(0);
 }
 
@@ -582,13 +595,16 @@ int	ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y)
 
 #ifdef GENERATOR
 
-int	ft_keycode(int keycode, t_game *game)
-{
 	//if (ft_ismovekey(keycode) != 0)
 	//	ft_move(game, game->player, keycode); // next, else if
+	//
+	//
+	//	ft_write_map(game->map);
+
+int	ft_keycode(int keycode, t_game *game)
+{
 	if (keycode == KEY_ESC)
 	{
-		//ft_write_map(game->map);
 		ft_destroy(game);
 	}
 	if (keycode == KEY_1)
@@ -613,8 +629,6 @@ int	ft_keycode(int keycode, t_game *game)
 
 #else /* ifndef GENERATOR */
 
-int	ft_keycode(int keycode, t_game *game)
-{
 	/*
 	if (ft_ismovekey(keycode) != 0)
 		ft_move(game, game->player, keycode);
@@ -623,6 +637,9 @@ int	ft_keycode(int keycode, t_game *game)
 	else if (keycode == KEY_ESC)
 		ft_destroy(game);
 	*/
+
+int	ft_keycode(int keycode, t_game *game)
+{
 	if (keycode == KEY_ESC)
 		ft_destroy(game);
 	return (0);
