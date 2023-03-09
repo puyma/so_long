@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/08 22:20:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:56:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int				ft_load_game(t_game *game);
 t_vector		*ft_ismovekey(int keycode);
 int				ft_move(t_game *game, t_vector *player, t_vector *direction);
 
+t_vector		*ft_isghost_player(t_vector *player);
+
 #ifdef GENERATOR
 
 //better if ft_generate_empty_map (array). so it can be random as well
@@ -219,7 +221,8 @@ t_game	*ft_new_game(t_map *map)
 }
 
 // add a player if NULL...maybe also with exit and collectibles?
-
+// cleaning list make the player (and other characters) to not be found properly
+// as they are erased...
 int	ft_load_game(t_game *game)
 {
 	t_list		*list;
@@ -227,20 +230,22 @@ int	ft_load_game(t_game *game)
 	list = ft_locate_items(game->board, C_COLLECTIBLE);
 	game->collectibles = list;
 	game->n_collectible = ft_lstsize(list);
-	if (list)
-		ft_lstclear(&list, &free);
+	//if (list)
+	//	ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_EXIT);
 	if (list)
 		game->exit = (t_vector *) list->content;
 	game->n_exit = ft_lstsize(list);
-	if (list)
-		ft_lstclear(&list, &free);
+	//if (list)
+	//	ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_PLAYER);
 	if (list)
 		game->player = (t_vector *) list->content;
 	game->n_player = ft_lstsize(list);
-	if (list)
-		ft_lstclear(&list, &free);
+	//if (list)
+	//	ft_lstclear(&list, &free); //
+	if (game->player == NULL)
+		game->player = ft_isghost_player(game->player);
 	return (0);
 }
 
@@ -491,11 +496,15 @@ int	ft_memload_images(t_game *game)
 	game->i_collectible = ft_memload_img(game, COLLECTIBLE);
 	game->i_exit = ft_memload_img(game, EXIT);
 	game->i_player = ft_memload_img(game, PLAYER);
+	game->i_blur = ft_memload_img(game, BLUR);
+	game->i_pause = ft_memload_img(game, PAUSE);
 	if (game->i_floor == NULL
 		|| game->i_wall == NULL
 		|| game->i_collectible == NULL
 		|| game->i_exit == NULL
-		|| game->i_player == NULL)
+		|| game->i_player == NULL
+		|| game->i_blur == NULL
+		|| game->i_pause == NULL)
 		return (0);
 	return (1);
 }
@@ -509,6 +518,11 @@ t_imgdata	*ft_memload_img(t_game *game, char *filename)
 	if (ft_extension_isvalid(filename, ".xpm") != 0)
 		img->img = mlx_xpm_file_to_image(game->mlx, filename, \
 			&img->width, &img->height);
+	else if (ft_extension_isvalid(filename, ".png") != 0)
+		img->img = mlx_png_file_to_image(game->mlx, filename, \
+			&img->width, &img->height);
+	else
+		ft_exit(NULL, 69);
 	if (img->img == NULL)
 		ft_exit(ERR_IMG_LOAD, 79);
 	img->address = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
@@ -528,6 +542,10 @@ void	ft_memunload_images(t_game *game)
 		free(game->i_exit);
 	if (game->i_player)
 		free(game->i_player);
+	if (game->i_blur)
+		free(game->i_blur);
+	if (game->i_pause)
+		free(game->i_pause);
 }
 
 int	ft_put_images(t_game *game)
@@ -542,11 +560,13 @@ int	ft_put_images(t_game *game)
 		y = 0;
 		while (game->board[x][y] != '\0')
 		{
+			/*
 			if (game->board[x][y] == C_EXIT && game->n_exit != 0)
 				ft_put_img(game, game->i_floor, x, y);
 			else if (game->board[x][y] == C_EXIT && game->n_exit == 0)
 				ft_put_img(game, game->i_exit, x, y);
 			else
+			*/
 				ft_put_default_img(game, x, y);
 			y++;
 		}
@@ -584,35 +604,44 @@ int	ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y)
 	return (0);
 }
 
+t_vector	*ft_isghost_player(t_vector *player)
+{
+	if (player == NULL)
+	{
+		player = (t_vector *) ft_calloc(1, sizeof(t_vector));
+		player->x = 1;
+		player->y = 1;
+	}
+	return (player);
+}
+
 #ifdef GENERATOR
 
 // there may be a leak in here...
 int	ft_keycode(int keycode, t_game *game)
 {
-	int	px;
-	int	py;
+	t_vector	*player;
 
-	px = game->player->x;
-	py = game->player->y;
+	player = game->player;
+	if (keycode == KEY_ESC)
+	{
+		ft_destroy(game);
+		ft_write_map(game->filename, game->board);
+	}
 	if (ft_ismovekey(keycode) != NULL)
 		ft_move(game, game->player, ft_ismovekey(keycode));
-	else if (keycode == KEY_ESC)
-	{
-		ft_write_map(game->filename, game->board);
-		ft_destroy(game);
-	}
 	if (keycode == KEY_1)
-		game->board[px][py] = C_WALL;
+		game->board[player->x][player->y] = C_WALL;
 	else if (keycode == KEY_0)
-		game->board[px][py] = C_EMPTY_SPACE;
+		game->board[player->x][player->y] = C_EMPTY_SPACE;
 	else if (keycode == KEY_C)
-		game->board[px][py] = C_COLLECTIBLE;
+		game->board[player->x][player->y] = C_COLLECTIBLE;
 	else if (keycode == KEY_P)
-		game->board[px][py] = C_PLAYER;
+		game->board[player->x][player->y] = C_PLAYER;
 	else if (keycode == KEY_E)
-		game->board[px][py] = C_EXIT;
+		game->board[player->x][player->y] = C_EXIT;
 	ft_put_default_img(game, game->player->x, game->player->y);
-	ft_put_img(game, game->i_blur, game->player->x, game->player->y);
+	//ft_put_img(game, game->i_blur, game->player->x, game->player->y);
 	return (0);
 }
 
@@ -629,6 +658,7 @@ int	ft_keycode(int keycode, t_game *game)
 	direction = ft_ismovekey(keycode);
 	if (direction != NULL)
 		ft_move(game, game->player, direction);
+	// free(direction); ??
 	return (0);
 }
 
@@ -671,6 +701,7 @@ void	ft_write_map(char *filename, int **board)
 	int			fd;
 
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	fd = 1;
 	x = 0;
 	y = 0;
 	while (board[x] != NULL)
