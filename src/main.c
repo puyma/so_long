@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/09 20:56:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:48:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,109 +18,97 @@ enum e_character { None = 0, Left, Right, Up, Down }			direction;
 
 typedef struct s_imgdata
 {
-	void				*img;
-	char				*address;
-	int					bits_per_pixel;
-	int					line_length;
-	int					endian;
-	int					width;
-	int					height;
-}						t_imgdata;
+	void		*img;
+	char		*address;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			width;
+	int			height;
+}				t_imgdata;
 
 typedef struct s_vector
 {
-	int					x;
-	int					y;
-}						t_vector;
+	int			x;
+	int			y;
+}				t_vector;
 
 typedef struct s_map
 {
-	char				*filename;
-	size_t				width;
-	size_t				height;
-	t_list				*list;
-	int					**board;
-}						t_map;
+	char		*filename;
+	size_t		width;
+	size_t		height;
+	t_list		*list;
+	int			**board;
+}				t_map;
 
 typedef struct s_game
 {
-	void				*mlx;
-	void				*mlx_window;
-	enum e_game			state;
-	size_t				size;
-	size_t				width;
-	size_t				height;
-	int					**board;
-	t_imgdata			*i_floor;
-	t_imgdata			*i_wall;
-	t_imgdata			*i_collectible;
-	t_imgdata			*i_exit;
-	t_imgdata			*i_player;
-	t_imgdata			*i_blur;
-	t_imgdata			*i_pause;
-	t_list				*collectibles;
-	t_vector			*exit;
-	t_vector			*player;
-	size_t				n_moves;
-	size_t				n_collectible;
-	size_t				n_exit;
-	size_t				n_player;
-	char				*filename;
-}						t_game;
+	void		*mlx;
+	void		*mlx_window;
+	enum e_game	state;
+	size_t		size;
+	size_t		width;
+	size_t		height;
+	int			**board;
+	t_imgdata	*i_floor;
+	t_imgdata	*i_wall;
+	t_imgdata	*i_collectible;
+	t_imgdata	*i_exit;
+	t_imgdata	*i_player;
+	t_imgdata	*i_blur;
+	t_imgdata	*i_pause;
+	t_list		*collectibles;
+	t_vector	*exit;
+	t_vector	*player;
+	size_t		n_moves;
+	size_t		n_collectible;
+	size_t		n_exit;
+	size_t		n_player;
+	char		*filename;
+	t_map		*map;
+}				t_game;
 
-int				ft_load_map(t_map *map);
-size_t			ft_get_largest_ln(t_list *list);
 int				ft_check_map(t_map *map);
-int				ft_load_board(t_map *map);
-
-void			ft_map2array(t_map *map);
+void			ft_delete_nl(void *ptr);
+int				ft_destroy(t_game *game);
+int				ft_destroy(t_game *game);
+int				ft_display_help(void);
+int				ft_display_nmoves(t_game *game, int n, int background);
+int				ft_edit_map(char *filename);
+int				ft_ended(t_game *game);
 void			ft_exit(char *str, int num);
 int				ft_extension_isvalid(char *filename, char *ext);
-int				ft_edit_map(char *filename);
-int				ft_write_empty_map(char *filename, int x, int y);
-void			ft_delete_nl(void *ptr);
-t_map			*ft_new_map(char *input);
-int				**ft_new_board(size_t x, size_t y);
-int				ft_load_game(t_game *game);
-int				ft_launch(t_game *game);
-t_game			*ft_new_game(t_map *map);
-
-int				ft_state_render(t_game *game);
-int				ft_destroy(t_game *game);
-int				ft_ended(t_game *game);
+size_t			ft_get_largest_ln(t_list *list);
+t_vector		*ft_isghost_player(t_vector *player);
+t_vector		*ft_ismovekey(int keycode);
 int				ft_keycode(int keycode, t_game *game);
-void			*ft_new_window(t_game *game, char *title);
-int				ft_destroy(t_game *game);
+int				ft_launch(t_game *game);
+int				ft_load_board(t_map *map);
+int				ft_load_game(t_game *game);
+t_vector		*ft_locate_character(int **board, int x, int y, int c);
+t_list			*ft_locate_items(int **board, int c);
+int				ft_load_map(t_map *map);
+void			ft_log(char *str);
+void			ft_log_state(enum e_game state);
+void			ft_map2array(t_map *map);
 int				ft_memload_images(t_game *game);
 t_imgdata		*ft_memload_img(t_game *game, char *filename);
 void			ft_memunload_images(t_game *game);
-
-int				ft_put_images(t_game *game);
-int				ft_put_default_img(t_game *game, int x, int y);
-int				ft_put_img(t_game *game, t_imgdata *img, int x, int y);
-int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
-
-int				ft_keycode(int keycode, t_game *game);
-int				ft_display_help(void);
-void			ft_write_map(char *filename, int **board);
-
-int				ft_set_direction(enum e_character move, t_vector *d);
-t_list			*ft_locate_items(int **board, int c);
-t_vector		*ft_locate_character(int **board, int x, int y, int c);
-int				ft_slide(t_game *game, t_vector *player, t_vector *d);
-
-int				ft_display_nmoves(t_game *game, int n, int background);
-
-int				ft_load_game(t_game *game);
-t_vector		*ft_ismovekey(int keycode);
 int				ft_move(t_game *game, t_vector *player, t_vector *direction);
+int				**ft_new_board(size_t x, size_t y);
+t_game			*ft_new_game(t_map *map);
+t_map			*ft_new_map(char *filename);
+void			*ft_new_window(t_game *game, char *title);
+int				ft_put_default_img(t_game *game, int x, int y);
+int				ft_put_images(t_game *game);
+int				ft_put_img(t_game *game, t_imgdata *img, int x, int y);
+void			ft_unload_board(int **board);
+int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
-
-t_vector		*ft_isghost_player(t_vector *player);
 int				ft_state_render(t_game *game);
-
-void			ft_log(char *str);
-void			ft_log_state(enum e_game state);
+int				ft_write_empty_map(char *filename, int x, int y);
+void			ft_write_map(char *filename, int **board);
 
 #ifdef GENERATOR
 
@@ -223,6 +211,7 @@ t_game	*ft_new_game(t_map *map)
 	game->filename = map->filename;
 	game->mlx = mlx_init();
 	game->mlx_window = ft_new_window(game, "so_long");
+	game->map = map;
 	return (game);
 }
 
@@ -391,14 +380,14 @@ int	ft_load_map(t_map *map)
 }
 
 // exits to manage here
-t_map	*ft_new_map(char *input)
+t_map	*ft_new_map(char *filename)
 {
 	t_map	*map;
 
 	map = ft_calloc(sizeof(t_map), 1);
 	if (map == NULL)
 		exit (0);
-	map->filename = input;
+	map->filename = filename;
 	map->width = 0;
 	map->height = 0;
 	map->list = NULL;
@@ -476,21 +465,34 @@ void	*ft_new_window(t_game *game, char *title)
 	return (window);
 }
 
-/*
-	mlx_clear_window(game->mlx, game->mlx_window);
-	//game->state = Stopping;
-	//ft_log_state(game->state);
-	mlx_destroy_window(game->mlx, game->mlx_window);
-	//game->state = Stopped;
-	//ft_log_state(game->state);
-	// ft_memunload_images(game);
-	exit(0);
-*/
 int	ft_destroy(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->mlx_window);
+	game->state = Stopping;
+	ft_log_state(game->state);
 	mlx_destroy_window(game->mlx, game->mlx_window);
+	game->state = Stopped;
+	ft_log_state(game->state);
+	ft_memunload_images(game);
+	int x = 0;
+	while (game->board[x] != NULL)
+	{
+		free(game->board[x]);
+		x++;
+	}
+	ft_unload_board(game->board);
+	free(game->map);
 	exit(0);
+}
+
+void	ft_unload_board(int **board)
+{
+	int	x;
+
+	x = 0;
+	while (board[x] != NULL)
+		free(board[x++]);
+	free(board);
 }
 
 int	ft_memload_images(t_game *game)
@@ -509,7 +511,10 @@ int	ft_memload_images(t_game *game)
 		|| game->i_player == NULL
 		|| game->i_blur == NULL
 		|| game->i_pause == NULL)
+	{
+		ft_memunload_images(game);
 		return (0);
+	}
 	return (1);
 }
 
@@ -707,7 +712,6 @@ int	ft_move(t_game *game, t_vector *player, t_vector *d)
 
 #else /* ifndef GENERATOR */
 
-// free(direction) ??
 int	ft_keycode(int keycode, t_game *game)
 {
 	t_vector	*direction;
@@ -719,6 +723,8 @@ int	ft_keycode(int keycode, t_game *game)
 	direction = ft_ismovekey(keycode);
 	if (direction != NULL)
 		ft_move(game, game->player, direction);
+	if (direction)
+		free(direction);
 	return (0);
 }
 
@@ -758,11 +764,6 @@ int	ft_move(t_game *game, t_vector *player, t_vector *d)
 
 #endif
 
-// removed lines:
-// else
-// 	free(direction);
-// 	which caused a crash as direction entered as NULL, 
-// 	consequently not accessible
 t_vector	*ft_ismovekey(int keycode)
 {
 	t_vector	*direction;

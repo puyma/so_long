@@ -1,0 +1,9 @@
+add pause()
+add display_nmoves()
+
+structure in files
+split bonus (&genenerator) / no bonus functions (-lz)
+add end()
+
+GENERATOR
+add empty/random character option(key X, for example)
