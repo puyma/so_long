@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/09 18:56:58 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:26:40 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int				ft_display_nmoves(t_game *game, int n, int background);
 int				ft_load_game(t_game *game);
 t_vector		*ft_ismovekey(int keycode);
 int				ft_move(t_game *game, t_vector *player, t_vector *direction);
+int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
 
 t_vector		*ft_isghost_player(t_vector *player);
 
@@ -190,6 +191,7 @@ int	ft_launch(t_game *game)
 	ft_put_images(game);
 	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
 	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
+	game->state = Running;
 	mlx_loop(game->mlx);
 	return (0);
 }
@@ -222,7 +224,9 @@ t_game	*ft_new_game(t_map *map)
 
 // add a player if NULL...maybe also with exit and collectibles?
 // cleaning list make the player (and other characters) to not be found properly
-// as they are erased...
+// as they are erased... so, removed:
+// if (list)
+// 	ft_lstclear(&list, &free);
 int	ft_load_game(t_game *game)
 {
 	t_list		*list;
@@ -230,20 +234,14 @@ int	ft_load_game(t_game *game)
 	list = ft_locate_items(game->board, C_COLLECTIBLE);
 	game->collectibles = list;
 	game->n_collectible = ft_lstsize(list);
-	//if (list)
-	//	ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_EXIT);
 	if (list)
 		game->exit = (t_vector *) list->content;
 	game->n_exit = ft_lstsize(list);
-	//if (list)
-	//	ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_PLAYER);
 	if (list)
 		game->player = (t_vector *) list->content;
 	game->n_player = ft_lstsize(list);
-	//if (list)
-	//	ft_lstclear(&list, &free); //
 	if (game->player == NULL)
 		game->player = ft_isghost_player(game->player);
 	return (0);
@@ -567,7 +565,7 @@ int	ft_put_images(t_game *game)
 				ft_put_img(game, game->i_exit, x, y);
 			else
 			*/
-				ft_put_default_img(game, x, y);
+			ft_put_default_img(game, x, y);
 			y++;
 		}
 		x++;
@@ -621,6 +619,7 @@ t_vector	*ft_isghost_player(t_vector *player)
 int	ft_keycode(int keycode, t_game *game)
 {
 	t_vector	*player;
+	t_vector	*direction;
 
 	player = game->player;
 	if (keycode == KEY_ESC)
@@ -628,8 +627,9 @@ int	ft_keycode(int keycode, t_game *game)
 		ft_destroy(game);
 		ft_write_map(game->filename, game->board);
 	}
-	if (ft_ismovekey(keycode) != NULL)
-		ft_move(game, game->player, ft_ismovekey(keycode));
+	direction = ft_ismovekey(keycode);
+	if (direction != NULL)
+		ft_move(game, game->player, direction);
 	if (keycode == KEY_1)
 		game->board[player->x][player->y] = C_WALL;
 	else if (keycode == KEY_0)
@@ -641,12 +641,28 @@ int	ft_keycode(int keycode, t_game *game)
 	else if (keycode == KEY_E)
 		game->board[player->x][player->y] = C_EXIT;
 	ft_put_default_img(game, game->player->x, game->player->y);
-	//ft_put_img(game, game->i_blur, game->player->x, game->player->y);
+	ft_put_img(game, game->i_blur, game->player->x, game->player->y);
+	return (0);
+}
+
+int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
+{
+	int	cx;
+	int	cy;
+	int	width;
+	int	height;
+
+	cx = player->x + d->x;
+	cy = player->y + d->y;
+	width = game->width / game->size;
+	height = game->height / game->size;
+	if (cx != 0 && cx != game-> && cy != 0)
 	return (0);
 }
 
 #else /* ifndef GENERATOR */
 
+// free(direction) ??
 int	ft_keycode(int keycode, t_game *game)
 {
 	t_vector	*direction;
@@ -658,17 +674,23 @@ int	ft_keycode(int keycode, t_game *game)
 	direction = ft_ismovekey(keycode);
 	if (direction != NULL)
 		ft_move(game, game->player, direction);
-	// free(direction); ??
 	return (0);
 }
 
 #endif
 
-int	ft_move(t_game *game, t_vector *player, t_vector *direction)
+int	ft_move(t_game *game, t_vector *player, t_vector *d)
 {
-	(void) game;
-	(void) player;
-	(void) direction;
+	ft_printf("direction: %d, %d\n", d->x, d->y);
+	if (game->state != Running)
+		return (0);
+	ft_slide(game, player, d);
+	ft_printf("player was: %d, %d\n", player->x, player->y);
+	player->x += d->x;
+	player->y += d->y;
+	ft_printf("player is: %d, %d\n", player->x, player->y);
+	ft_put_default_img(game, player->x, player->y);
+	mlx_do_sync(game->mlx);
 	return (0);
 }
 
@@ -717,3 +739,39 @@ void	ft_write_map(char *filename, int **board)
 	}
 	ft_printf("Saved map: %s\n", filename);
 }
+
+#ifdef GENERATOR
+
+int	ft_slide(t_game *game, t_vector *player, t_vector *d)
+{
+	ft_put_default_img(game, player->x, player->y);
+	ft_put_img(game, game->i_player, player->x + d->x, player->y + d->y);
+	return (0);
+}
+
+#else /* ifndef GENERATOR */
+
+# define VEL 4
+
+int	ft_slide(t_game *game, t_vector *player, t_vector *d)
+{
+	int	size;
+	int	px;
+	int	py;
+	int	i;
+
+	size = game->size;
+	px = player->x * size;
+	py = player->y * size;
+	i = 1;
+	while (i <= size)
+	{
+		ft_put_img_xy(game, game->i_floor, px, py);
+		ft_put_img_xy(game, game->i_player, px + (i * d->x), py + (i * d->y));
+		mlx_do_sync(game->mlx);
+		i += VEL;
+	}
+	return (0);
+}
+
+#endif
