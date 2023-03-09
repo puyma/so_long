@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/09 19:26:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:56:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ int				ft_move(t_game *game, t_vector *player, t_vector *direction);
 int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
 
 t_vector		*ft_isghost_player(t_vector *player);
+int				ft_state_render(t_game *game);
+
+void			ft_log(char *str);
+void			ft_log_state(enum e_game state);
 
 #ifdef GENERATOR
 
@@ -191,13 +195,13 @@ int	ft_launch(t_game *game)
 	ft_put_images(game);
 	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
 	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
+	mlx_loop_hook(game->mlx, &ft_state_render, game);
 	game->state = Running;
 	mlx_loop(game->mlx);
 	return (0);
 }
 
 // ft_put_images -> should only put images, should not do other stuff!
-//mlx_loop_hook(game->mlx, &ft_state_render, game);
 t_game	*ft_new_game(t_map *map)
 {
 	t_game	*game;
@@ -369,6 +373,8 @@ int	ft_load_map(t_map *map)
 	if (fd == -1 || read(fd, NULL, 0) != 0)
 		exit (2);
 	line = get_next_line(fd);
+	if (line == NULL || *line == '\0')
+		ft_exit("Your ber is empty, I guess", 16);
 	while (line != NULL)
 	{
 		if (*line != '#' && !ft_isspace(*line))
@@ -546,6 +552,8 @@ void	ft_memunload_images(t_game *game)
 		free(game->i_pause);
 }
 
+#ifdef GENERATOR
+
 int	ft_put_images(t_game *game)
 {
 	int	x;
@@ -558,13 +566,6 @@ int	ft_put_images(t_game *game)
 		y = 0;
 		while (game->board[x][y] != '\0')
 		{
-			/*
-			if (game->board[x][y] == C_EXIT && game->n_exit != 0)
-				ft_put_img(game, game->i_floor, x, y);
-			else if (game->board[x][y] == C_EXIT && game->n_exit == 0)
-				ft_put_img(game, game->i_exit, x, y);
-			else
-			*/
 			ft_put_default_img(game, x, y);
 			y++;
 		}
@@ -572,6 +573,35 @@ int	ft_put_images(t_game *game)
 	}
 	return (0);
 }
+
+#else /* ifndef GENERATOR */
+
+int	ft_put_images(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (game->board[x] != NULL)
+	{
+		y = 0;
+		while (game->board[x][y] != '\0')
+		{
+			if (game->board[x][y] == C_EXIT && game->n_exit != 0)
+				ft_put_img(game, game->i_floor, x, y);
+			else if (game->board[x][y] == C_EXIT && game->n_exit == 0)
+				ft_put_img(game, game->i_exit, x, y);
+			else
+				ft_put_default_img(game, x, y);
+			y++;
+		}
+		x++;
+	}
+	return (0);
+}
+
+#endif
 
 int	ft_put_default_img(t_game *game, int x, int y)
 {
@@ -624,8 +654,8 @@ int	ft_keycode(int keycode, t_game *game)
 	player = game->player;
 	if (keycode == KEY_ESC)
 	{
-		ft_destroy(game);
 		ft_write_map(game->filename, game->board);
+		ft_destroy(game);
 	}
 	direction = ft_ismovekey(keycode);
 	if (direction != NULL)
@@ -654,9 +684,24 @@ int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
 
 	cx = player->x + d->x;
 	cy = player->y + d->y;
-	width = game->width / game->size;
-	height = game->height / game->size;
-	if (cx != 0 && cx != game-> && cy != 0)
+	width = (game->width - 1) / game->size;
+	height = (game->height - 1) / game->size;
+	if (cx != 0 && cx != height && cy != 0 && cy != width)
+		return (1);
+	return (0);
+}
+
+int	ft_move(t_game *game, t_vector *player, t_vector *d)
+{
+	if (game->state != Running)
+		return (0);
+	if (ft_move_able(game, player, d) == 0)
+		return (0);
+	ft_slide(game, player, d);
+	player->x += d->x;
+	player->y += d->y;
+	ft_put_default_img(game, player->x, player->y);
+	mlx_do_sync(game->mlx);
 	return (0);
 }
 
@@ -677,23 +722,47 @@ int	ft_keycode(int keycode, t_game *game)
 	return (0);
 }
 
-#endif
+int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
+{
+	int	cx;
+	int	cy;
+
+	cx = player->x + d->x;
+	cy = player->y + d->y;
+	if (game->board[cx][cy] == C_WALL)
+		return (0);
+	else if (game->board[cx][cy] == C_COLLECTIBLE)
+		game->n_collectible--;
+	else if (game->board[cx][cy] == C_EXIT
+		&& game->n_collectible == 0)
+		ft_printf("end game\n");
+	return (1);
+}
 
 int	ft_move(t_game *game, t_vector *player, t_vector *d)
 {
-	ft_printf("direction: %d, %d\n", d->x, d->y);
 	if (game->state != Running)
 		return (0);
+	if (ft_move_able(game, player, d) == 0)
+		return (0);
+	game->board[player->x][player->y] = C_EMPTY_SPACE;
+	game->board[player->x + d->x][player->y + d->y] = C_PLAYER;
 	ft_slide(game, player, d);
-	ft_printf("player was: %d, %d\n", player->x, player->y);
+	ft_put_default_img(game, player->x, player->y);
 	player->x += d->x;
 	player->y += d->y;
-	ft_printf("player is: %d, %d\n", player->x, player->y);
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
 	return (0);
 }
 
+#endif
+
+// removed lines:
+// else
+// 	free(direction);
+// 	which caused a crash as direction entered as NULL, 
+// 	consequently not accessible
 t_vector	*ft_ismovekey(int keycode)
 {
 	t_vector	*direction;
@@ -711,8 +780,6 @@ t_vector	*ft_ismovekey(int keycode)
 		direction->y = 1;
 	else if (keycode == KEY_LEFT || keycode == KEY_A)
 		direction->y = -1;
-	else
-		free(direction);
 	return (direction);
 }
 
@@ -775,3 +842,41 @@ int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 }
 
 #endif
+
+int	ft_state_render(t_game *game)
+{
+	mlx_do_sync(game->mlx);
+	if (game->state == Stopping)
+		ft_destroy(game);
+	else if (game->n_collectible == 0 && game->n_exit != 0)
+	{
+		ft_log("Obtained all collectibles");
+		game->board[game->exit->x][game->exit->y] = C_EXIT;
+		ft_put_img(game, game->i_exit, game->exit->x, game->exit->y);
+		game->n_exit = 0;
+	}
+	return (0);
+}
+
+void	ft_log(char *str)
+{
+	if (LOG_LEVEL > 0)
+	{
+		write(1, "> ", 2);
+		while (*str != '\0')
+			write(1, str++, 1);
+		write(1, "\n", 1);
+	}
+}
+
+void	ft_log_state(enum e_game state)
+{
+	if (state == Paused)
+		ft_log("Paused");
+	else if (state == Running)
+		ft_log("Running");
+	else if (state == Stopped)
+		ft_log("Stopped");
+	else if (state == Stopping)
+		ft_log("Stopping");
+}
