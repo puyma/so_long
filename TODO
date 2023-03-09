@@ -1,5 +1,5 @@
-add pause()
-add display_nmoves()
+test for all possible errors
+if file does not exist, return explicit error
 
 structure in files
 split bonus (&genenerator) / no bonus functions (-lz)

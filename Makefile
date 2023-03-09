@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/06 22:00:39 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/09 22:57:39 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,9 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/events.c src/launch.c src/load_images.c src/log.c src/main.c src/map.c \
-				src/map_check.c src/move.c src/movement.c src/path.c \
-				src/put_images.c src/utils.c src/window.c
-				
-BONUS_FILES	:=	$(addsuffix _bonus.c, $(basename $(SRC_FILES))) \
-				src/pause_bonus.c src/write_map_bonus.c
+SRC_FILES	:=	src/main.c
+BONUS_FILES	:=	$(SRC_FILES)
+# BONUS_FILES	:=	$(addsuffix _bonus.c, $(basename $(SRC_FILES)))
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
 DEP_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .d, $(notdir $(basename $(SRC_FILES)))))

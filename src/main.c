@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/09 21:48:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:08:58 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int				ft_edit_map(char *filename);
 int				ft_ended(t_game *game);
 void			ft_exit(char *str, int num);
 int				ft_extension_isvalid(char *filename, char *ext);
+int				ft_fill_window(t_game *game, t_imgdata *img);
 size_t			ft_get_largest_ln(t_list *list);
 t_vector		*ft_isghost_player(t_vector *player);
 t_vector		*ft_ismovekey(int keycode);
@@ -107,6 +108,7 @@ void			ft_unload_board(int **board);
 int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
 int				ft_state_render(t_game *game);
+int				ft_toggle_pause(t_game *game);
 int				ft_write_empty_map(char *filename, int x, int y);
 void			ft_write_map(char *filename, int **board);
 
@@ -179,7 +181,7 @@ int	ft_display_help(void)
 int	ft_launch(t_game *game)
 {
 	if (ft_memload_images(game) == 0)
-		exit (8);
+		ft_exit("Could allocate memory", 8);
 	ft_put_images(game);
 	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
 	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
@@ -196,7 +198,7 @@ t_game	*ft_new_game(t_map *map)
 
 	game = ft_calloc(1, sizeof(t_game));
 	if (game == NULL)
-		exit (4);
+		ft_exit("Could not allocate memory", 4);
 	game->size = PIX_SIZE;
 	game->width = map->width * game->size;
 	game->height = map->height * game->size;
@@ -267,7 +269,7 @@ t_vector	*ft_locate_character(int **board, int x, int y, int c)
 
 	coordinate = (t_vector *) ft_calloc(1, sizeof(t_vector));
 	if (coordinate == NULL)
-		exit (10);
+		ft_exit("Could not allocate memory", 10);
 	while (board[x] != NULL)
 	{
 		while (board[x][y] != '\0')
@@ -301,7 +303,7 @@ int	**ft_new_board(size_t x, size_t y)
 
 	board = (int **) ft_calloc(y + 1, sizeof(int *));
 	if (board == NULL)
-		exit (14);
+		ft_exit("Could not allocate memory", 14);
 	i = 0;
 	while (i < y)
 		board[i++] = (int *) ft_calloc(x + 1, sizeof(int));
@@ -357,10 +359,10 @@ int	ft_load_map(t_map *map)
 
 	map->list = NULL;
 	if (ft_extension_isvalid(map->filename, MAP_EXT) == 0)
-		exit (2);
+		ft_exit("File extension is not valid", 2);
 	fd = open(map->filename, O_RDONLY);
 	if (fd == -1 || read(fd, NULL, 0) != 0)
-		exit (2);
+		ft_exit("File does not exist", 2);
 	line = get_next_line(fd);
 	if (line == NULL || *line == '\0')
 		ft_exit("Your ber is empty, I guess", 16);
@@ -386,7 +388,7 @@ t_map	*ft_new_map(char *filename)
 
 	map = ft_calloc(sizeof(t_map), 1);
 	if (map == NULL)
-		exit (0);
+		ft_exit("Could not allocate memory", 0);
 	map->filename = filename;
 	map->width = 0;
 	map->height = 0;
@@ -474,12 +476,6 @@ int	ft_destroy(t_game *game)
 	game->state = Stopped;
 	ft_log_state(game->state);
 	ft_memunload_images(game);
-	int x = 0;
-	while (game->board[x] != NULL)
-	{
-		free(game->board[x]);
-		x++;
-	}
 	ft_unload_board(game->board);
 	free(game->map);
 	exit(0);
@@ -518,7 +514,6 @@ int	ft_memload_images(t_game *game)
 	return (1);
 }
 
-// maybe load directly xpm from memory though compilation (no .xpm files)
 t_imgdata	*ft_memload_img(t_game *game, char *filename)
 {
 	t_imgdata	*img;
@@ -707,6 +702,7 @@ int	ft_move(t_game *game, t_vector *player, t_vector *d)
 	player->y += d->y;
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
+	ft_printf("> Moves: %d\n", ++game->n_moves);
 	return (0);
 }
 
@@ -717,9 +713,9 @@ int	ft_keycode(int keycode, t_game *game)
 	t_vector	*direction;
 
 	if (keycode == KEY_ESC)
-		ft_destroy(game);
+		return (ft_destroy(game));
 	else if (keycode == KEY_PAUSE)
-		ft_printf("pause\n");
+		return (ft_toggle_pause(game));
 	direction = ft_ismovekey(keycode);
 	if (direction != NULL)
 		ft_move(game, game->player, direction);
@@ -745,6 +741,7 @@ int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
 	return (1);
 }
 
+// do not display moves if generator is set
 int	ft_move(t_game *game, t_vector *player, t_vector *d)
 {
 	if (game->state != Running)
@@ -759,6 +756,7 @@ int	ft_move(t_game *game, t_vector *player, t_vector *d)
 	player->y += d->y;
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
+	ft_display_nmoves(game, ++game->n_moves, 1);
 	return (0);
 }
 
@@ -791,7 +789,6 @@ void	ft_write_map(char *filename, int **board)
 	int			fd;
 
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
-	fd = 1;
 	x = 0;
 	y = 0;
 	while (board[x] != NULL)
@@ -880,4 +877,62 @@ void	ft_log_state(enum e_game state)
 		ft_log("Stopped");
 	else if (state == Stopping)
 		ft_log("Stopping");
+}
+
+// only for bonus / generator
+int	ft_toggle_pause(t_game *game)
+{
+	if (game->state != Paused && game->state != Running)
+		return (0);
+	if (game->state != Paused)
+	{
+		game->state = Paused;
+		ft_fill_window(game, game->i_blur);
+		ft_put_img(game, game->i_pause, 0, game->width - game->size);
+	}
+	else
+	{
+		game->state = Running;
+		ft_put_images(game);
+	}
+	ft_display_nmoves(game, game->n_moves, 0);
+	ft_log_state(game->state);
+	return (0);
+}
+
+int	ft_display_nmoves(t_game *game, int n, int background)
+{
+	int			x;
+	int			y;
+	int			digits;
+
+	if (LOG_LEVEL > 0)
+		ft_printf("> Moves: %d\n", game->n_moves);
+	x = game->height - (game->size / 2) + 3;
+	y = (game->width - 1) / 2;
+	digits = ft_count_digits(n, 10);
+	if (background != 0)
+	{
+		ft_put_default_img(game, x / game->size, y / game->size);
+		ft_put_default_img(game, x / game->size, (y + game->size) / game->size);
+	}
+	mlx_string_put(game->mlx, game->mlx_window, y, x, 0x00F6CDAF, ft_itoa(n));
+	return (0);
+}
+
+int	ft_fill_window(t_game *game, t_imgdata *img)
+{
+	int			x;
+	int			y;
+
+	x = 0;
+	y = 0;
+	while (game->board[x] != NULL)
+	{
+		y = 0;
+		while (game->board[x][y] != '\0')
+			ft_put_img(game, img, x, y++);
+		x++;
+	}
+	return (0);
 }
