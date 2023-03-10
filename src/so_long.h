@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/09 21:45:30 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:11:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@
 # include <stdio.h> /* perror */
 # include <string.h> /* strerror */
 
-//# include "libft.h"
-//# include "mlx.h"
-# include "./libft/src/libft.h"
-# include "./libmlx/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 
 # define LOG_LEVEL		0
 # define PIX_SIZE		32
@@ -42,6 +40,7 @@
 # define C_EXIT			'E'
 # define C_PLAYER		'P'
 # define C_ALLOWED		"01CEP"
+# define MAP_EXT		".ber"
 
 # define KEY_A			0
 # define KEY_S			1
@@ -67,21 +66,106 @@
 # define BLUR			"./src/assets/blur.png"
 # define PAUSE			"./src/assets/pause.png"
 
-# define MAP_EXT		".ber"
-
-# define ERR_00			"Something went wrong..."
-# define ERR_01			"Filename is not valid"
-# define ERR_02			"Map is empty"
-# define ERR_FD			"Could not open fd"
-# define ERR_FD_RD		"Could not read from file descriptor"
-# define ERR_N_LINES	"All lines should contain the same number of chars"
-# define ERR_RECT		"Map is not rectangular"
-# define ERR_SURR		"Map is not surrounded by walls"
-# define ERR_CHAR		"Found some shit inside your fmap"
-# define ERR_CHAR_INV	"Invalid character found in map"
-# define ERR_CHAR_TM	"Not a valid amount of player/exit/collectibles"
-# define ERR_PATH		"There is not a valid path in this map"
-# define ERR_IMG_LOAD	"Could not load image"
-# define ERR_IMGS		"Could not load some of the images"
-
 #endif /* so_long.h */
+
+enum e_game { Stopped = 0, Running, Paused, Stopping, Ended }	state;
+enum e_event { ON_KEYDOWN = 2, ON_KEYUP = 3, ON_DESTROY = 17 }	event;
+enum e_character { None = 0, Left, Right, Up, Down }			direction;
+
+typedef struct s_imgdata
+{
+	void		*img;
+	char		*address;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			width;
+	int			height;
+}				t_imgdata;
+
+typedef struct s_vector
+{
+	int			x;
+	int			y;
+}				t_vector;
+
+typedef struct s_map
+{
+	char		*filename;
+	size_t		width;
+	size_t		height;
+	t_list		*list;
+	int			**board;
+}				t_map;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*mlx_window;
+	enum e_game	state;
+	size_t		size;
+	size_t		width;
+	size_t		height;
+	int			**board;
+	t_imgdata	*i_floor;
+	t_imgdata	*i_wall;
+	t_imgdata	*i_collectible;
+	t_imgdata	*i_exit;
+	t_imgdata	*i_player;
+	t_imgdata	*i_blur;
+	t_imgdata	*i_pause;
+	t_list		*collectibles;
+	t_vector	*exit;
+	t_vector	*player;
+	size_t		n_moves;
+	size_t		n_collectible;
+	size_t		n_exit;
+	size_t		n_player;
+	char		*filename;
+	t_map		*map;
+}				t_game;
+
+int				ft_additional_check(t_game *game);
+int				ft_check_map(t_map *map);
+int				ft_check_surroundings(char *content, int line, int w, int h);
+int				ft_check_allowedchar(char *content);
+int				ft_check_length(t_map *map);
+void			ft_delete_nl(void *ptr);
+int				ft_destroy(t_game *game);
+int				ft_display_nmoves(t_game *game, int n, int background);
+int				ft_edit_map(char *filename);
+int				ft_ended(t_game *game);
+void			ft_exit(char *str, int num);
+int				ft_extension_isvalid(char *filename, char *ext);
+int				ft_fill_window(t_game *game, t_imgdata *img);
+size_t			ft_get_largest_ln(t_list *list);
+t_vector		*ft_isghost_player(t_vector *player);
+t_vector		*ft_ismovekey(int keycode);
+int				ft_keycode(int keycode, t_game *game);
+int				ft_launch(t_game *game);
+int				ft_load_board(t_map *map);
+int				ft_load_game(t_game *game);
+t_vector		*ft_locate_character(int **board, int x, int y, int c);
+t_list			*ft_locate_items(int **board, int c);
+int				ft_load_map(t_map *map);
+void			ft_log(char *str);
+void			ft_log_state(enum e_game state);
+void			ft_map2array(t_map *map);
+int				ft_memload_images(t_game *game);
+t_imgdata		*ft_memload_img(t_game *game, char *filename);
+void			ft_memunload_images(t_game *game);
+int				ft_move(t_game *game, t_vector *player, t_vector *direction);
+int				**ft_new_board(size_t x, size_t y);
+t_game			*ft_new_game(t_map *map);
+t_map			*ft_new_map(char *filename);
+void			*ft_new_window(t_game *game, char *title);
+int				ft_put_default_img(t_game *game, int x, int y);
+int				ft_put_images(t_game *game);
+int				ft_put_img(t_game *game, t_imgdata *img, int x, int y);
+void			ft_unload_board(int **board);
+int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
+int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
+int				ft_state_render(t_game *game);
+int				ft_toggle_pause(t_game *game);
+int				ft_write_empty_map(char *filename, int x, int y);
+void			ft_write_map(char *filename, int **board);
