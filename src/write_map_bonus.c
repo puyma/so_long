@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:33:45 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:34:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:55:04 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_write_empty_map(char *filename, int x, int y)
 {
 	if (x < 1 || y < 1)
 	{
-		ft_display_help();
+		ft_printf("usage: ./bonus file\n");
 		exit(0);
 	}
 	(void) filename;

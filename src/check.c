@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:12:30 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:17:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:47:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_check_map(t_map *map)
 			ft_exit("All lines should have the same amount of characters", 22);
 		if (ft_check_allowedchar(t->content) == 0)
 			ft_exit("Found some shit inside you map", 32);
-		if (!ft_check_surroundings(t->content, nline, map->width, map->height))
+		if (!ft_check_surround(t->content, nline, map->width, map->height))
 			ft_exit("Invalid map structure: surroundings", 24);
 		nline++;
 		t = t->next;

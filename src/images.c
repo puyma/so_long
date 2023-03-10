@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:45:14 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:46:42 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:49:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_imgdata	*ft_memload_img(t_game *game, char *filename)
 	else
 		ft_exit(NULL, 69);
 	if (img->img == NULL)
-		ft_exit(ERR_IMG_LOAD, 79);
+		ft_exit("Could not load image", 79);
 	img->address = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 			&img->line_length, &img->endian);
 	return (img);

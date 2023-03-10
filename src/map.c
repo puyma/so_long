@@ -6,13 +6,12 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:36:30 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:47:47 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:52:02 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int		ft_extension_isvalid(char *filename, char *ext);
 static void		ft_delete_nl(void *ptr);
 static size_t	ft_get_largest_ln(t_list *list);
 
@@ -64,7 +63,7 @@ int	ft_load_map(t_map *map)
 	return (0);
 }
 
-static int	ft_extension_isvalid(char *filename, char *ext)
+int	ft_extension_isvalid(char *filename, char *ext)
 {
 	size_t	path_length;
 	size_t	ext_len;
