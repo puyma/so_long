@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:22:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 00:14:33 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 00:27:26 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static int	ft_clear_path(int **board, int **pathfinding)
 {
 	int	x;
 	int	y;
-
 
 	x = 0;
 	y = 0;
