@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/10 17:53:32 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/10 23:18:52 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ endif
 SRC_FILES	:=	src/animation.c src/board.c src/check.c src/events.c \
 				src/exit.c src/game.c src/images.c src/launch.c \
 				src/locate.c src/log.c src/main.c src/map.c src/move.c \
-				src/put_image.c src/window.c
+				src/path.c src/put_image.c src/window.c
 
 BONUS_FILES	:=	$(addsuffix _bonus.c, $(basename $(SRC_FILES))) \
 				src/display_nmoves_bonus.c \
