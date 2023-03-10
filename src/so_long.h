@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 17:52:17 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 00:12:32 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # ifndef LOG_LEVEL
 #  ifdef GENERATOR
 #   define LOG_LEVEL	1
-#  else /* ifndef GENERATOR */
+#  else // ifndef GENERATOR
 #   define LOG_LEVEL	0
 #  endif
 # endif
@@ -125,6 +125,7 @@ typedef struct s_game
 
 int				ft_additional_check(t_game *game);
 int				ft_check_map(t_map *map);
+int				ft_check_path(t_game *game);
 int				ft_destroy(t_game *game);
 int				ft_display_nmoves(t_game *game, int n, int background);
 int				ft_ended(t_game *game);
