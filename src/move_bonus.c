@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:52:46 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 16:01:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 00:26:08 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_move(t_game *game, t_vector *player, t_vector *d)
 	player->y += d->y;
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
-	ft_printf("> Moves: %d\n", ++game->n_moves);
 	return (0);
 }
 
