@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:12:30 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 18:19:51 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 00:13:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_additional_check(t_game *game)
 		ft_exit("Only one exit is permitted", 28);
 	if (game->n_collectible < 1)
 		ft_exit("At least one collectible is expected", 26);
+	if(ft_check_path(game) == 0)
+		ft_exit("Missing valid path", 68);
 	return (0);
 }
 
