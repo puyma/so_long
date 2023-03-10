@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pause_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 15:06:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:55:57 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/03/10 15:20:29 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/03/10 15:20:50 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int argc, char **argv)
-{
-	t_map	*map;
-	t_game	*game;
+// only for bonus / generator
 
-	if (argc != 1 && argc != 2)
-	{
-		ft_printf("usage: ./so_long file\n");
+int	ft_toggle_pause(t_game *game)
+{
+	if (game->state != Paused && game->state != Running)
 		return (0);
+	if (game->state != Paused)
+	{
+		game->state = Paused;
+		ft_fill_window(game, game->i_blur);
+		ft_put_img(game, game->i_pause, 0, (game->width - 1) / game->size);
 	}
-	if (argc == 1)
-		map = ft_new_map("maps/default.ber");
 	else
-		map = ft_new_map(argv[1]);
-	ft_load_map(map);
-	ft_check_map(map);
-	ft_load_board(map);
-	ft_lstclear(&map->list, &free);
-	game = ft_new_game(map);
-	ft_load_game(game);
-	ft_additional_check(game);
-	ft_launch(game);
-	free(map);
+	{
+		game->state = Running;
+		ft_put_images(game);
+	}
+	ft_display_nmoves(game, game->n_moves, 0);
+	ft_log_state(game->state);
 	return (0);
 }

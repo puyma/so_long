@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:11:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:06:23 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@
 # define PLAYER			"./src/assets/player.xpm"
 # define BLUR			"./src/assets/blur.png"
 # define PAUSE			"./src/assets/pause.png"
-
-#endif /* so_long.h */
 
 enum e_game { Stopped = 0, Running, Paused, Stopping, Ended }	state;
 enum e_event { ON_KEYDOWN = 2, ON_KEYUP = 3, ON_DESTROY = 17 }	event;
@@ -127,19 +125,11 @@ typedef struct s_game
 
 int				ft_additional_check(t_game *game);
 int				ft_check_map(t_map *map);
-int				ft_check_surroundings(char *content, int line, int w, int h);
-int				ft_check_allowedchar(char *content);
-int				ft_check_length(t_map *map);
-void			ft_delete_nl(void *ptr);
 int				ft_destroy(t_game *game);
 int				ft_display_nmoves(t_game *game, int n, int background);
-int				ft_edit_map(char *filename);
 int				ft_ended(t_game *game);
 void			ft_exit(char *str, int num);
-int				ft_extension_isvalid(char *filename, char *ext);
 int				ft_fill_window(t_game *game, t_imgdata *img);
-size_t			ft_get_largest_ln(t_list *list);
-t_vector		*ft_isghost_player(t_vector *player);
 t_vector		*ft_ismovekey(int keycode);
 int				ft_keycode(int keycode, t_game *game);
 int				ft_launch(t_game *game);
@@ -150,7 +140,6 @@ t_list			*ft_locate_items(int **board, int c);
 int				ft_load_map(t_map *map);
 void			ft_log(char *str);
 void			ft_log_state(enum e_game state);
-void			ft_map2array(t_map *map);
 int				ft_memload_images(t_game *game);
 t_imgdata		*ft_memload_img(t_game *game, char *filename);
 void			ft_memunload_images(t_game *game);
@@ -162,10 +151,12 @@ void			*ft_new_window(t_game *game, char *title);
 int				ft_put_default_img(t_game *game, int x, int y);
 int				ft_put_images(t_game *game);
 int				ft_put_img(t_game *game, t_imgdata *img, int x, int y);
-void			ft_unload_board(int **board);
 int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
 int				ft_state_render(t_game *game);
 int				ft_toggle_pause(t_game *game);
+void			ft_unload_board(int **board);
 int				ft_write_empty_map(char *filename, int x, int y);
 void			ft_write_map(char *filename, int **board);
+
+#endif /* so_long.h */

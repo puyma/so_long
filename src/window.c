@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 15:06:51 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:55:57 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/03/10 15:19:02 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/03/10 15:19:48 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int argc, char **argv)
+void	*ft_new_window(t_game *game, char *title)
 {
-	t_map	*map;
-	t_game	*game;
+	void	*window;
 
-	if (argc != 1 && argc != 2)
+	window = mlx_new_window(game->mlx, game->width, game->height, title);
+	return (window);
+}
+
+int	ft_fill_window(t_game *game, t_imgdata *img)
+{
+	int			x;
+	int			y;
+
+	x = 0;
+	y = 0;
+	while (game->board[x] != NULL)
 	{
-		ft_printf("usage: ./so_long file\n");
-		return (0);
+		y = 0;
+		while (game->board[x][y] != '\0')
+			ft_put_img(game, img, x, y++);
+		x++;
 	}
-	if (argc == 1)
-		map = ft_new_map("maps/default.ber");
-	else
-		map = ft_new_map(argv[1]);
-	ft_load_map(map);
-	ft_check_map(map);
-	ft_load_board(map);
-	ft_lstclear(&map->list, &free);
-	game = ft_new_game(map);
-	ft_load_game(game);
-	ft_additional_check(game);
-	ft_launch(game);
-	free(map);
 	return (0);
 }
