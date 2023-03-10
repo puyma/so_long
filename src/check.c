@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:12:30 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 17:47:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:19:51 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int	ft_check_map(t_map *map)
 	t_list	*t;
 	int		nline;
 
+	if (map->height < 3 || map->width < 3)
+		ft_exit("Map is too small", 38);
+	if (map->width == map->height)
+		ft_exit("Map cannot be square", 44);
 	t = map->list;
 	nline = 0;
 	while (t != NULL)
 	{
-		if (map->width == map->height)
-			ft_exit("Map cannot be square", 44);
 		if (ft_check_length(map) == 0)
 			ft_exit("All lines should have the same amount of characters", 22);
 		if (ft_check_allowedchar(t->content) == 0)
@@ -38,14 +40,22 @@ int	ft_check_map(t_map *map)
 		nline++;
 		t = t->next;
 	}
-	return (1);
+	return (0);
 }
 
 int	ft_additional_check(t_game *game)
 {
-	if (game->n_player > 1 || game->n_exit > 1 || game->n_collectible < 1)
-		return (0);
-	return (1);
+	if (game->n_player == 0)
+		ft_exit("One player is expected", 42);
+	if (game->n_player > 1)
+		ft_exit("Only one player is allowed", 34);
+	if (game->n_exit == 0)
+		ft_exit("One exit is expected", 48);
+	if (game->n_exit > 1)
+		ft_exit("Only one exit is permitted", 28);
+	if (game->n_collectible < 1)
+		ft_exit("At least one collectible is expected", 26);
+	return (0);
 }
 
 static int	ft_check_length(t_map *map)

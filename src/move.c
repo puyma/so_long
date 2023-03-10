@@ -6,11 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:52:46 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 16:00:34 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:16:53 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+// need to do something with: end game
 
 int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
 {
@@ -25,7 +27,7 @@ int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
 		game->n_collectible--;
 	else if (game->board[cx][cy] == C_EXIT
 		&& game->n_collectible == 0)
-		ft_printf("end game\n");
+		game->state = Stopping;
 	return (1);
 }
 
