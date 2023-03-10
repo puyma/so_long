@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:30:48 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/09 23:08:58 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:28:32 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ typedef struct s_game
 	t_map		*map;
 }				t_game;
 
+int				ft_additional_check(t_game *game);
 int				ft_check_map(t_map *map);
+int				ft_check_surroundings(char *content, int line, int w, int h);
+int				ft_check_allowedchar(char *content);
+int				ft_check_length(t_map *map);
 void			ft_delete_nl(void *ptr);
 int				ft_destroy(t_game *game);
 int				ft_destroy(t_game *game);
@@ -165,6 +169,7 @@ int	main(int argc, char **argv)
 	ft_lstclear(&map->list, &free);
 	game = ft_new_game(map);
 	ft_load_game(game);
+	ft_additional_check(game);
 	ft_launch(game);
 	free(map);
 	return (0);
@@ -400,8 +405,81 @@ t_map	*ft_new_map(char *filename)
 // once everything parsed, determinate if the map is valid for the game
 int	ft_check_map(t_map *map)
 {
-	(void) map;
-	return (0);
+	t_list	*t;
+	int		nline;
+
+	t = map->list;
+	nline = 0;
+	while (t != NULL)
+	{
+		if (map->width == map->height)
+			ft_exit("Map cannot be square", 44);
+		if (ft_check_length(map) == 0)
+			ft_exit("All lines should have the same amount of characters", 22);
+		if (ft_check_allowedchar(t->content) == 0)
+			ft_exit("Found some shit inside you map", 32);
+		if (!ft_check_surroundings(t->content, nline, map->width, map->height))
+			ft_exit("Invalid map structure: surroundings", 24);
+		nline++;
+		t = t->next;
+	}
+	return (1);
+}
+
+int	ft_check_surroundings(char *content, int line, int width, int height)
+{
+	char	*s;
+
+	s = content;
+	if (s[0] != C_WALL || s[width - 1] != C_WALL)
+		return (0);
+	else if (line == 0 || line == height)
+	{
+		while (*s != '\0')
+		{
+			if (*s++ != C_WALL)
+				return (0);
+		}
+	}
+	return (1);
+}
+
+int	ft_check_allowedchar(char *content)
+{
+	char	*line;
+
+	line = content;
+	while (*line != '\0')
+	{
+		if (ft_strchr(C_ALLOWED, *line) == 0)
+			return (0);
+		line++;
+	}
+	return (1);
+}
+
+int	ft_additional_check(t_game *game)
+{
+	if (game->n_player > 1 || game->n_exit > 1 || game->n_collectible < 1)
+		return (0);
+	return (1);
+}
+
+int	ft_check_length(t_map *map)
+{
+	t_list	*t;
+	size_t	len;
+
+	t = map->list;
+	len = ft_strlen(t->content);
+	while (t != NULL)
+	{
+		if (len != ft_strlen(t->content))
+			return (0);
+		len = ft_strlen(t->content);
+		t = t->next;
+	}
+	return ((int) len);
 }
 
 void	ft_delete_nl(void *ptr)
@@ -427,7 +505,10 @@ int	ft_edit_map(char *filename)
 int	ft_write_empty_map(char *filename, int x, int y)
 {
 	if (x < 1 || y < 1)
-		return (0);
+	{
+		ft_display_help();
+		exit(0);
+	}
 	(void) filename;
 	return (0);
 }
@@ -888,7 +969,7 @@ int	ft_toggle_pause(t_game *game)
 	{
 		game->state = Paused;
 		ft_fill_window(game, game->i_blur);
-		ft_put_img(game, game->i_pause, 0, game->width - game->size);
+		ft_put_img(game, game->i_pause, 0, (game->width - 1) / game->size);
 	}
 	else
 	{
