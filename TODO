@@ -1,7 +1,7 @@
 TEST
 - [ ] for all possible errors
 - [ ] if file does not exist, return explicit error
-
+- [ ] missing!:!:!:! path check OMGOMG
 - [ ] structure in files
 - [ ] split bonus (&genenerator) / no bonus functions (-lz)
 
