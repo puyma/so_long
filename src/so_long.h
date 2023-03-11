@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 19:03:42 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 23:29:55 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,9 @@ int				ft_destroy(t_game *game);
 int				ft_display_nmoves(t_game *game, int n, int background);
 int				ft_ended(t_game *game);
 int				ft_extension_isvalid(char *filename, char *ext);
-void			ft_exit(char *str, int num);
+void			ft_exit(char *str, int num, void (*f)(void *), void *ptr);
 int				ft_fill_window(t_game *game, t_imgdata *img);
+void			ft_free_stuff(void *ptr);
 int				ft_generate_map(char *filename, int x, int y);
 t_vector		*ft_ismovekey(int keycode);
 int				ft_keycode(int keycode, t_game *game);

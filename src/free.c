@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 15:26:29 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 23:20:12 by mpuig-ma         ###   ########.fr       */
+/*   Created: 2023/03/11 23:29:21 by mpuig-ma          #+#    #+#             */
+/*   Updated: 2023/03/11 23:29:34 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_launch(t_game *game)
+void	ft_free_stuff(void *ptr)
 {
-	if (ft_memload_images(game) == 0)
-		ft_exit("Could allocate memory", 8, NULL, NULL);
-	ft_put_images(game);
-	mlx_hook(game->mlx_window, ON_DESTROY, 0, &ft_destroy, game);
-	mlx_hook(game->mlx_window, ON_KEYDOWN, 0, &ft_keycode, game);
-	mlx_loop_hook(game->mlx, &ft_state_render, game);
-	game->state = Running;
-	mlx_loop(game->mlx);
-	return (0);
+	t_game	*game;
+
+	game = ptr;
 }
+
+	//if (game->player != NULL)
+	//	free(game->player);
+	//if (game->collectibles)
+	//	ft_lstclear(&game->collectibles, &free);
+	//if (game->board)
+	//	ft_unload_board(game->board);

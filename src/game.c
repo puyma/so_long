@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:40:39 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 23:03:33 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 23:27:05 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_game	*ft_new_game(t_map *map)
 
 	game = ft_calloc(1, sizeof(t_game));
 	if (game == NULL)
-		ft_exit("Could not allocate memory", 4);
+		ft_exit("Could not allocate memory", 4, NULL, NULL);
 	game->size = PIX_SIZE;
 	game->width = map->width * game->size;
 	game->height = map->height * game->size;
