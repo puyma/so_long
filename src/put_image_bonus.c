@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:32:36 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:13:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ft_put_images(t_game *game)
 		}
 		x++;
 	}
+	ft_put_img(game, game->i_blur, game->player->x, game->player->y);
 	return (0);
 }
 

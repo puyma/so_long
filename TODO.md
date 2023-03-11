@@ -9,7 +9,8 @@ ALL
 - [ ] add end()
 
 GENERATOR
-- [ ] add empty/random character option(key X, for example)
+- [ ] ~~add empty/random character option(key X, for example)~~
 - [x] (argc == 2): if file does not exist or is empty, generate map
 - [ ] generate random map option
 - [x] write_empty_map() is FFFFFFF empty :(
+- [x] position (player) should be displayed at window launch, not after first movement. 
