@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:46:02 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 17:54:28 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:09:30 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ int	ft_memload_images(t_game *game)
 	game->i_player = ft_memload_img(game, PLAYER);
 	game->i_blur = ft_memload_img(game, BLUR);
 	game->i_pause = ft_memload_img(game, PAUSE);
+	game->i_enemy = ft_memload_img(game, ENEMY);
 	if (game->i_floor == NULL
 		|| game->i_wall == NULL
 		|| game->i_collectible == NULL
 		|| game->i_exit == NULL
 		|| game->i_player == NULL
 		|| game->i_blur == NULL
-		|| game->i_pause == NULL)
+		|| game->i_pause == NULL
+		|| game->i_enemy == NULL)
 	{
 		ft_memunload_images(game);
 		return (0);
@@ -71,4 +73,6 @@ void	ft_memunload_images(t_game *game)
 		free(game->i_blur);
 	if (game->i_pause)
 		free(game->i_pause);
+	if (game->i_enemy)
+		free(game->i_enemy);
 }
