@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 17:14:57 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:03:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 # define KEY_C			8
 # define KEY_E			14
 # define KEY_P			35
-# define KEY_N			
+# define KEY_N			45
 
 # define FLOOR			"./src/assets/floor.xpm"
 # define WALL			"./src/assets/wall.xpm"
@@ -142,6 +142,7 @@ int				ft_ended(t_game *game);
 int				ft_extension_isvalid(char *filename, char *ext);
 void			ft_exit(char *str, int num);
 int				ft_fill_window(t_game *game, t_imgdata *img);
+int				ft_generate_map(char *filename, int x, int y);
 t_vector		*ft_ismovekey(int keycode);
 int				ft_keycode(int keycode, t_game *game);
 int				ft_launch(t_game *game);
@@ -168,7 +169,6 @@ int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
 int				ft_state_render(t_game *game);
 int				ft_toggle_pause(t_game *game);
 void			ft_unload_board(int **board);
-int				ft_write_empty_map(char *filename, int x, int y);
 void			ft_write_map(char *filename, int **board);
 
 #endif /* so_long.h */

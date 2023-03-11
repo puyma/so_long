@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:33:45 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 00:42:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:04:03 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,56 @@
 // this function should generate an empty int **board 
 // and pass it to ft_write_map();
 
-int	ft_write_empty_map(char *filename, int x, int y)
+static int	ft_fill_map(int **board, int x, int y);
+
+int	ft_generate_empty_map(char *filename, int x, int y)
 {
-	const int	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	int	**board;
 
 	if (x < 1 || y < 1)
 	{
-		ft_printf("usage ./generator file [width > 0] [height > 0]\n");
+		ft_printf("usage: ./generator file [width > 0] [height > 0]\n");
 		exit(0);
 	}
 	x += 2;
 	y += 2;
+	board = ft_new_board(x, y);
+	ft_fill_map(board, x, y);
+	ft_write_map(filename, board);
+	return (0);
+}
+
+	/*
+	ft_unload_board(board);
+	if (board)
+		free(board);
+	*/
+
+static int	ft_fill_map(int **board, int x, int y)
+{
+	int	xx;
+	int	yy;
+
 	xx = 0;
-	while (xx++ < x)
+	while (xx < x)
 	{
 		yy = 0;
 		while (yy < y)
 		{
-			if (yy == 0 || yy == y - 1 || xx == 1 || xx == x)
-				write(fd, "1", 1);
+			ft_printf("%d, %d - %d, %d\n", x, y, xx, yy);
+			if (yy == 0 || yy == y - 1 || xx == 0 || xx == x - 1)
+				board[yy][xx] = '1';
 			else
-				write(fd, "0", 1);
-			if (xx == 2 && yy == 0 && y > 4)
-				yy += write(fd, "ECP", 3);
+				board[yy][xx] = '0';
 			yy++;
 		}
-		write(fd, "\n", 1);
+		xx++;
 	}
-	ft_putchar_fd(0, fd);
 	return (0);
 }
+
+//if (xx == 2 && yy == 0 && y > 4)
+//	yy += write(fd, "ECP", 3);
 
 void	ft_write_map(char *filename, int **board)
 {
@@ -55,6 +75,7 @@ void	ft_write_map(char *filename, int **board)
 	int			fd;
 
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	fd = 1;
 	x = 0;
 	y = 0;
 	while (board[x] != NULL)
@@ -68,5 +89,6 @@ void	ft_write_map(char *filename, int **board)
 		write(fd, "\n", 1);
 		x++;
 	}
+	ft_putchar_fd(0, fd);
 	ft_printf("Saved map: %s\n", filename);
 }
