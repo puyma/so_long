@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:52:46 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 00:26:08 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 22:34:01 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,10 @@ t_vector	*ft_ismovekey(int keycode)
 		direction->y = 1;
 	else if (keycode == KEY_LEFT || keycode == KEY_A)
 		direction->y = -1;
+	if (direction->x == 0 && direction->y == 0)
+	{
+		free(direction);
+		direction = NULL;
+	}
 	return (direction);
 }
