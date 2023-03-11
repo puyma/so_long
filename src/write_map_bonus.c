@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:33:45 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 19:04:03 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:22:52 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int	ft_fill_map(int **board, int x, int y);
 
-int	ft_generate_empty_map(char *filename, int x, int y)
+int	ft_generate_map(char *filename, int x, int y)
 {
 	int	**board;
 

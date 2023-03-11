@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 18:45:35 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:22:10 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@
 
 int	ft_keycode(int keycode, t_game *game)
 {
-	t_vector	*player;
 	t_vector	*direction;
 
-	player = game->player;
 	if (keycode == KEY_ESC)
 	{
 		ft_write_map(game->filename, game->board);
@@ -31,17 +29,17 @@ int	ft_keycode(int keycode, t_game *game)
 	if (direction != NULL)
 		ft_move(game, game->player, direction);
 	if (keycode == KEY_1)
-		game->board[player->x][player->y] = C_WALL;
+		game->board[game->player->x][game->player->y] = C_WALL;
 	else if (keycode == KEY_0)
-		game->board[player->x][player->y] = C_EMPTY_SPACE;
+		game->board[game->player->x][game->player->y] = C_EMPTY_SPACE;
 	else if (keycode == KEY_C)
-		game->board[player->x][player->y] = C_COLLECTIBLE;
+		game->board[game->player->x][game->player->y] = C_COLLECTIBLE;
 	else if (keycode == KEY_P)
-		game->board[player->x][player->y] = C_PLAYER;
+		game->board[game->player->x][game->player->y] = C_PLAYER;
 	else if (keycode == KEY_E)
-		game->board[player->x][player->y] = C_EXIT;
+		game->board[game->player->x][game->player->y] = C_EXIT;
 	else if (keycode == KEY_N)
-		game->board[player->x][player->y] = C_ENEMY;
+		game->board[game->player->x][game->player->y] = C_ENEMY;
 	ft_put_default_img(game, game->player->x, game->player->y);
 	ft_put_img(game, game->i_blur, game->player->x, game->player->y);
 	return (0);
