@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:33:45 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 19:24:22 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:06:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static int	ft_fill_map(int **board, int x, int y)
 		yy = 0;
 		while (yy < y)
 		{
-			ft_printf("%d, %d - %d, %d\n", x, y, xx, yy);
 			if (yy == 0 || yy == y - 1 || xx == 0 || xx == x - 1)
 				board[yy][xx] = '1';
 			else
