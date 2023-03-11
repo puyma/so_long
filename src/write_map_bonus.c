@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:33:45 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 19:22:52 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:24:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	ft_write_map(char *filename, int **board)
 	int			fd;
 
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
-	fd = 1;
 	x = 0;
 	y = 0;
 	while (board[x] != NULL)
