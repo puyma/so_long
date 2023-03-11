@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:40:39 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 22:19:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 23:03:33 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,20 @@ int	ft_load_game(t_game *game)
 	list = ft_locate_items(game->board, C_COLLECTIBLE);
 	game->collectibles = list;
 	game->n_collectible = ft_lstsize(list);
+	if (list)
+		ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_EXIT);
 	if (list)
 		game->exit = (t_vector *) list->content;
 	game->n_exit = ft_lstsize(list);
 	if (list)
-		free(list);
+		ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_PLAYER);
 	if (list)
 		game->player = (t_vector *) list->content;
 	game->n_player = ft_lstsize(list);
 	if (list)
-		free(list);
+		ft_lstclear(&list, &free);
 	if (game->player == NULL)
 		game->player = ft_isghost_player(game->player);
 	return (0);

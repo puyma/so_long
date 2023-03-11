@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:12:30 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 00:27:03 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 23:05:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	ft_check_surround(char *content, int line, int width, int height);
 static int	ft_check_allowedchar(char *content);
 static int	ft_check_length(t_map *map);
+static void	ft_free_stuff(t_game *game);
 
 // once everything parsed, determinate if the map is valid for the game
 
@@ -46,7 +47,10 @@ int	ft_check_map(t_map *map)
 int	ft_additional_check(t_game *game)
 {
 	if (game->n_player == 0)
+	{
+		ft_free_stuff(game);
 		ft_exit("One player is expected", 42);
+	}
 	if (game->n_player > 1)
 		ft_exit("Only one player is allowed", 34);
 	if (game->n_exit == 0)
@@ -58,6 +62,18 @@ int	ft_additional_check(t_game *game)
 	if (ft_check_path(game) == 0)
 		ft_exit("Missing valid path", 68);
 	return (0);
+}
+
+static void	ft_free_stuff(t_game *game)
+{
+	if (game->player)
+		free(game->player);
+	if (game->collectibles)
+		ft_lstclear(&game->collectibles, &free);
+	if (game->board)
+		ft_unload_board(game->board);
+	if (game)
+		free(game);
 }
 
 static int	ft_check_length(t_map *map)
