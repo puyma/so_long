@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:29:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:14:25 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_keycode(int keycode, t_game *game)
 		game->board[player->x][player->y] = C_PLAYER;
 	else if (keycode == KEY_E)
 		game->board[player->x][player->y] = C_EXIT;
+	else if (keycode == KEY_N)
+		game->board[player->x][player->y] = C_ENEMY;
 	ft_put_default_img(game, game->player->x, game->player->y);
 	ft_put_img(game, game->i_blur, game->player->x, game->player->y);
 	return (0);
