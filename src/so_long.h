@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 00:12:32 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:14:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,14 @@
 # define C_COLLECTIBLE	'C'
 # define C_EXIT			'E'
 # define C_PLAYER		'P'
-# define C_ALLOWED		"01CEP"
+# define C_ENEMY		'N'
+
+# ifdef BONUS
+#  define C_ALLOWED		"01CEPN"
+# else
+#  define C_ALLOWED		"01CEP"
+# endif
+
 # define MAP_EXT		".ber"
 
 # define KEY_A			0
@@ -57,6 +64,7 @@
 # define KEY_C			8
 # define KEY_E			14
 # define KEY_P			35
+# define KEY_N			
 
 # define FLOOR			"./src/assets/floor.xpm"
 # define WALL			"./src/assets/wall.xpm"
@@ -65,6 +73,7 @@
 # define PLAYER			"./src/assets/player.xpm"
 # define BLUR			"./src/assets/blur.png"
 # define PAUSE			"./src/assets/pause.png"
+# define ENEMY			"./src/assets/enemy.png"
 
 enum e_game { Stopped = 0, Running, Paused, Stopping, Ended }	state;
 enum e_event { ON_KEYDOWN = 2, ON_KEYUP = 3, ON_DESTROY = 17 }	event;
@@ -112,6 +121,7 @@ typedef struct s_game
 	t_imgdata	*i_player;
 	t_imgdata	*i_blur;
 	t_imgdata	*i_pause;
+	t_imgdata	*i_enemy;
 	t_list		*collectibles;
 	t_vector	*exit;
 	t_vector	*player;
