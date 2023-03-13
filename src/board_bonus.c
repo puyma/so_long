@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:39:47 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:40:18 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 08:57:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	**ft_new_board(size_t x, size_t y)
 
 	board = (int **) ft_calloc(y + 1, sizeof(int *));
 	if (board == NULL)
-		ft_exit("Could not allocate memory", 14);
+		ft_exit("Could not allocate memory", 14, NULL, NULL);
 	i = 0;
 	while (i < y)
 		board[i++] = (int *) ft_calloc(x + 1, sizeof(int));

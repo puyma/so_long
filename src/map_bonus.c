@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:37:47 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 17:51:53 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:02:49 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_map	*ft_new_map(char *filename)
 
 	map = ft_calloc(sizeof(t_map), 1);
 	if (map == NULL)
-		ft_exit("Could not allocate memory", 0);
+		ft_exit("Could not allocate memory", 0, NULL, NULL);
 	map->filename = filename;
 	map->width = 0;
 	map->height = 0;
@@ -41,13 +41,13 @@ int	ft_load_map(t_map *map)
 
 	map->list = NULL;
 	if (ft_extension_isvalid(map->filename, MAP_EXT) == 0)
-		ft_exit("File extension is not valid", 2);
+		ft_exit("File extension is not valid", 2, NULL, NULL);
 	fd = open(map->filename, O_RDONLY);
 	if (fd == -1 || read(fd, NULL, 0) != 0)
-		ft_exit("File does not exist", 2);
+		ft_exit("File does not exist", 2, NULL, NULL);
 	line = get_next_line(fd);
 	if (line == NULL || *line == '\0')
-		ft_exit("Your ber is empty, I guess", 16);
+		ft_exit("Your ber is empty, I guess", 16, NULL, NULL);
 	while (line != NULL)
 	{
 		if (*line != '#' && !ft_isspace(*line))

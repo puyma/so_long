@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:29:05 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:55:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:02:04 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_vector	*ft_locate_character(int **board, int x, int y, int c)
 
 	coordinate = (t_vector *) ft_calloc(1, sizeof(t_vector));
 	if (coordinate == NULL)
-		ft_exit("Could not allocate memory", 10);
+		ft_exit("Could not allocate memory", 10, NULL, NULL);
 	while (board[x] != NULL)
 	{
 		while (board[x][y] != '\0')
