@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:01:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 16:01:25 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 13:12:24 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_display_nmoves(t_game *game, int n, int background)
 	int			x;
 	int			y;
 	int			digits;
+	char		*itoa;
 
 	if (LOG_LEVEL > 0)
 		ft_printf("> Moves: %d\n", game->n_moves);
@@ -28,6 +29,9 @@ int	ft_display_nmoves(t_game *game, int n, int background)
 		ft_put_default_img(game, x / game->size, y / game->size);
 		ft_put_default_img(game, x / game->size, (y + game->size) / game->size);
 	}
-	mlx_string_put(game->mlx, game->mlx_window, y, x, 0x00F6CDAF, ft_itoa(n));
+	itoa = ft_itoa(n);
+	mlx_string_put(game->mlx, game->mlx_window, y, x, 0x00F6CDAF, itoa);
+	if (itoa)
+		free(itoa);
 	return (0);
 }
