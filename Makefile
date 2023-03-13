@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/11 23:30:42 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/13 17:27:11 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,12 @@ ifeq ($(TERM_COLORS), 256)
 	PURPLE	:=	\033[1;38;5;135m
 endif
 
-SRC_FILES	:=	src/animation.c src/board.c src/check.c src/events.c \
-				src/exit.c src/free.c src/game.c src/images.c src/launch.c \
-				src/locate.c src/log.c src/main.c src/map.c src/move.c \
-				src/path.c src/put_image.c src/window.c
+SRC_FILES	:=	src/animation.c src/board.c src/check.c src/display_nmoves.c \
+				src/events.c src/exit.c src/free.c src/game.c src/images.c \
+				src/launch.c src/locate.c src/log.c src/main.c src/map.c \
+				src/move.c src/path.c src/put_image.c src/window.c
 
 BONUS_FILES	:=	$(addsuffix _bonus.c, $(basename $(SRC_FILES))) \
-				src/display_nmoves_bonus.c \
 				src/pause_bonus.c src/write_map_bonus.c
 
 OBJ_FILES	=	$(addprefix $(BUILD_DIR)/, $(addsuffix .o, $(notdir $(basename $(SRC_FILES)))))
