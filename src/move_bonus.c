@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:52:46 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 22:34:01 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:49:48 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
 		game->n_collectible--;
 	else if (game->board[cx][cy] == C_EXIT
 		&& game->n_collectible == 0)
-		ft_printf("end game\n");
+		game->state = Stopping;
 	return (1);
 }
 
