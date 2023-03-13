@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:20:29 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:20:50 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:34:01 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_toggle_pause(t_game *game)
 		game->state = Running;
 		ft_put_images(game);
 	}
-	ft_display_nmoves(game, game->n_moves, 0);
+	ft_display_nmoves(game, 0);
 	ft_log_state(game->state);
 	return (0);
 }

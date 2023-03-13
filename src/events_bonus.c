@@ -6,11 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 19:22:10 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:33:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static void	ft_end(t_game *);
 
 #ifdef GENERATOR
 
@@ -68,16 +70,42 @@ int	ft_keycode(int keycode, t_game *game)
 int	ft_state_render(t_game *game)
 {
 	mlx_do_sync(game->mlx);
+	if (game->state == Lost)
+	{
+		ft_end(game);
+		game->state = Paused;
+	}
+	else if (game->state == Won)
+	{
+		ft_end(game);
+		game->state = Paused;
+	}
 	if (game->state == Stopping)
 		ft_destroy(game);
 	else if (game->n_collectible == 0 && game->n_exit != 0)
 	{
-		ft_log("Obtained all collectibles");
+		ft_printf("You\'ve picked up all collectibles\n");
 		game->board[game->exit->x][game->exit->y] = C_EXIT;
 		ft_put_img(game, game->i_exit, game->exit->x, game->exit->y);
 		game->n_exit = 0;
 	}
 	return (0);
+}
+
+static void	ft_end(t_game *game)
+{
+	if (game->state == Lost)
+	{
+		ft_fill_window(game, game->i_enemy);
+		mlx_do_sync(game->mlx);
+		ft_printf("You\'ve lost...\n");
+	}
+	else if (game->state == Won)
+	{
+		ft_fill_window(game, game->i_exit);
+		mlx_do_sync(game->mlx);
+		ft_printf("You\'ve won with %u moves\n", game->n_moves);
+	}
 }
 
 int	ft_destroy(t_game *game)

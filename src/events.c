@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:22:06 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 22:30:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:00:01 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,14 @@ int	ft_state_render(t_game *game)
 	mlx_do_sync(game->mlx);
 	if (game->state == Stopping)
 		ft_destroy(game);
+	else if (game->state == Won)
+	{
+		ft_printf("You\'ve won with %u moves\n", game->n_moves);
+		game->state = Stopping;
+	}
 	else if (game->n_collectible == 0 && game->n_exit != 0)
 	{
-		ft_log("Obtained all collectibles");
+		ft_printf("You\'ve picked up all collectibles\n");
 		game->board[game->exit->x][game->exit->y] = C_EXIT;
 		ft_put_img(game, game->i_exit, game->exit->x, game->exit->y);
 		game->n_exit = 0;

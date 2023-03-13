@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:52:46 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 15:49:48 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:59:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,19 @@ int	ft_move_able(t_game *game, t_vector *player, t_vector *d)
 	if (game->board[cx][cy] == C_WALL)
 		return (0);
 	else if (game->board[cx][cy] == C_COLLECTIBLE)
+	{
 		game->n_collectible--;
+		if (game->n_collectible > 1)
+			ft_printf("%d items remaining\n",
+				game->n_collectible);
+		else if (game->n_collectible == 1)
+			ft_printf("%d item remaining\n", game->n_collectible);
+	}
 	else if (game->board[cx][cy] == C_EXIT
 		&& game->n_collectible == 0)
-		game->state = Stopping;
+		game->state = Won;
+	else if (game->board[cx][cy] == C_ENEMY)
+		game->state = Lost;
 	return (1);
 }
 
@@ -78,7 +87,8 @@ int	ft_move(t_game *game, t_vector *player, t_vector *d)
 	player->y += d->y;
 	ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
-	ft_display_nmoves(game, ++game->n_moves, 1);
+	game->n_moves++;
+	ft_display_nmoves(game, 1);
 	return (0);
 }
 
