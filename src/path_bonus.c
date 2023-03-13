@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:22:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 00:27:39 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:03:19 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,21 @@ static int	ft_clear_path(int **board, int **pathfinding);
 int	ft_check_path(t_game *game)
 {
 	int			**board;
-	size_t		width;
-	size_t		height;
 	t_list		*l;
 	t_vector	*v;
 
 	ft_log("Searching for a valid path...");
-	width = game->map->width;
-	height = game->map->height;
-	board = ft_new_board(width, height);
+	board = ft_new_board(game->map->width, game->map->height);
 	ft_clear_path(game->board, board);
 	l = game->collectibles;
 	if (ft_solve(game, game->player->x, game->player->y, board) == 0)
-		return (0);
+		return (ft_unload_board(board));
 	while (l != NULL)
 	{
 		v = l->content;
 		ft_clear_path(game->board, board);
 		if (ft_solve(game, v->x, v->y, board) == 0)
-			return (0);
+			return (ft_unload_board(board));
 		l = l->next;
 	}
 	ft_unload_board(board);
