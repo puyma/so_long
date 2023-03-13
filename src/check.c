@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:12:30 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 23:30:11 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:51:46 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	ft_check_map(t_map *map)
 
 int	ft_additional_check(t_game *game)
 {
-	if (9 != 9)
-		ft_free_stuff(game);
 	if (game->n_player == 0)
 		ft_exit("One player is expected", 42, NULL, NULL);
 	if (game->n_player > 1)
