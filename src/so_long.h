@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 10:30:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:32:45 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@
 # define PIX_SIZE		32
 # define FILENAME_LEN	42
 
-# ifndef LOG_LEVEL
-#  ifdef GENERATOR
+# ifdef GENERATOR
+#  ifndef LOG_LEVEL
 #   define LOG_LEVEL	1
-#  else // ifndef GENERATOR
+#  endif
+# else
+#  ifndef LOG_LEVEL
 #   define LOG_LEVEL	0
 #  endif
 # endif
@@ -42,6 +44,8 @@
 # define C_ENEMY		'N'
 
 # ifdef BONUS
+#  define C_ALLOWED		"01CEPN"
+# elif GENERATOR
 #  define C_ALLOWED		"01CEPN"
 # else
 #  define C_ALLOWED		"01CEP"
@@ -75,7 +79,7 @@
 # define PAUSE			"./src/assets/pause.png"
 # define ENEMY			"./src/assets/enemy.png"
 
-enum e_game { Stopped = 0, Running, Paused, Stopping, Ended }	state;
+enum e_game { Stopped = 0, Running, Paused, Stopping, Ended, Won, Lost } state;
 enum e_event { ON_KEYDOWN = 2, ON_KEYUP = 3, ON_DESTROY = 17 }	event;
 enum e_character { None = 0, Left, Right, Up, Down }			direction;
 
@@ -137,8 +141,7 @@ int				ft_additional_check(t_game *game);
 int				ft_check_map(t_map *map);
 int				ft_check_path(t_game *game);
 int				ft_destroy(t_game *game);
-int				ft_display_nmoves(t_game *game, int n, int background);
-int				ft_ended(t_game *game);
+int				ft_display_nmoves(t_game *game, int background);
 int				ft_extension_isvalid(char *filename, char *ext);
 void			ft_exit(char *str, int num, void (*f)(void *), void *ptr);
 int				ft_fill_window(t_game *game, t_imgdata *img);
@@ -167,6 +170,7 @@ int				ft_put_images(t_game *game);
 int				ft_put_img(t_game *game, t_imgdata *img, int x, int y);
 int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
+void			ft_sleep(long long sleep_time);
 int				ft_state_render(t_game *game);
 int				ft_toggle_pause(t_game *game);
 int				ft_unload_board(int **board);
