@@ -37,7 +37,8 @@ TEST [BONUS]
 - [x] if map is surrounded by walls
 - [x] if map is not square
 - [x] if map's lines are all same length 
-- [ ] LEAKS bonus (3, probably mlx related)
+- [x] LEAKS bonus (3, probably mlx related)
+	- [x] solved: leaks with patch in mlx_png.c
 
 ALL
 - [X] missing!:!:!:! path check OMGOMG
@@ -49,13 +50,17 @@ MANDATORY
 - [x] C_PAUSE && bonus keys count as n_moves++
 
 BONUS
-- [ ] add enemies
+- [x] add enemies
 - [ ] add "sprite animation"
-- [ ] add *cool* end()
+- [x] add ~~*cool*~~ end()
+- [x] add *cool* end animation
 
 BOTH
 - [x] in ft_ismovekey, LEAKS
 - [x] load_game (when exit circumstantially), LEAKS
+
+TEST [GENERATOR]
+- [ ] DID NOT TEST ANYTHING
 
 GENERATOR
 - [ ] ~~add empty/random character option(key X, for example)~~
