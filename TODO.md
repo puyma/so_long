@@ -52,6 +52,8 @@ MANDATORY
 BONUS
 - [x] add enemies
 - [ ] add "sprite animation"
+- [ ] if won || lost -> press 'R' for retry
+- [ ] animate *cool* end
 - [x] add ~~*cool*~~ end()
 - [x] add *cool* end animation
 
