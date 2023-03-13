@@ -6,11 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:46:02 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 09:01:20 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:18:33 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static int	ft_memload_enemies(t_game *game);
 
 int	ft_memload_images(t_game *game)
 {
@@ -21,21 +23,33 @@ int	ft_memload_images(t_game *game)
 	game->i_player = ft_memload_img(game, PLAYER);
 	game->i_blur = ft_memload_img(game, BLUR);
 	game->i_pause = ft_memload_img(game, PAUSE);
-	game->i_enemy = ft_memload_img(game, ENEMY);
 	if (game->i_floor == NULL
 		|| game->i_wall == NULL
 		|| game->i_collectible == NULL
 		|| game->i_exit == NULL
 		|| game->i_player == NULL
 		|| game->i_blur == NULL
-		|| game->i_pause == NULL
-		|| game->i_enemy == NULL)
+		|| game->i_pause == NULL)
 	{
+		ft_memunload_images(game);
+		return (0);
+	}
+	if (ft_memload_enemies(game) == 0)
+	{
+		ft_printf("not allocated enemies imgs\n");
 		ft_memunload_images(game);
 		return (0);
 	}
 	return (1);
 }
+
+static int	ft_memload_enemies(t_game *game)
+{
+	:
+	return (1);
+}
+
+// game->i_enemy = ft_memload_img(game, ENEMY);
 
 t_imgdata	*ft_memload_img(t_game *game, char *filename)
 {
@@ -75,4 +89,6 @@ void	ft_memunload_images(t_game *game)
 		free(game->i_pause);
 	if (game->i_enemy)
 		free(game->i_enemy);
+	if (game->i_enemies)
+		ft_lstclear(&game->i_enemies, &free);
 }

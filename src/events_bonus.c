@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 17:33:12 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:55:11 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,9 @@ int	ft_state_render(t_game *game)
 {
 	mlx_do_sync(game->mlx);
 	if (game->state == Lost)
-	{
 		ft_end(game);
-		game->state = Paused;
-	}
 	else if (game->state == Won)
-	{
 		ft_end(game);
-		game->state = Paused;
-	}
 	if (game->state == Stopping)
 		ft_destroy(game);
 	else if (game->n_collectible == 0 && game->n_exit != 0)
@@ -94,6 +88,7 @@ int	ft_state_render(t_game *game)
 
 static void	ft_end(t_game *game)
 {
+	game->state = Paused;
 	if (game->state == Lost)
 	{
 		ft_fill_window(game, game->i_enemy);
