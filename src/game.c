@@ -6,14 +6,14 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:40:39 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 09:38:13 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:58:21 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 static t_vector	*ft_isghost_player(t_vector *player);
-static t_vector *ft_vectordup(t_vector *from);
+static t_vector	*ft_vectordup(t_vector *from);
 
 // ft_put_images -> should only put images, should not do other stuff!
 
