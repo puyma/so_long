@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 17:32:45 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:36:42 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_game
 	t_imgdata	*i_blur;
 	t_imgdata	*i_pause;
 	t_imgdata	*i_enemy;
+	t_imgdata	*i_enemies;
 	t_list		*collectibles;
 	t_vector	*exit;
 	t_vector	*player;

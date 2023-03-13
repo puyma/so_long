@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 17:55:11 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:06:56 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ int	ft_keycode(int keycode, t_game *game)
 
 int	ft_state_render(t_game *game)
 {
+	ft_put_img(game, game->i_floor, 1, 1);
+	if (game->i_enemy + 1 != NULL)
+		ft_put_img(game, game->i_enemy++, 1, 1);
+	if (game->i_enemy == NULL)
+		game->i_enemy = game->i_enemies;
 	mlx_do_sync(game->mlx);
 	if (game->state == Lost)
 		ft_end(game);
@@ -88,10 +93,9 @@ int	ft_state_render(t_game *game)
 
 static void	ft_end(t_game *game)
 {
-	game->state = Paused;
 	if (game->state == Lost)
 	{
-		ft_fill_window(game, game->i_enemy);
+		ft_fill_window(game, game->i_enemies);
 		mlx_do_sync(game->mlx);
 		ft_printf("You\'ve lost...\n");
 	}
@@ -101,6 +105,7 @@ static void	ft_end(t_game *game)
 		mlx_do_sync(game->mlx);
 		ft_printf("You\'ve won with %u moves\n", game->n_moves);
 	}
+	game->state = Paused;
 }
 
 int	ft_destroy(t_game *game)
