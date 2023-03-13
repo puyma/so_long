@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:32:15 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 20:13:09 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:54:27 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	ft_put_default_img(t_game *game, int x, int y)
 		ft_put_img(game, game->i_exit, x, y);
 	else if (game->board[x][y] == C_PLAYER)
 		ft_put_img(game, game->i_player, x, y);
+	else if (game->board[x][y] == C_ENEMY)
+		ft_put_img(game, game->i_enemy, x, y);
 	return (0);
 }
 
