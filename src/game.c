@@ -6,13 +6,14 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:40:39 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 23:27:05 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 09:38:13 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 static t_vector	*ft_isghost_player(t_vector *player);
+static t_vector *ft_vectordup(t_vector *from);
 
 // ft_put_images -> should only put images, should not do other stuff!
 
@@ -43,7 +44,7 @@ t_game	*ft_new_game(t_map *map)
 
 // add a player if NULL...maybe also with exit and collectibles?
 // cleaning list make the player (and other characters) to not be found properly
-// as they are erased... so, removed:
+// as they are erased... so, removed (only game->collectibles gives problem):
 // if (list)
 // 	ft_lstclear(&list, &free);
 
@@ -54,23 +55,35 @@ int	ft_load_game(t_game *game)
 	list = ft_locate_items(game->board, C_COLLECTIBLE);
 	game->collectibles = list;
 	game->n_collectible = ft_lstsize(list);
-	if (list)
-		ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_EXIT);
 	if (list)
-		game->exit = (t_vector *) list->content;
+		game->exit = ft_vectordup(list->content);
 	game->n_exit = ft_lstsize(list);
 	if (list)
 		ft_lstclear(&list, &free);
 	list = ft_locate_items(game->board, C_PLAYER);
 	if (list)
-		game->player = (t_vector *) list->content;
+		game->player = ft_vectordup(list->content);
 	game->n_player = ft_lstsize(list);
 	if (list)
 		ft_lstclear(&list, &free);
 	if (game->player == NULL)
 		game->player = ft_isghost_player(game->player);
 	return (0);
+}
+
+static t_vector	*ft_vectordup(t_vector *from)
+{
+	t_vector	*duplicate;
+
+	if (from == NULL)
+		return (NULL);
+	duplicate = (t_vector *) ft_calloc(1, sizeof(t_vector));
+	if (duplicate == NULL)
+		ft_exit("Could not allocate memory", 76, NULL, NULL);
+	duplicate->x = from->x;
+	duplicate->y = from->y;
+	return (duplicate);
 }
 
 static t_vector	*ft_isghost_player(t_vector *player)
