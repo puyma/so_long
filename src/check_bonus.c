@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:18:21 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 09:05:15 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:36:17 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	ft_check_map(t_map *map)
 	while (t != NULL)
 	{
 		if (ft_check_length(map) == 0)
-			ft_exit("All lines should have the same amount of characters", 22, NULL, NULL);
+			ft_exit("All lines should have the same amount of characters",
+				22, NULL, NULL);
 		if (ft_check_allowedchar(t->content) == 0)
 			ft_exit("Found some shit inside you map", 32, NULL, NULL);
 		if (!ft_check_surround(t->content, nline, map->width, map->height))
