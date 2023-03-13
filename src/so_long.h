@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 23:29:55 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:30:12 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int				ft_put_img_xy(t_game *game, t_imgdata *img, int x, int y);
 int				ft_slide(t_game *game, t_vector *player, t_vector *direction);
 int				ft_state_render(t_game *game);
 int				ft_toggle_pause(t_game *game);
-void			ft_unload_board(int **board);
+int				ft_unload_board(int **board);
 void			ft_write_map(char *filename, int **board);
 
 #endif /* so_long.h */

@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:38:27 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/11 23:12:40 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:30:02 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_map2array(t_map *map)
 	}
 }
 
-void	ft_unload_board(int **board)
+int	ft_unload_board(int **board)
 {
 	int	x;
 
@@ -67,4 +67,5 @@ void	ft_unload_board(int **board)
 	while (board[x] != NULL)
 		free(board[x++]);
 	free(board);
+	return (0);
 }
