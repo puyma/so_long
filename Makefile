@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/13 17:27:11 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/14 10:01:46 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,12 @@ NAME		:=	so_long
 
 CC			:=	gcc
 CFLAGS		:=	-Wall -Werror -Wextra -O3
-CCFLAGS		:=	-MMD
+CFLAGS		+=	-MMD
 LFLAGS		:=	-L./$(LIBMLX_DIR) -lmlx -L./$(LIBFT_DIR) -lft
 LFLAGS		+=	-lm
 LFLAGS		+=	-framework OpenGL -framework Appkit
 DEBUG		:=	-g -fsanitize='address,undefined' -Og
+#CFLAGS		+=	$(DEBUG)
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
 
@@ -83,9 +84,5 @@ fclean: clean
 
 re: fclean
 	$(MAKE)
-
-debug: $(LIBFT) $(LIBMLX) $(OBJ_FILES) $(DEP_FILES) src/$(NAME).h
-	$(CC) $(DEBUG) $(INC) $(CFLAGS) $(LFLAGS) $(SRC_FILES) -o $(NAME)
-	@echo "Built $(STYLE)$(NAME)$(NOSTYLE) (debug)"
 
 all: $(NAME)

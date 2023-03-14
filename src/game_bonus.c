@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:41:26 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 12:05:35 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:41:22 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_game	*ft_new_game(t_map *map)
 	game->height = map->height * game->size;
 	game->board = map->board;
 	game->collectibles = NULL;
+	game->enemies = NULL;
 	game->exit = NULL;
 	game->player = NULL;
 	game->n_moves = 0;
@@ -55,6 +56,7 @@ int	ft_load_game(t_game *game)
 	list = ft_locate_items(game->board, C_COLLECTIBLE);
 	game->collectibles = list;
 	game->n_collectible = ft_lstsize(list);
+	game->enemies = ft_locate_items(game->board, C_ENEMY);
 	list = ft_locate_items(game->board, C_EXIT);
 	if (list)
 		game->exit = ft_vectordup(list->content);

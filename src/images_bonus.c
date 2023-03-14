@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:46:02 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 20:01:06 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:32:57 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,30 @@ static int	ft_memload_enemies(t_game *game)
 	char	*temp;
 	char	*tempp;
 
-	n_images = 20;
+	n_images = 10;
 	i = 0;
-	game->i_enemies = (t_imgdata *) ft_calloc(n_images + 1, sizeof(t_imgdata));
+	game->i_enemies = (t_imgdata **) ft_calloc(n_images + 1,
+			sizeof(t_imgdata *));
 	while (i < n_images)
 	{
-		temp = ft_strjoin("./src/assets/enemy_", ft_itoa(100 - i));
+		tempp = ft_itoa(i);
+		temp = ft_strjoin("./src/assets/enemy_", tempp);
+		free(tempp);
 		tempp = ft_strjoin(temp, ".png");
 		free(temp);
-		ft_printf("Setting: %s... ", tempp);
-		game->i_enemies[i] = *ft_memload_img(game, tempp);
-		write(1, "done\n", 5);
+		game->i_enemies[i] = ft_memload_img(game, tempp);
 		free(tempp);
 		i++;
 	}
-	game->i_enemy = game->i_enemies;
+	game->i_enemy = game->i_enemies[0];
 	return (1);
 }
-
-// game->i_enemy = ft_memload_img(game, ENEMY);
 
 t_imgdata	*ft_memload_img(t_game *game, char *filename)
 {
 	t_imgdata	*img;
 
-	img = (t_imgdata *) ft_calloc(sizeof(t_imgdata), 1);
+	img = (t_imgdata *) ft_calloc(1, sizeof(t_imgdata));
 	if (ft_extension_isvalid(filename, ".xpm") != 0)
 		img->img = mlx_xpm_file_to_image(game->mlx, filename, \
 			&img->width, &img->height);
@@ -105,6 +104,6 @@ void	ft_memunload_images(t_game *game)
 		free(game->i_blur);
 	if (game->i_pause)
 		free(game->i_pause);
-	//if (game->i_enemy)
-	//	free(game->i_enemy);
+	if (game->i_enemy)
+		free(game->i_enemy);
 }

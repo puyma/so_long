@@ -6,13 +6,13 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 20:06:56 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:32:33 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	ft_end(t_game *);
+static void	ft_end(t_game *game);
 
 #ifdef GENERATOR
 
@@ -69,12 +69,9 @@ int	ft_keycode(int keycode, t_game *game)
 
 int	ft_state_render(t_game *game)
 {
-	ft_put_img(game, game->i_floor, 1, 1);
-	if (game->i_enemy + 1 != NULL)
-		ft_put_img(game, game->i_enemy++, 1, 1);
-	if (game->i_enemy == NULL)
-		game->i_enemy = game->i_enemies;
 	mlx_do_sync(game->mlx);
+	if (game->state == Running)
+		ft_animate_enemy(game);
 	if (game->state == Lost)
 		ft_end(game);
 	else if (game->state == Won)
@@ -95,7 +92,7 @@ static void	ft_end(t_game *game)
 {
 	if (game->state == Lost)
 	{
-		ft_fill_window(game, game->i_enemies);
+		ft_fill_window(game, game->i_enemies[0]);
 		mlx_do_sync(game->mlx);
 		ft_printf("You\'ve lost...\n");
 	}

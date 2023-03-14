@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/13 19:36:42 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:41:44 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,9 @@ typedef struct s_game
 	t_imgdata	*i_blur;
 	t_imgdata	*i_pause;
 	t_imgdata	*i_enemy;
-	t_imgdata	*i_enemies;
+	t_imgdata	**i_enemies;
 	t_list		*collectibles;
+	t_list		*enemies;
 	t_vector	*exit;
 	t_vector	*player;
 	size_t		n_moves;
@@ -139,6 +140,7 @@ typedef struct s_game
 }				t_game;
 
 int				ft_additional_check(t_game *game);
+void			ft_animate_enemy(t_game *game);
 int				ft_check_map(t_map *map);
 int				ft_check_path(t_game *game);
 int				ft_destroy(t_game *game);

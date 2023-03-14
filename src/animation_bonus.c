@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:51:41 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/10 15:52:41 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:16:20 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 	i = 1;
 	while (i <= size)
 	{
+		ft_animate_enemy(game);
 		ft_put_img_xy(game, game->i_floor, px, py);
 		ft_put_img_xy(game, game->i_player, px + (i * d->x), py + (i * d->y));
 		mlx_do_sync(game->mlx);
@@ -46,3 +47,31 @@ int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 }
 
 #endif
+
+void	ft_animate_player(t_game *game)
+{
+
+}
+
+// aka ft_next_enemy
+
+void	ft_animate_enemy(t_game *game)
+{
+	t_vector	*enemy;
+	static int	wait = 0;
+	const int	max = 10;
+	static int	i = 0;
+
+	if (i == max)
+	{
+		wait = 133;
+		i = 0;
+	}
+	else if (wait > 0)
+		wait--;
+	else if (i < max)
+	{
+		ft_put_img(game, game->i_enemies[i], enemy->x, enemy->y);
+		i++;
+	}
+}
