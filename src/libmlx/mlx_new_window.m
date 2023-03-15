@@ -353,7 +353,7 @@ int get_mouse_button(NSEventType eventtype)
       [win setContentView:self];
       [win setTitle:title];
       [win setKeyRepeat:1];
-      [win center];
+	  [win center]; // mpuig-ma: added in order to launch window centered
       [win makeKeyAndOrderFront:self];
 
       //      printf("init ctx: current %p ", [NSOpenGLContext currentContext]);

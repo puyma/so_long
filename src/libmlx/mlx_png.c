@@ -217,6 +217,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
     }
   if ((ret = mipng_fill_img(img, buffer, pi)))
     return (ret);
+  free(buffer); // mpuig-ma: added in order to not leak when loading .png
   return (0);
 }
 
