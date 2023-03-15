@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:20:32 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/15 11:11:59 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:35:16 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define LOG_LEVEL		0
 # define PIX_SIZE		32
 # define FILENAME_LEN	42
-
 # ifdef GENERATOR
 #  ifndef LOG_LEVEL
 #   define LOG_LEVEL	1
@@ -126,9 +124,7 @@ typedef struct s_game
 	t_imgdata	*i_blur;
 	t_imgdata	*i_pause;
 	t_imgdata	*i_enemy;
-	t_imgdata	**i_enemies;
 	t_list		*collectibles;
-	t_list		*enemies;
 	t_vector	*exit;
 	t_vector	*player;
 	size_t		n_moves;
@@ -147,7 +143,6 @@ int				ft_display_nmoves(t_game *game, int background);
 int				ft_extension_isvalid(char *filename, char *ext);
 void			ft_exit(char *str, int num, void (*f)(void *), void *ptr);
 int				ft_fill_window(t_game *game, t_imgdata *img);
-void			ft_free_stuff(void *ptr);
 int				ft_generate_map(char *filename, int x, int y);
 t_vector		*ft_ismovekey(int keycode);
 int				ft_keycode(int keycode, t_game *game);

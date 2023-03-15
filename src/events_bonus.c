@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/15 11:25:01 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:27:30 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	ft_end(t_game *game)
 {
 	if (game->state == Lost)
 	{
-		ft_fill_window(game, game->i_enemies[0]);
+		ft_fill_window(game, game->i_enemy);
 		mlx_do_sync(game->mlx);
 		ft_printf("You\'ve lost...\n");
 	}
