@@ -6,7 +6,7 @@
 /*   By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:25:03 by mpuig-ma          #+#    #+#             */
-/*   Updated: 2023/03/14 12:32:33 by mpuig-ma         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:05:09 by mpuig-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	ft_keycode(int keycode, t_game *game)
 int	ft_state_render(t_game *game)
 {
 	mlx_do_sync(game->mlx);
-	if (game->state == Running)
-		ft_animate_enemy(game);
 	if (game->state == Lost)
 		ft_end(game);
 	else if (game->state == Won)
