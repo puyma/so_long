@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/14 10:01:46 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/14 16:14:02 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,11 @@ DEBUG		:=	-g -fsanitize='address,undefined' -Og
 #CFLAGS		+=	$(DEBUG)
 INC			:=	-I./$(LIBFT_DIR)/src -I./$(LIBMLX_DIR)
 RM			:=	rm -rf
+
+OS			:=	$(shell uname)
+ifeq ($(OS),Linux)
+	LFLAGS	+=	-lXext -lX11
+endif
 
 NOSTYLE		:=	\033[0m
 STYLE		:=	\033[0;32m
