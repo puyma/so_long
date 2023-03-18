@@ -6,7 +6,7 @@
 #    By: mpuig-ma <mpuig-ma@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 13:10:44 by mpuig-ma          #+#    #+#              #
-#    Updated: 2023/03/14 16:14:02 by mpuig-ma         ###   ########.fr        #
+#    Updated: 2023/03/18 20:26:48 by mpuig-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ ifeq ($(TERM_COLORS), 256)
 endif
 
 SRC_FILES	:=	src/animation.c src/board.c src/check.c src/display_nmoves.c \
-				src/events.c src/exit.c src/free.c src/game.c src/images.c \
+				src/events.c src/exit.c src/game.c src/images.c \
 				src/launch.c src/locate.c src/log.c src/main.c src/map.c \
 				src/move.c src/path.c src/put_image.c src/window.c
 
