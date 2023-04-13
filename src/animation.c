@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#define VEL 4
+#define VEL 2
 
 #ifdef GENERATOR
 
@@ -55,8 +55,9 @@ void	ft_animate_player(t_game *game, t_vector *player, t_vector *d)
 	static int	y_to = 0;
 	static int	dx = 0;
 	static int	dy = 0;
+	static int	lock = 0;
 
-	if (d != NULL)
+	if (d != NULL && lock == 0)
 	{
 		px = player->x * game->size;
 		py = player->y * game->size;
@@ -64,15 +65,20 @@ void	ft_animate_player(t_game *game, t_vector *player, t_vector *d)
 		y_to = py + (game->size * d->y);
 		dx = d->x;
 		dy = d->y;
+		lock = 1;
 	}
-	if (px == x_to && py == y_to)
+	if (d == NULL && px == x_to && py == y_to && lock == 1)
 	{
 		dx = 0;
 		dy = 0;
+		lock = 0;
 	}
-	//ft_printf("px: %d, py: %d, x_to: %d, y_to: %d\n", px, py, x_to, y_to);
-	ft_put_img_xy(game, game->i_floor, px, py);
-	px += dx;
-	py += dy;
-	ft_put_img_xy(game, game->i_player, px, py);
+	if ((dx != 0 || dy != 0) && lock == 1)
+	{
+		ft_put_img_xy(game, game->i_floor, px, py);
+		px += dx * VEL;
+		py += dy * VEL;
+		ft_put_img_xy(game, game->i_player, px, py);
+		mlx_do_sync(game->mlx);
+	}
 }
