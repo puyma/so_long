@@ -173,4 +173,6 @@ int				ft_toggle_pause(t_game *game);
 int				ft_unload_board(int **board);
 void			ft_write_map(char *filename, int **board);
 
+void			ft_animate_player(t_game *game, t_vector *player, t_vector *d);
+
 #endif /* so_long.h */

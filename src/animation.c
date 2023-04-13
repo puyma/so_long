@@ -46,3 +46,33 @@ int	ft_slide(t_game *game, t_vector *player, t_vector *d)
 }
 
 #endif
+
+void	ft_animate_player(t_game *game, t_vector *player, t_vector *d)
+{
+	static int	px = 0;
+	static int	py = 0;
+	static int	x_to = 0;
+	static int	y_to = 0;
+	static int	dx = 0;
+	static int	dy = 0;
+
+	if (d != NULL)
+	{
+		px = player->x * game->size;
+		py = player->y * game->size;
+		x_to = px + (game->size * d->x);
+		y_to = py + (game->size * d->y);
+		dx = d->x;
+		dy = d->y;
+	}
+	if (px == x_to && py == y_to)
+	{
+		dx = 0;
+		dy = 0;
+	}
+	//ft_printf("px: %d, py: %d, x_to: %d, y_to: %d\n", px, py, x_to, y_to);
+	ft_put_img_xy(game, game->i_floor, px, py);
+	px += dx;
+	py += dy;
+	ft_put_img_xy(game, game->i_player, px, py);
+}

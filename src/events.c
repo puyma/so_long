@@ -28,6 +28,7 @@ int	ft_keycode(int keycode, t_game *game)
 
 int	ft_state_render(t_game *game)
 {
+	ft_animate_player(game, game->player, NULL);
 	mlx_do_sync(game->mlx);
 	if (game->state == Stopping)
 		ft_destroy(game);

@@ -48,11 +48,12 @@ int	ft_move(t_game *game, t_vector *player, t_vector *d)
 		return (0);
 	game->board[player->x][player->y] = C_EMPTY_SPACE;
 	game->board[player->x + d->x][player->y + d->y] = C_PLAYER;
-	ft_slide(game, player, d);
-	ft_put_default_img(game, player->x, player->y);
+	ft_animate_player(game, player, d);
+	//ft_slide(game, player, d);
+	//ft_put_default_img(game, player->x, player->y);
 	player->x += d->x;
 	player->y += d->y;
-	ft_put_default_img(game, player->x, player->y);
+	//ft_put_default_img(game, player->x, player->y);
 	mlx_do_sync(game->mlx);
 	game->n_moves++;
 	ft_display_nmoves(game, 0);
